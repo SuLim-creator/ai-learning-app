@@ -1,65 +1,300 @@
-import Image from "next/image";
+'use client'
+
+import { useState } from 'react'
+
+interface Lesson {
+  id: string
+  title: string
+  difficulty: 'easy' | 'medium' | 'hard'
+}
+
+interface Stage {
+  id: number
+  title: string
+  description: string
+  lessons: Lesson[]
+}
+
+const CURRICULUM: Stage[] = [
+  {
+    id: 1,
+    title: '1단계: 수학 기초',
+    description: 'AI/ML에 필요한 수학 개념',
+    lessons: [
+      { id: 'math-01', title: '벡터란 무엇인가?', difficulty: 'easy' },
+      { id: 'math-02', title: '행렬과 행렬 연산', difficulty: 'easy' },
+      { id: 'math-03', title: '미분과 경사하강법', difficulty: 'medium' },
+    ],
+  },
+  {
+    id: 2,
+    title: '2단계: 머신러닝 기초',
+    description: '핵심 ML 알고리즘 이해',
+    lessons: [
+      { id: 'ml-01', title: '선형 회귀', difficulty: 'easy' },
+      { id: 'ml-02', title: '분류 알고리즘', difficulty: 'medium' },
+      { id: 'ml-03', title: '의사결정 트리', difficulty: 'medium' },
+    ],
+  },
+  {
+    id: 3,
+    title: '3단계: 딥러닝 입문',
+    description: '신경망의 작동 원리',
+    lessons: [
+      { id: 'dl-01', title: '신경망 구조', difficulty: 'medium' },
+      { id: 'dl-02', title: '역전파 알고리즘', difficulty: 'hard' },
+      { id: 'dl-03', title: 'CNN 이해하기', difficulty: 'hard' },
+    ],
+  },
+  {
+    id: 4,
+    title: '4단계: 자연어 처리',
+    description: 'NLP와 언어 모델 기초',
+    lessons: [
+      { id: 'nlp-01', title: '텍스트 임베딩', difficulty: 'medium' },
+      { id: 'nlp-02', title: 'Transformer 구조', difficulty: 'hard' },
+      { id: 'nlp-03', title: 'LLM의 작동 원리', difficulty: 'hard' },
+    ],
+  },
+  {
+    id: 5,
+    title: '5단계: AI 실전 응용',
+    description: '실제 AI 서비스 구축',
+    lessons: [
+      { id: 'app-01', title: 'Claude API 활용', difficulty: 'medium' },
+      { id: 'app-02', title: 'RAG 시스템 구축', difficulty: 'hard' },
+      { id: 'app-03', title: 'AI 앱 배포하기', difficulty: 'medium' },
+    ],
+  },
+]
+
+const DIFFICULTY_COLORS = {
+  easy: 'text-emerald-400',
+  medium: 'text-yellow-400',
+  hard: 'text-red-400',
+}
+
+const DIFFICULTY_LABELS = {
+  easy: '쉬움',
+  medium: '보통',
+  hard: '어려움',
+}
 
 export default function Home() {
+  const [expandedStages, setExpandedStages] = useState<Set<number>>(new Set([1]))
+  const [selectedLesson, setSelectedLesson] = useState<{ stage: Stage; lesson: Lesson } | null>(
+    null
+  )
+  const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  function toggleStage(stageId: number) {
+    setExpandedStages((prev) => {
+      const next = new Set(prev)
+      if (next.has(stageId)) {
+        next.delete(stageId)
+      } else {
+        next.add(stageId)
+      }
+      return next
+    })
+  }
+
+  function selectLesson(stage: Stage, lesson: Lesson) {
+    setSelectedLesson({ stage, lesson })
+    setSidebarOpen(false)
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <div className="flex h-screen bg-gray-950 text-gray-100 overflow-hidden">
+      {/* Mobile overlay */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/60 z-20 md:hidden"
+          onClick={() => setSidebarOpen(false)}
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`
+          fixed md:static inset-y-0 left-0 z-30
+          w-72 bg-gray-900 border-r border-gray-800
+          flex flex-col
+          transform transition-transform duration-200 ease-in-out
+          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        `}
+      >
+        {/* Sidebar header */}
+        <div className="p-4 border-b border-gray-800">
+          <div className="flex items-center gap-2">
+            <div className="w-7 h-7 rounded-md bg-indigo-600 flex items-center justify-center text-sm font-bold">
+              AI
+            </div>
+            <span className="font-semibold text-white">AI 학습 앱</span>
+          </div>
+          <p className="text-xs text-gray-500 mt-1">5단계 AI/ML 커리큘럼</p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+
+        {/* Navigation tree */}
+        <nav className="flex-1 overflow-y-auto p-2">
+          {CURRICULUM.map((stage) => {
+            const isExpanded = expandedStages.has(stage.id)
+            return (
+              <div key={stage.id} className="mb-1">
+                <button
+                  onClick={() => toggleStage(stage.id)}
+                  className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white transition-colors text-left"
+                >
+                  <span
+                    className={`text-xs transition-transform duration-150 ${isExpanded ? 'rotate-90' : ''}`}
+                  >
+                    ▶
+                  </span>
+                  <span className="flex-1">{stage.title}</span>
+                  <span className="text-xs text-gray-600">{stage.lessons.length}</span>
+                </button>
+
+                {isExpanded && (
+                  <div className="ml-4 mt-1 space-y-0.5">
+                    {stage.lessons.map((lesson) => {
+                      const isSelected = selectedLesson?.lesson.id === lesson.id
+                      return (
+                        <button
+                          key={lesson.id}
+                          onClick={() => selectLesson(stage, lesson)}
+                          className={`
+                            w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-left transition-colors
+                            ${
+                              isSelected
+                                ? 'bg-indigo-600 text-white'
+                                : 'text-gray-400 hover:bg-gray-800 hover:text-gray-200'
+                            }
+                          `}
+                        >
+                          <span className="w-1.5 h-1.5 rounded-full bg-current opacity-60 flex-shrink-0" />
+                          <span className="flex-1 leading-snug">{lesson.title}</span>
+                          <span
+                            className={`text-xs flex-shrink-0 ${isSelected ? 'text-indigo-200' : DIFFICULTY_COLORS[lesson.difficulty]}`}
+                          >
+                            {DIFFICULTY_LABELS[lesson.difficulty]}
+                          </span>
+                        </button>
+                      )
+                    })}
+                  </div>
+                )}
+              </div>
+            )
+          })}
+        </nav>
+
+        {/* Sidebar footer */}
+        <div className="p-4 border-t border-gray-800 text-xs text-gray-600">
+          {CURRICULUM.reduce((acc, s) => acc + s.lessons.length, 0)}개 레슨 · 5단계
+        </div>
+      </aside>
+
+      {/* Main content */}
+      <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
+        {/* Top bar */}
+        <header className="flex items-center gap-3 px-4 h-14 border-b border-gray-800 flex-shrink-0">
+          <button
+            className="md:hidden p-2 rounded-lg hover:bg-gray-800 transition-colors"
+            onClick={() => setSidebarOpen(true)}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <div className="w-5 h-0.5 bg-gray-400 mb-1" />
+            <div className="w-5 h-0.5 bg-gray-400 mb-1" />
+            <div className="w-5 h-0.5 bg-gray-400" />
+          </button>
+          <span className="text-sm text-gray-500">
+            {selectedLesson
+              ? `${selectedLesson.stage.title} › ${selectedLesson.lesson.title}`
+              : '레슨을 선택하세요'}
+          </span>
+        </header>
+
+        {/* Content area */}
+        <div className="flex-1 overflow-y-auto p-6 md:p-10">
+          {selectedLesson ? (
+            <div className="max-w-2xl mx-auto">
+              {/* Lesson header */}
+              <div className="mb-8">
+                <div className="flex items-center gap-2 text-sm text-gray-500 mb-3">
+                  <span>{selectedLesson.stage.title}</span>
+                  <span>›</span>
+                  <span
+                    className={DIFFICULTY_COLORS[selectedLesson.lesson.difficulty]}
+                  >
+                    {DIFFICULTY_LABELS[selectedLesson.lesson.difficulty]}
+                  </span>
+                </div>
+                <h1 className="text-3xl font-bold text-white mb-4">
+                  {selectedLesson.lesson.title}
+                </h1>
+                <p className="text-gray-400 text-base leading-relaxed">
+                  이 레슨에서는 {selectedLesson.lesson.title}에 대해 배웁니다.
+                  Claude AI가 여러분의 수준에 맞춰 콘텐츠를 실시간으로 생성합니다.
+                </p>
+              </div>
+
+              {/* Action buttons */}
+              <div className="flex flex-col sm:flex-row gap-3">
+                <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-colors">
+                  <span>▶</span>
+                  학습 시작
+                </button>
+                <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 font-medium transition-colors border border-gray-700">
+                  <span>✦</span>
+                  새로 생성
+                </button>
+              </div>
+
+              {/* Placeholder content card */}
+              <div className="mt-10 rounded-xl border border-gray-800 bg-gray-900 p-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
+                  <span className="text-sm text-gray-500">콘텐츠 미리보기</span>
+                </div>
+                <div className="space-y-3">
+                  <div className="h-4 bg-gray-800 rounded w-3/4" />
+                  <div className="h-4 bg-gray-800 rounded w-full" />
+                  <div className="h-4 bg-gray-800 rounded w-5/6" />
+                  <div className="h-4 bg-gray-800 rounded w-2/3" />
+                </div>
+                <p className="text-center text-gray-600 text-sm mt-6">
+                  학습 시작 버튼을 누르면 Claude AI가 콘텐츠를 생성합니다
+                </p>
+              </div>
+            </div>
+          ) : (
+            /* Empty state */
+            <div className="flex flex-col items-center justify-center h-full text-center px-4">
+              <div className="w-16 h-16 rounded-2xl bg-indigo-600/20 flex items-center justify-center text-3xl mb-6">
+                🤖
+              </div>
+              <h2 className="text-2xl font-bold text-white mb-3">
+                AI 학습을 시작하세요
+              </h2>
+              <p className="text-gray-500 max-w-sm leading-relaxed">
+                좌측 커리큘럼에서 레슨을 선택하면 Claude AI가 여러분 수준에 맞춘
+                학습 콘텐츠를 실시간으로 생성합니다.
+              </p>
+              <div className="mt-8 grid grid-cols-3 gap-4 text-sm">
+                {['수학 기초', '머신러닝', '딥러닝', 'NLP', 'AI 응용', '5단계'].map(
+                  (tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1.5 rounded-full bg-gray-800 text-gray-400 border border-gray-700"
+                    >
+                      {tag}
+                    </span>
+                  )
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>
-  );
+  )
 }
