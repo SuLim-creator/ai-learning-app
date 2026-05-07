@@ -1,14 +1,63 @@
 {
   "project": "ai-learning-app",
   "lastUpdated": "2026-05-08",
-  "currentDay": 5,
+  "currentDay": 7,
+
+  "week1Summary": {
+    "goal": "Claude Code 핵심 기능 익히기 + AI 학습 앱 기반 구축",
+    "completed": [
+      "Day 4: Next.js 15 프로젝트 생성, 폴더 구조, 타입 정의, 첫 커밋",
+      "Day 5: CLAUDE.md 3단계 체계(글로벌/프로젝트/로컬), StageCard 분리 + hover 효과",
+      "Day 6: Permission 설정, PostToolUse/PreToolUse Hook, shadcn/ui 도입, StageCard 리팩토링",
+      "Day 7: Plan Mode 활용, 레슨 목록/상세 페이지, 퀴즈 UI, SSG 빌드 확인"
+    ],
+    "keyDecisions": [
+      "CLAUDE.md 3단계 체계 — 글로벌/프로젝트/로컬 분리로 규칙 관리",
+      "shadcn/ui를 컴포넌트 라이브러리로 채택 (components/ui/)",
+      "Prettier를 PostToolUse hook으로 자동화",
+      "레슨 콘텐츠는 JSON 파일 기반 + 서버사이드 fs 로더 (lib/lessons.ts)",
+      "퀴즈 파서 분리 (lib/quiz.ts) — 텍스트 포맷 → 구조화 데이터",
+      "레슨 완료 상태는 localStorage 임시 저장 (DB 연동 전)",
+      "동적 라우트 SSG 적용 (generateStaticParams)"
+    ],
+    "appRoutes": [
+      "/ — 메인 (사이드바 네비게이션 + 레슨 선택 UI)",
+      "/learn/math-basics — 수학기초 레슨 카드 목록",
+      "/learn/math-basics/[lessonId] — 레슨 상세 (text/visual/interactive/quiz)"
+    ]
+  },
 
   "completed": {
+    "day7": [
+      "Plan Mode로 레슨 목록 페이지 설계 후 구현",
+      "app/learn/math-basics/page.tsx — 레슨 카드 목록 (완료 체크, 태그, 소요시간)",
+      "app/learn/math-basics/[lessonId]/page.tsx — 동적 라우트 레슨 상세 페이지 (SSG)",
+      "app/components/lesson-card.tsx — localStorage 완료 상태 관리",
+      "app/components/lesson-detail.tsx — text/visual/interactive/quiz 섹션 렌더링",
+      "lib/lessons.ts — JSON 파일 서버사이드 로더",
+      "lib/quiz.ts — 퀴즈 콘텐츠 파서 (Q/A/정답/해설 구조화)",
+      "content/math-basics: 02-matrix.json, 03-derivatives.json 추가",
+      "react-markdown 설치 + text 섹션 마크다운 렌더링",
+      "pnpm build 성공 — 3개 레슨 SSG 정적 생성 확인",
+      "git commit: 'feat: 레슨 목록 + 상세 페이지 구현'"
+    ],
+    "day6": [
+      ".claude/settings.json 생성 — allow(pnpm/git 명령어, 파일 읽기/편집) + deny(rm -rf, git push --force, .env 읽기)",
+      "PostToolUse hook: Write|Edit 후 자동 Prettier 포맷 실행",
+      "PreToolUse hook: rm -rf / DROP TABLE / git push --force 패턴 감지 시 exit 2 차단",
+      "Permission 모드 3종 직접 체험 (기본 / acceptEdits / Plan Mode)",
+      "shadcn/ui 초기화 (Tailwind v4 호환) + Button, Card 컴포넌트 추가",
+      "StageCard를 shadcn Card로 리팩토링",
+      "hook 동작 확인: rm -rf 차단 ✅, .env 읽기 차단 ✅, Prettier hook 동작 ✅",
+      "git commit: 'feat: Permission 설정 + Hook 세팅 + shadcn/ui 추가'"
+    ],
     "day5": [
       "~/.claude/CLAUDE.md 생성 — 글로벌 규칙 (한국어 응답, any 금지, Conventional Commits 등)",
-      "./CLAUDE.md 업데이트 — 프로젝트 스택/아키텍처/컨벤션 정리 (Git 추적)",
+      "./CLAUDE.md 생성 — 프로젝트 스택/아키텍처/컨벤션 정리 (Git 추적)",
       "./CLAUDE.local.md 생성 — 로컬 작업 상태 (.gitignore 추가)",
       "docs/lessons.md 생성 — Claude 오류 누적 로그",
+      "StageCard 컴포넌트 분리 (app/components/stage-card.tsx) + hover 효과 추가",
+      "CLAUDE.md 효과 테스트 완료 (한국어 응답 확인, 3파일 이상 수정 시 계획 먼저 요청 확인)",
       "git commit: 'feat: CLAUDE.md 3단계 체계 세팅'"
     ],
     "day4": [
@@ -28,26 +77,34 @@
       "language": "TypeScript (strict)",
       "styling": "Tailwind CSS v4",
       "packageManager": "pnpm v10",
-      "database": "Prisma + SQLite (로컬)",
-      "ai": "Claude API (실시간 콘텐츠 생성 + 캐싱)"
+      "database": "Prisma + SQLite (미구현, Week 2 예정)",
+      "ai": "Claude API (미구현, Week 2 예정)",
+      "markdown": "react-markdown"
     },
     "architecture": {
       "routing": "App Router (app/ 디렉토리)",
-      "contentStorage": "JSON 파일 (content/lessons/**/*.json) + DB 캐시 병행",
+      "contentStorage": "JSON 파일 (content/lessons/**/*.json) — DB 캐시는 Week 2",
       "lessonStructure": "섹션 기반 — text | visual | interactive | quiz",
-      "difficulty": "easy | medium | hard 3단계"
+      "difficulty": "easy | medium | hard 3단계",
+      "ssg": "generateStaticParams로 레슨 상세 페이지 정적 생성"
     },
     "ui": {
       "layout": "좌측 트리 네비게이션 사이드바 (w-72) + 우측 콘텐츠 영역",
       "theme": "다크 테마 고정 (gray-950 베이스, indigo-600 액센트)",
-      "mobile": "햄버거 메뉴 + 오버레이 사이드바 (md 브레이크포인트)"
+      "mobile": "햄버거 메뉴 + 오버레이 사이드바 (md 브레이크포인트)",
+      "componentLibrary": "shadcn/ui (components/ui/)"
+    },
+    "tooling": {
+      "formatter": "Prettier (PostToolUse hook으로 자동 실행)",
+      "permissions": ".claude/settings.json (프로젝트 스코프, Git 추적)",
+      "claudeMd": "3단계 체계 — ~/.claude/CLAUDE.md / CLAUDE.md / CLAUDE.local.md"
     },
     "curriculum": {
       "stages": 5,
       "lessonsPerStage": 3,
       "totalLessons": 15,
       "structure": [
-        "1단계: 수학 기초 (벡터, 행렬, 미분)",
+        "1단계: 수학 기초 (벡터, 행렬, 미분) ← JSON 완성",
         "2단계: 머신러닝 기초 (회귀, 분류, 의사결정트리)",
         "3단계: 딥러닝 입문 (신경망, 역전파, CNN)",
         "4단계: NLP (임베딩, Transformer, LLM)",
@@ -56,19 +113,23 @@
     }
   },
 
-  "tomorrow": {
-    "day6": [
-      "Prisma 설치 및 SQLite 스키마 설계 (Lesson, Section, Cache 모델)",
-      "pnpm prisma migrate dev — DB 초기화",
-      "Claude API 연동 — @anthropic-ai/sdk 설치 및 API 키 설정",
-      "app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트 구현",
-      "캐싱 로직 — 동일 레슨 재요청 시 DB에서 반환"
+  "week2Plan": {
+    "theme": "Claude API 연동 + 실시간 콘텐츠 생성",
+    "days": [
+      "Day 8: Prisma 설치 + SQLite 스키마 설계 (Lesson, Cache 모델) + DB 초기화",
+      "Day 9: Claude API 연동 — @anthropic-ai/sdk 설치, API 키 설정, 기본 호출",
+      "Day 10: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트",
+      "Day 11: 캐싱 로직 — 동일 레슨 재요청 시 DB 반환, 프롬프트 캐싱",
+      "Day 12: 스트리밍 응답 — Claude API 스트림 → UI 실시간 렌더링",
+      "Day 13: 나머지 단계 레슨 JSON 추가 (2~5단계)",
+      "Day 14: Week 2 통합 테스트 + 리팩토링"
     ]
   },
 
   "notes": [
     "pnpm 실행 시 PATH 설정 필요: export PNPM_HOME=/Users/suhyun/Library/pnpm && export PATH=$PNPM_HOME:$PATH",
     "Next.js 15 사용 (create-next-app 기준)",
-    "AGENTS.md 경고: 이 버전은 훈련 데이터와 다를 수 있음 — node_modules/next/dist/docs/ 참조"
+    "AGENTS.md 경고: 이 버전은 훈련 데이터와 다를 수 있음 — node_modules/next/dist/docs/ 참조",
+    "PreToolUse hook 개선 커맨드는 다음 세션부터 완전 적용 (cmd=$(...) 방식)"
   ]
 }

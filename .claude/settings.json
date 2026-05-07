@@ -14,11 +14,7 @@
       "Edit(**)",
       "Write(**)"
     ],
-    "deny": [
-      "Bash(rm -rf*)",
-      "Bash(git push --force*)",
-      "Read(**/.env*)"
-    ]
+    "deny": ["Bash(rm -rf*)", "Bash(git push --force*)", "Read(**/.env*)"]
   },
   "hooks": {
     "PostToolUse": [
@@ -39,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.command' | grep -qE '(rm -rf|DROP TABLE|git push --force)' && echo '차단: 위험한 명령어가 감지되었습니다.' && exit 2 || exit 0"
+            "command": "cmd=$(jq -r '.tool_input.command // empty' 2>/dev/null) || exit 0; echo \"$cmd\" | grep -qE '(rm -rf|DROP TABLE|git push --force)' && echo '차단: 위험한 명령어가 감지되었습니다.' && exit 2; exit 0"
           }
         ]
       }
