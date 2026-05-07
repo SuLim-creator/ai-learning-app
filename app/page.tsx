@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { StageCard } from './components/stage-card'
 
 interface Lesson {
   id: string
@@ -68,17 +69,6 @@ const CURRICULUM: Stage[] = [
   },
 ]
 
-const DIFFICULTY_COLORS = {
-  easy: 'text-emerald-400',
-  medium: 'text-yellow-400',
-  hard: 'text-red-400',
-}
-
-const DIFFICULTY_LABELS = {
-  easy: '쉬움',
-  medium: '보통',
-  hard: '어려움',
-}
 
 export default function Home() {
   const [expandedStages, setExpandedStages] = useState<Set<number>>(new Set([1]))
@@ -137,55 +127,16 @@ export default function Home() {
 
         {/* Navigation tree */}
         <nav className="flex-1 overflow-y-auto p-2">
-          {CURRICULUM.map((stage) => {
-            const isExpanded = expandedStages.has(stage.id)
-            return (
-              <div key={stage.id} className="mb-1">
-                <button
-                  onClick={() => toggleStage(stage.id)}
-                  className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-300 hover:bg-gray-800 hover:text-white transition-colors text-left"
-                >
-                  <span
-                    className={`text-xs transition-transform duration-150 ${isExpanded ? 'rotate-90' : ''}`}
-                  >
-                    ▶
-                  </span>
-                  <span className="flex-1">{stage.title}</span>
-                  <span className="text-xs text-gray-600">{stage.lessons.length}</span>
-                </button>
-
-                {isExpanded && (
-                  <div className="ml-4 mt-1 space-y-0.5">
-                    {stage.lessons.map((lesson) => {
-                      const isSelected = selectedLesson?.lesson.id === lesson.id
-                      return (
-                        <button
-                          key={lesson.id}
-                          onClick={() => selectLesson(stage, lesson)}
-                          className={`
-                            w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-left transition-colors
-                            ${
-                              isSelected
-                                ? 'bg-indigo-600 text-white'
-                                : 'text-gray-400 hover:bg-gray-800 hover:text-gray-200'
-                            }
-                          `}
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-current opacity-60 flex-shrink-0" />
-                          <span className="flex-1 leading-snug">{lesson.title}</span>
-                          <span
-                            className={`text-xs flex-shrink-0 ${isSelected ? 'text-indigo-200' : DIFFICULTY_COLORS[lesson.difficulty]}`}
-                          >
-                            {DIFFICULTY_LABELS[lesson.difficulty]}
-                          </span>
-                        </button>
-                      )
-                    })}
-                  </div>
-                )}
-              </div>
-            )
-          })}
+          {CURRICULUM.map((stage) => (
+            <StageCard
+              key={stage.id}
+              stage={stage}
+              isExpanded={expandedStages.has(stage.id)}
+              selectedLessonId={selectedLesson?.lesson.id}
+              onToggle={() => toggleStage(stage.id)}
+              onSelectLesson={selectLesson}
+            />
+          ))}
         </nav>
 
         {/* Sidebar footer */}
@@ -223,9 +174,9 @@ export default function Home() {
                   <span>{selectedLesson.stage.title}</span>
                   <span>›</span>
                   <span
-                    className={DIFFICULTY_COLORS[selectedLesson.lesson.difficulty]}
+                    className={{ easy: 'text-emerald-400', medium: 'text-yellow-400', hard: 'text-red-400' }[selectedLesson.lesson.difficulty]}
                   >
-                    {DIFFICULTY_LABELS[selectedLesson.lesson.difficulty]}
+                    {{ easy: '쉬움', medium: '보통', hard: '어려움' }[selectedLesson.lesson.difficulty]}
                   </span>
                 </div>
                 <h1 className="text-3xl font-bold text-white mb-4">
