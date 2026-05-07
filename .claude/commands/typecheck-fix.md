@@ -1,6 +1,6 @@
 ---
 description: 타입체크 실행 후 에러 자동 수정
-allowed-tools: Bash(npx tsc*), Read, Edit, MultiEdit
+allowed-tools: Bash(npx tsc*), Bash(pnpm*), Read, Edit
 ---
 
 아래 순서대로 실행하세요.
