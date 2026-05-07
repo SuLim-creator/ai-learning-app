@@ -38,7 +38,9 @@
       "내장/플러그인 커맨드 충돌 진단: review→cr, commit→smart-commit, status→project-status",
       "typecheck-fix 버그 수정: allowed-tools의 MultiEdit → Edit (존재하지 않는 툴명)",
       "Unknown command 원인 2가지 진단 및 docs/lessons.md 기록",
-      "lesson-gen 테스트: '행렬이란 무엇인가' → content/lessons/ml-basics/01-linear-regression.json"
+      "/lesson-gen 실전 테스트: '행렬이란 무엇인가' → content/lessons/math-basics/04-what-is-matrix.json 생성",
+      "/cr, /smart-commit, /project-status, /lesson-gen 4개 커맨드 동시 실행 검증",
+      "루트 session-state.json(Day 4 스냅샷) 커밋 (5cdbc25)"
     ],
     "day7": [
       "Plan Mode로 레슨 목록 페이지 설계 후 구현",
@@ -132,14 +134,27 @@
       "커스텀 커맨드 이름이 내장/플러그인과 겹치면 내장이 우선 실행됨 — 고유 이름 필수",
       "allowed-tools에 존재하지 않는 툴명(MultiEdit 등) 사용 시 해당 툴 사용 불가 — Edit/Write/Read/Bash/Glob/Grep만 유효",
       ".claude/commands/는 세션 시작 시 로드됨 — 세션 중 추가한 커맨드는 재시작 후 인식",
-      "Prettier PostToolUse hook이 settings.json도 포맷함 — hook 자기 자신의 파일도 대상이 됨"
+      "Prettier PostToolUse hook이 settings.json도 포맷함 — hook 자기 자신의 파일도 대상이 됨",
+      "여러 커맨드를 동시에 입력하면 병렬 실행됨 — 독립적인 작업은 한 번에 묶어서 보내면 효율적",
+      "/lesson-gen은 기존 레슨과 제목이 겹쳐도 별도 파일로 생성됨 — 파일 경로 지정에 주의",
+      "lesson-gen 결과물 경로: content/lessons/math-basics/04-what-is-matrix.json (04번부터 시작)"
     ]
+  },
+
+  "contentFiles": {
+    "math-basics": [
+      "01-what-is-vector.json — 벡터란 무엇인가 (easy)",
+      "02-matrix.json — 행렬과 행렬 연산 (easy)",
+      "03-derivatives.json — 미분이란 무엇인가",
+      "04-what-is-matrix.json — 행렬이란 무엇인가 (easy, 입문용, Day 8 생성)"
+    ],
+    "ml-basics": ["01-linear-regression.json — 선형 회귀"]
   },
 
   "week2Plan": {
     "theme": "Claude API 연동 + 실시간 콘텐츠 생성",
     "days": [
-      "Day 8: Slash Commands 5개 생성 + 충돌 수정 ✅",
+      "Day 8: Slash Commands 5개 생성 + 충돌 수정 + lesson-gen 실전 테스트 ✅",
       "Day 9: Prisma 설치 + SQLite 스키마 설계 (Lesson, Cache 모델) + DB 초기화",
       "Day 10: Claude API 연동 — @anthropic-ai/sdk 설치, API 키 설정, 기본 호출",
       "Day 11: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트",
