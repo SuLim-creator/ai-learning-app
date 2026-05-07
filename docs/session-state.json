@@ -1,9 +1,16 @@
 {
   "project": "ai-learning-app",
   "lastUpdated": "2026-05-08",
-  "currentDay": 4,
+  "currentDay": 5,
 
   "completed": {
+    "day5": [
+      "~/.claude/CLAUDE.md 생성 — 글로벌 규칙 (한국어 응답, any 금지, Conventional Commits 등)",
+      "./CLAUDE.md 업데이트 — 프로젝트 스택/아키텍처/컨벤션 정리 (Git 추적)",
+      "./CLAUDE.local.md 생성 — 로컬 작업 상태 (.gitignore 추가)",
+      "docs/lessons.md 생성 — Claude 오류 누적 로그",
+      "git commit: 'feat: CLAUDE.md 3단계 체계 세팅'"
+    ],
     "day4": [
       "Next.js 15 프로젝트 생성 (TypeScript strict, Tailwind CSS, App Router, pnpm)",
       "폴더 구조 세팅: content/, lib/, docs/",
@@ -50,8 +57,12 @@
   },
 
   "tomorrow": {
-    "day5": [
-      "CLAUDE.md 세팅"
+    "day6": [
+      "Prisma 설치 및 SQLite 스키마 설계 (Lesson, Section, Cache 모델)",
+      "pnpm prisma migrate dev — DB 초기화",
+      "Claude API 연동 — @anthropic-ai/sdk 설치 및 API 키 설정",
+      "app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트 구현",
+      "캐싱 로직 — 동일 레슨 재요청 시 DB에서 반환"
     ]
   },
 
