@@ -29,14 +29,16 @@
 
   "completed": {
     "day8": [
-      ".claude/commands/ 디렉토리 생성 + 커스텀 Slash Commands 5개 작성",
-      "/review — git diff 기반 로직/타입/보안/CLAUDE.md 규칙 점검, 파일:라인 형태 보고",
-      "/commit — 변경사항 분석 후 Conventional Commits 메시지 자동 생성 및 커밋",
-      "/typecheck-fix — tsc 에러 자동 수정 (any/@ts-ignore 금지, 최대 3회 반복)",
-      "/status — Git 상태, 최근 커밋, TODO 목록, 파일 구조 요약",
+      ".claude/commands/ 생성 + 커스텀 Slash Commands 5개 작성 및 충돌 수정",
+      "/cr — git diff 기반 코드 리뷰 (로직/타입/보안/CLAUDE.md 규칙)",
+      "/smart-commit — Conventional Commits 메시지 자동 생성 및 커밋",
+      "/typecheck-fix — tsc 에러 자동 수정 (MultiEdit→Edit 버그 수정 포함)",
+      "/project-status — Git 상태, 최근 커밋, TODO, 파일 구조 요약",
       "/lesson-gen [제목] — 기존 JSON 구조 참고해 새 레슨 생성 (비유 중심, 퀴즈 3개)",
-      "lesson-gen 테스트: '행렬이란 무엇인가' → content/lessons/ml-basics/01-linear-regression.json 생성",
-      "git commit: 'chore: add slash commands and update session state'"
+      "내장/플러그인 커맨드 충돌 진단: review→cr, commit→smart-commit, status→project-status",
+      "typecheck-fix 버그 수정: allowed-tools의 MultiEdit → Edit (존재하지 않는 툴명)",
+      "Unknown command 원인 2가지 진단 및 docs/lessons.md 기록",
+      "lesson-gen 테스트: '행렬이란 무엇인가' → content/lessons/ml-basics/01-linear-regression.json"
     ],
     "day7": [
       "Plan Mode로 레슨 목록 페이지 설계 후 구현",
@@ -108,7 +110,8 @@
       "formatter": "Prettier (PostToolUse hook으로 자동 실행)",
       "permissions": ".claude/settings.json (프로젝트 스코프, Git 추적)",
       "claudeMd": "3단계 체계 — ~/.claude/CLAUDE.md / CLAUDE.md / CLAUDE.local.md",
-      "slashCommands": ".claude/commands/ — 프로젝트 스코프 커스텀 커맨드 5개"
+      "slashCommands": ".claude/commands/ — 5개 (/cr, /smart-commit, /typecheck-fix, /project-status, /lesson-gen)",
+      "commandNaming": "내장/플러그인 이름과 겹치지 않도록 고유 이름 사용. 변경 후 세션 재시작 필요"
     },
     "curriculum": {
       "stages": 5,
@@ -124,13 +127,22 @@
     }
   },
 
+  "lessonsLearned": {
+    "day8": [
+      "커스텀 커맨드 이름이 내장/플러그인과 겹치면 내장이 우선 실행됨 — 고유 이름 필수",
+      "allowed-tools에 존재하지 않는 툴명(MultiEdit 등) 사용 시 해당 툴 사용 불가 — Edit/Write/Read/Bash/Glob/Grep만 유효",
+      ".claude/commands/는 세션 시작 시 로드됨 — 세션 중 추가한 커맨드는 재시작 후 인식",
+      "Prettier PostToolUse hook이 settings.json도 포맷함 — hook 자기 자신의 파일도 대상이 됨"
+    ]
+  },
+
   "week2Plan": {
     "theme": "Claude API 연동 + 실시간 콘텐츠 생성",
     "days": [
-      "Day 8: Slash Commands 5개 생성 ✅",
+      "Day 8: Slash Commands 5개 생성 + 충돌 수정 ✅",
       "Day 9: Prisma 설치 + SQLite 스키마 설계 (Lesson, Cache 모델) + DB 초기화",
       "Day 10: Claude API 연동 — @anthropic-ai/sdk 설치, API 키 설정, 기본 호출",
-      "Day 10: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트",
+      "Day 11: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트",
       "Day 11: 캐싱 로직 — 동일 레슨 재요청 시 DB 반환, 프롬프트 캐싱",
       "Day 12: 스트리밍 응답 — Claude API 스트림 → UI 실시간 렌더링",
       "Day 13: 나머지 단계 레슨 JSON 추가 (2~5단계)",
