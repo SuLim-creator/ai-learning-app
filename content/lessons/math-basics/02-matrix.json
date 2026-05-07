@@ -1,0 +1,34 @@
+{
+  "id": "math-basics-02",
+  "title": "행렬과 행렬 연산",
+  "description": "행렬이 무엇인지, 그리고 AI/ML에서 데이터를 어떻게 표현하고 변환하는지 배웁니다.",
+  "difficulty": "easy",
+  "estimatedMinutes": 20,
+  "tags": ["행렬", "선형대수", "수학기초"],
+  "prerequisites": ["math-basics-01"],
+  "sections": [
+    {
+      "id": "s1",
+      "type": "text",
+      "title": "행렬의 정의",
+      "content": "행렬(Matrix)은 숫자를 직사각형 배열로 정리한 것입니다. m행 n열의 행렬은 m×n 행렬이라고 부릅니다. 딥러닝에서 데이터 배치(batch)는 행렬로 표현됩니다.",
+      "order": 1
+    },
+    {
+      "id": "s2",
+      "type": "text",
+      "title": "행렬 곱셈",
+      "content": "행렬 곱셈은 신경망의 핵심 연산입니다. A(m×k)와 B(k×n)의 곱은 C(m×n)이 됩니다. 각 원소 C[i][j]는 A의 i번째 행과 B의 j번째 열의 내적입니다.",
+      "order": 2
+    },
+    {
+      "id": "s3",
+      "type": "quiz",
+      "title": "이해도 확인",
+      "content": "Q: 3×4 행렬과 4×2 행렬을 곱하면 결과 행렬의 크기는?\n\nA) 3×2\nB) 4×4\nC) 3×4\nD) 2×3\n\n정답: A) 3×2\n해설: (m×k) × (k×n) = (m×n) 이므로 (3×4) × (4×2) = (3×2)",
+      "order": 3
+    }
+  ],
+  "createdAt": "2026-05-07T00:00:00.000Z",
+  "updatedAt": "2026-05-07T00:00:00.000Z"
+}

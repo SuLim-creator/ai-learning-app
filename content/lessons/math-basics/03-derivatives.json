@@ -1,0 +1,34 @@
+{
+  "id": "math-basics-03",
+  "title": "미분과 경사하강법",
+  "description": "미분의 직관적 의미를 이해하고, AI 모델이 학습하는 핵심 원리인 경사하강법을 배웁니다.",
+  "difficulty": "medium",
+  "estimatedMinutes": 25,
+  "tags": ["미분", "경사하강법", "최적화", "수학기초"],
+  "prerequisites": ["math-basics-01", "math-basics-02"],
+  "sections": [
+    {
+      "id": "s1",
+      "type": "text",
+      "title": "미분이란?",
+      "content": "미분(derivative)은 함수의 순간 변화율입니다. f'(x)는 x 지점에서 함수가 얼마나 빠르게 변하는지를 나타냅니다. 산에서 경사도를 측정하는 것과 같습니다.",
+      "order": 1
+    },
+    {
+      "id": "s2",
+      "type": "text",
+      "title": "경사하강법",
+      "content": "경사하강법(Gradient Descent)은 손실 함수를 최소화하는 방법입니다. 현재 위치에서 기울기(gradient)의 반대 방향으로 조금씩 이동하면서 최솟값을 찾아갑니다. 학습률(learning rate)이 이동 크기를 결정합니다.",
+      "order": 2
+    },
+    {
+      "id": "s3",
+      "type": "quiz",
+      "title": "이해도 확인",
+      "content": "Q: 경사하강법에서 학습률(learning rate)이 너무 크면 어떤 문제가 생기나요?\n\nA) 학습이 너무 느려진다\nB) 최솟값을 지나쳐 발산할 수 있다\nC) 메모리가 부족해진다\nD) 그래디언트가 0이 된다\n\n정답: B) 최솟값을 지나쳐 발산할 수 있다\n해설: 학습률이 크면 한 번에 이동하는 거리가 커서 최솟값 근처에서 수렴하지 못하고 발산할 수 있습니다.",
+      "order": 3
+    }
+  ],
+  "createdAt": "2026-05-07T00:00:00.000Z",
+  "updatedAt": "2026-05-07T00:00:00.000Z"
+}
