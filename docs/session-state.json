@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
   "lastUpdated": "2026-05-11",
-  "currentDay": 10,
+  "currentDay": 11,
 
   "week1Summary": {
     "goal": "Claude Code 핵심 기능 익히기 + AI 학습 앱 기반 구축",
@@ -28,6 +28,16 @@
   },
 
   "completed": {
+    "day11": [
+      "Prisma 7 설치 (@prisma/client, prisma devDep) + prisma init --datasource-provider sqlite",
+      "prisma/schema.prisma — Profile, Stage, Lesson, LessonProgress 4개 모델 정의",
+      "prisma migrate dev --name init — dev.db 생성 및 테이블 적용",
+      "lib/prisma.ts — PrismaLibSql 어댑터 싱글톤 클라이언트 (globalThis 패턴)",
+      "prisma/seed.ts — 수학기초 Stage 1개 + 레슨 3개 upsert 시드 성공",
+      "app/api/health/route.ts — GET /api/health, DB stage/lesson count 반환",
+      "pnpm tsc --noEmit 타입 체크 통과",
+      ".gitignore에 *.db / *.db-shm / *.db-wal 추가"
+    ],
     "day10": [
       "CLAUDE.md에 TDD 규칙 섹션 추가 (lib/ 비즈니스 로직 테스트 우선 원칙)",
       "Vitest 설치 (@vitest/ui 포함) + pnpm test / pnpm test:watch 스크립트 설정",
@@ -108,7 +118,7 @@
       "language": "TypeScript (strict)",
       "styling": "Tailwind CSS v4",
       "packageManager": "pnpm v10",
-      "database": "Prisma + SQLite (미구현, Week 2 예정)",
+      "database": "Prisma 7 + SQLite (libsql 어댑터, dev.db)",
       "ai": "Claude API (미구현, Week 2 예정)",
       "markdown": "react-markdown"
     },
@@ -149,6 +159,13 @@
   },
 
   "lessonsLearned": {
+    "day11": [
+      "Prisma 7은 기존 방식과 다름 — engine 대신 driver adapter 필수, `better-sqlite3`는 native 빌드 실패 → `@prisma/adapter-libsql` 사용",
+      "PrismaLibSql 생성자 시그니처: `new PrismaLibSql({ url })` — createClient() 결과가 아닌 설정 객체를 직접 전달",
+      "migrate dev가 생성하는 dev.db 경로는 CWD 루트 (prisma.config.ts의 `file:./dev.db` 기준) — seed에서 경로 불일치 주의",
+      "Prisma 7 generated client 진입점: `lib/generated/prisma/client.ts` (index.js 없음)",
+      "pnpm approve-builds 없이 native 패키지 빌드하려면 .npmrc에 `approve-builds=true` 추가"
+    ],
     "day10": [
       "TDD에서 RED 단계가 중요한 이유: 테스트가 실제로 실패하는지 확인해야 구현이 테스트를 진짜 검증하는지 알 수 있음",
       "에지 케이스(빈 배열, totalCount=0)는 구현 전에 테스트로 먼저 명세화하면 방어 코드 누락을 막을 수 있음",
@@ -192,7 +209,8 @@
       "Day 8: Slash Commands 5개 생성 + 충돌 수정 + lesson-gen 실전 테스트 ✅",
       "Day 9: 커스텀 Subagent 3개 생성 + 실전 테스트 ✅",
       "Day 10: TDD로 calculateProgress 함수 구현 + Vitest 설정 ✅",
-      "Day 11: Prisma 설치 + SQLite 스키마 설계 (Lesson, Cache 모델) + DB 초기화 + Claude API 연동 (@anthropic-ai/sdk, API 키, 기본 호출)",
+      "Day 11: Prisma 7 + SQLite 연동, 4개 모델, 시드, health 엔드포인트 ✅",
+      "Day 12: Claude API 연동 — @anthropic-ai/sdk 설치, API 키 설정, 기본 호출 테스트",
       "Day 11: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트 + 캐싱 로직 (동일 레슨 재요청 시 DB 반환, 프롬프트 캐싱)",
       "Day 12: 스트리밍 응답 — Claude API 스트림 → UI 실시간 렌더링",
       "Day 13: 나머지 단계 레슨 JSON 추가 (2~5단계)",
