@@ -42,6 +42,14 @@ pnpm lint       # 린트
 
 > pnpm PATH: `export PNPM_HOME=/Users/suhyun/Library/pnpm && export PATH=$PNPM_HOME:$PATH`
 
+## TDD 규칙
+
+- `lib/` 의 비즈니스 로직은 반드시 실패하는 테스트를 먼저 작성
+- 테스트 실행 → 실패 확인 → 최소 구현 → 통과 확인
+- 한 번에 테스트 1개씩. 10개를 한꺼번에 쓰지 않음
+- 테스트가 실패하면: 구현을 고침. 테스트를 약하게 만들지 않음
+- 테스트 파일: 같은 폴더에 `<name>.test.ts`
+
 ## 세션 상태
 
 `docs/session-state.json` — 새 세션 시작 시 먼저 확인
