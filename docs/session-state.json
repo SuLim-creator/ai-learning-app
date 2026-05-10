@@ -33,8 +33,9 @@
       "code-reviewer.md — Next.js+Prisma 시니어 리뷰어 (로직/타입/보안/CLAUDE.md 규칙)",
       "test-writer.md — Vitest 테스트 자동 작성 (정상/에지/에러 케이스 + mock)",
       "content-reviewer.md — 레슨 JSON 사실 정확성 + 교육 품질 검토",
-      "code-reviewer 실전 테스트: HEAD~1 diff 리뷰 → APPROVE (JSON/docs 변경만 있어 타입 이슈 없음)",
-      "content-reviewer 실전 테스트: 01-what-is-vector.json → CONDITIONAL APPROVAL (퀴즈 오답 보기 개선 필요, 내적 설명 보완 필요)"
+      "code-reviewer 실전 테스트: 최근 3커밋 diff 리뷰 → APPROVE (JSON/docs 변경만 있어 타입 이슈 없음)",
+      "content-reviewer 실전 테스트: 01-what-is-vector.json → CONDITIONAL APPROVAL (퀴즈 오답 보기 개선 필요, 픽셀 수치 구체화 권장)",
+      "01-what-is-vector.json 수정: 퀴즈 [0,5]→[3,4] 예제 교체 + 오답 보기를 실수 패턴 반영 + 픽셀 수치 구체화(196,608개)"
     ],
     "day8": [
       ".claude/commands/ 생성 + 커스텀 Slash Commands 5개 작성 및 충돌 수정",
@@ -144,7 +145,8 @@
       "Subagent vs Slash Command: 커맨드는 현재 세션 맥락 공유, subagent는 완전 격리 — 독립적 분석 작업에 subagent가 적합",
       "여러 subagent를 동시에 병렬 실행 가능 — 독립적인 리뷰 작업은 한 번에 묶어서 실행하면 효율적",
       "code-reviewer는 JSON/docs만 변경된 경우 타입 이슈 없이 APPROVE — 실제 TS 코드 변경 시 진가 발휘",
-      "content-reviewer 인사이트: 퀴즈 오답 보기는 실제 학습자가 범하는 오류(제곱근 생략 등)를 반영해야 교육 효과가 높음",
+      "content-reviewer 인사이트: 퀴즈 오답 보기는 실제 학습자가 범하는 오류(성분 단순 덧셈, 제곱근 생략 등)를 반영해야 교육 효과가 높음",
+      "content-reviewer 인사이트: '수천 차원' 같은 추상적 표현보다 구체적 수치(256×256×3=196,608)가 비전공자 이해에 효과적",
       "content-reviewer 인사이트: 수식 설명 시 전제 조건(같은 크기 벡터 가정 등)을 명시해야 오해가 없음",
       ".claude/agents/는 .claude/commands/와 같은 레벨에서 관리 — Git 추적 권장"
     ],
