@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
-  "lastUpdated": "2026-05-08",
-  "currentDay": 8,
+  "lastUpdated": "2026-05-11",
+  "currentDay": 9,
 
   "week1Summary": {
     "goal": "Claude Code 핵심 기능 익히기 + AI 학습 앱 기반 구축",
@@ -28,6 +28,14 @@
   },
 
   "completed": {
+    "day9": [
+      ".claude/agents/ 디렉토리 생성",
+      "code-reviewer.md — Next.js+Prisma 시니어 리뷰어 (로직/타입/보안/CLAUDE.md 규칙)",
+      "test-writer.md — Vitest 테스트 자동 작성 (정상/에지/에러 케이스 + mock)",
+      "content-reviewer.md — 레슨 JSON 사실 정확성 + 교육 품질 검토",
+      "code-reviewer 실전 테스트: HEAD~1 diff 리뷰 → APPROVE (JSON/docs 변경만 있어 타입 이슈 없음)",
+      "content-reviewer 실전 테스트: 01-what-is-vector.json → CONDITIONAL APPROVAL (퀴즈 오답 보기 개선 필요, 내적 설명 보완 필요)"
+    ],
     "day8": [
       ".claude/commands/ 생성 + 커스텀 Slash Commands 5개 작성 및 충돌 수정",
       "/cr — git diff 기반 코드 리뷰 (로직/타입/보안/CLAUDE.md 규칙)",
@@ -113,6 +121,7 @@
       "permissions": ".claude/settings.json (프로젝트 스코프, Git 추적)",
       "claudeMd": "3단계 체계 — ~/.claude/CLAUDE.md / CLAUDE.md / CLAUDE.local.md",
       "slashCommands": ".claude/commands/ — 5개 (/cr, /smart-commit, /typecheck-fix, /project-status, /lesson-gen)",
+      "subagents": ".claude/agents/ — 3개 (code-reviewer, test-writer, content-reviewer)",
       "commandNaming": "내장/플러그인 이름과 겹치지 않도록 고유 이름 사용. 변경 후 세션 재시작 필요"
     },
     "curriculum": {
@@ -130,6 +139,12 @@
   },
 
   "lessonsLearned": {
+    "day9": [
+      "Subagent는 메인 세션 맥락 없이 독립 실행됨 — 프롬프트에 필요한 모든 컨텍스트를 직접 포함해야 함",
+      "content-reviewer 결과: 퀴즈 오답 보기는 실제 학습자가 범하는 실수를 반영해야 교육 효과가 높음",
+      "code-reviewer는 JSON/docs만 변경된 경우 타입 이슈 없이 APPROVE — 실제 TS 코드 변경 시 진가 발휘",
+      ".claude/agents/는 .claude/commands/와 같은 레벨에서 관리 — Git 추적 권장"
+    ],
     "day8": [
       "커스텀 커맨드 이름이 내장/플러그인과 겹치면 내장이 우선 실행됨 — 고유 이름 필수",
       "allowed-tools에 존재하지 않는 툴명(MultiEdit 등) 사용 시 해당 툴 사용 불가 — Edit/Write/Read/Bash/Glob/Grep만 유효",
@@ -155,7 +170,8 @@
     "theme": "Claude API 연동 + 실시간 콘텐츠 생성",
     "days": [
       "Day 8: Slash Commands 5개 생성 + 충돌 수정 + lesson-gen 실전 테스트 ✅",
-      "Day 9: Prisma 설치 + SQLite 스키마 설계 (Lesson, Cache 모델) + DB 초기화",
+      "Day 9: 커스텀 Subagent 3개 생성 + 실전 테스트 ✅",
+      "Day 10: Prisma 설치 + SQLite 스키마 설계 (Lesson, Cache 모델) + DB 초기화",
       "Day 10: Claude API 연동 — @anthropic-ai/sdk 설치, API 키 설정, 기본 호출",
       "Day 11: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트",
       "Day 11: 캐싱 로직 — 동일 레슨 재요청 시 DB 반환, 프롬프트 캐싱",
