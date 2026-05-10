@@ -34,15 +34,17 @@
     "day12": [
       "bcryptjs 설치 (pure JS — native 빌드 불필요)",
       "prisma/schema.prisma — Profile에 passwordHash 추가, Session 모델 추가",
-      "prisma migrate dev --name add-auth 실행",
+      "prisma migrate dev --name add-auth + prisma generate 실행",
+      "lib/auth-constants.ts — SESSION_COOKIE 상수 분리 (Edge Runtime 호환)",
       "lib/auth.ts — hashPassword, verifyPassword, createSession, getSessionUser, deleteSession",
-      "POST /api/auth/register — 회원가입 + HttpOnly 세션 쿠키 발급",
-      "POST /api/auth/login — 로그인 + 쿠키 발급 (이메일/비밀번호 불일치 시 동일 에러 메시지로 보안)",
+      "POST /api/auth/register — 회원가입 + HttpOnly 세션 쿠키 발급 (201)",
+      "POST /api/auth/login — 로그인 + 쿠키 발급, 틀린 비밀번호 동일 에러 메시지 (보안)",
       "POST /api/auth/logout — 세션 삭제 + 쿠키 제거",
-      "GET /api/auth/me — 쿠키로 현재 사용자 조회",
+      "GET /api/auth/me — 쿠키로 현재 사용자 조회, 로그아웃 후 401",
       "middleware.ts — /learn/* 보호, 미인증 시 /login?redirect=... 리다이렉트",
       "app/login/page.tsx, app/register/page.tsx — 다크 테마 Auth UI",
-      "pnpm tsc --noEmit 타입 체크 통과"
+      "버그 수정: Turbopack 캐시 문제로 prisma generate 후에도 구 스키마 참조 → .next 캐시 삭제 후 재기동",
+      "전체 플로우 curl 테스트 통과 (register→me→logout→me 401→login→wrong password 401)"
     ],
     "day11": [
       "Prisma 7 설치 (@prisma/client, prisma devDep) + prisma init --datasource-provider sqlite",
@@ -179,7 +181,9 @@
   "lessonsLearned": {
     "day12": [
       "middleware.ts는 Edge Runtime — Prisma/DB 직접 사용 불가. 쿠키 존재 여부만 확인, 실제 세션 유효성은 API route에서 검증",
+      "SESSION_COOKIE 같은 상수도 middleware에서 쓰려면 Node.js 모듈 없는 별도 파일로 분리 필요 (auth-constants.ts 패턴)",
       "bcrypt 대신 bcryptjs 사용 — pure JS라 native 빌드 불필요 (Day 11 better-sqlite3 교훈 재적용)",
+      "Turbopack은 prisma generate 후에도 .next 캐시가 남으면 구 스키마 참조 — 스키마 변경 시 .next 캐시 삭제 + 서버 재기동 필요",
       "로그인 실패 에러 메시지는 '이메일 또는 비밀번호 불일치'로 통일 — 이메일 존재 여부 노출 방지 (보안)",
       "HttpOnly 쿠키: JS에서 접근 불가 → XSS 방어. Secure는 개발환경에서 false로 설정 필요",
       "/compact는 CLI 전용 — 웹 인터페이스에서는 동작하지 않음. 중요 상태는 session-state.json에 저장하는 것이 대안"
