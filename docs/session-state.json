@@ -140,9 +140,12 @@
 
   "lessonsLearned": {
     "day9": [
-      "Subagent는 메인 세션 맥락 없이 독립 실행됨 — 프롬프트에 필요한 모든 컨텍스트를 직접 포함해야 함",
-      "content-reviewer 결과: 퀴즈 오답 보기는 실제 학습자가 범하는 실수를 반영해야 교육 효과가 높음",
+      "Subagent는 메인 세션 맥락 없이 독립 실행됨 — 프롬프트에 필요한 모든 컨텍스트(경로, 역할, 기준)를 직접 포함해야 함",
+      "Subagent vs Slash Command: 커맨드는 현재 세션 맥락 공유, subagent는 완전 격리 — 독립적 분석 작업에 subagent가 적합",
+      "여러 subagent를 동시에 병렬 실행 가능 — 독립적인 리뷰 작업은 한 번에 묶어서 실행하면 효율적",
       "code-reviewer는 JSON/docs만 변경된 경우 타입 이슈 없이 APPROVE — 실제 TS 코드 변경 시 진가 발휘",
+      "content-reviewer 인사이트: 퀴즈 오답 보기는 실제 학습자가 범하는 오류(제곱근 생략 등)를 반영해야 교육 효과가 높음",
+      "content-reviewer 인사이트: 수식 설명 시 전제 조건(같은 크기 벡터 가정 등)을 명시해야 오해가 없음",
       ".claude/agents/는 .claude/commands/와 같은 레벨에서 관리 — Git 추적 권장"
     ],
     "day8": [
@@ -171,10 +174,8 @@
     "days": [
       "Day 8: Slash Commands 5개 생성 + 충돌 수정 + lesson-gen 실전 테스트 ✅",
       "Day 9: 커스텀 Subagent 3개 생성 + 실전 테스트 ✅",
-      "Day 10: Prisma 설치 + SQLite 스키마 설계 (Lesson, Cache 모델) + DB 초기화",
-      "Day 10: Claude API 연동 — @anthropic-ai/sdk 설치, API 키 설정, 기본 호출",
-      "Day 11: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트",
-      "Day 11: 캐싱 로직 — 동일 레슨 재요청 시 DB 반환, 프롬프트 캐싱",
+      "Day 10: Prisma 설치 + SQLite 스키마 설계 (Lesson, Cache 모델) + DB 초기화 + Claude API 연동 (@anthropic-ai/sdk, API 키, 기본 호출)",
+      "Day 11: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트 + 캐싱 로직 (동일 레슨 재요청 시 DB 반환, 프롬프트 캐싱)",
       "Day 12: 스트리밍 응답 — Claude API 스트림 → UI 실시간 렌더링",
       "Day 13: 나머지 단계 레슨 JSON 추가 (2~5단계)",
       "Day 14: Week 2 통합 테스트 + 리팩토링"
