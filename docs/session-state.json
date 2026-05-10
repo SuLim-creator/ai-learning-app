@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
   "lastUpdated": "2026-05-11",
-  "currentDay": 9,
+  "currentDay": 10,
 
   "week1Summary": {
     "goal": "Claude Code 핵심 기능 익히기 + AI 학습 앱 기반 구축",
@@ -28,6 +28,14 @@
   },
 
   "completed": {
+    "day10": [
+      "CLAUDE.md에 TDD 규칙 섹션 추가 (lib/ 비즈니스 로직 테스트 우선 원칙)",
+      "Vitest 설치 (@vitest/ui 포함) + pnpm test / pnpm test:watch 스크립트 설정",
+      "vitest.config.ts 생성 (node environment)",
+      "lib/progress.test.ts — RED→GREEN 사이클 3회 (정상/빈배열/전체완료/totalCount=0)",
+      "lib/progress.ts — calculateProgress 함수 구현 (percentage, completedCount, totalCount)",
+      "4개 테스트 전부 통과 확인 (115ms)"
+    ],
     "day9": [
       ".claude/agents/ 디렉토리 생성",
       "code-reviewer.md — Next.js+Prisma 시니어 리뷰어 (로직/타입/보안/CLAUDE.md 규칙)",
@@ -123,6 +131,7 @@
       "claudeMd": "3단계 체계 — ~/.claude/CLAUDE.md / CLAUDE.md / CLAUDE.local.md",
       "slashCommands": ".claude/commands/ — 5개 (/cr, /smart-commit, /typecheck-fix, /project-status, /lesson-gen)",
       "subagents": ".claude/agents/ — 3개 (code-reviewer, test-writer, content-reviewer)",
+      "testing": "Vitest v4 (pnpm test / pnpm test:watch) — lib/*.test.ts",
       "commandNaming": "내장/플러그인 이름과 겹치지 않도록 고유 이름 사용. 변경 후 세션 재시작 필요"
     },
     "curriculum": {
@@ -140,6 +149,12 @@
   },
 
   "lessonsLearned": {
+    "day10": [
+      "TDD에서 RED 단계가 중요한 이유: 테스트가 실제로 실패하는지 확인해야 구현이 테스트를 진짜 검증하는지 알 수 있음",
+      "에지 케이스(빈 배열, totalCount=0)는 구현 전에 테스트로 먼저 명세화하면 방어 코드 누락을 막을 수 있음",
+      "Vitest는 Next.js 프로젝트에서 별도 설정 없이 TypeScript 바로 실행 가능 — jest 대비 설정 부담이 거의 없음",
+      "pnpm typecheck 스크립트가 없는 경우 pnpm tsc --noEmit으로 대체 가능"
+    ],
     "day9": [
       "Subagent는 메인 세션 맥락 없이 독립 실행됨 — 프롬프트에 필요한 모든 컨텍스트(경로, 역할, 기준)를 직접 포함해야 함",
       "Subagent vs Slash Command: 커맨드는 현재 세션 맥락 공유, subagent는 완전 격리 — 독립적 분석 작업에 subagent가 적합",
@@ -176,7 +191,8 @@
     "days": [
       "Day 8: Slash Commands 5개 생성 + 충돌 수정 + lesson-gen 실전 테스트 ✅",
       "Day 9: 커스텀 Subagent 3개 생성 + 실전 테스트 ✅",
-      "Day 10: Prisma 설치 + SQLite 스키마 설계 (Lesson, Cache 모델) + DB 초기화 + Claude API 연동 (@anthropic-ai/sdk, API 키, 기본 호출)",
+      "Day 10: TDD로 calculateProgress 함수 구현 + Vitest 설정 ✅",
+      "Day 11: Prisma 설치 + SQLite 스키마 설계 (Lesson, Cache 모델) + DB 초기화 + Claude API 연동 (@anthropic-ai/sdk, API 키, 기본 호출)",
       "Day 11: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트 + 캐싱 로직 (동일 레슨 재요청 시 DB 반환, 프롬프트 캐싱)",
       "Day 12: 스트리밍 응답 — Claude API 스트림 → UI 실시간 렌더링",
       "Day 13: 나머지 단계 레슨 JSON 추가 (2~5단계)",
