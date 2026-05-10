@@ -42,3 +42,10 @@ next-env.d.ts
 
 # local claude context
 CLAUDE.local.md
+
+/lib/generated/prisma
+
+# SQLite DB
+*.db
+*.db-shm
+*.db-wal

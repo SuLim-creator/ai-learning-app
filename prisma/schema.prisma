@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Profile {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  displayName String
+  createdAt   DateTime @default(now())
+
+  progress LessonProgress[]
+}
+
+model Stage {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  order       Int    @unique
+
+  lessons Lesson[]
+}
+
+model Lesson {
+  id               String @id @default(cuid())
+  stageId          String
+  title            String
+  description      String
+  order            Int
+  estimatedMinutes Int
+
+  stage    Stage            @relation(fields: [stageId], references: [id])
+  progress LessonProgress[]
+
+  @@unique([stageId, order])
+}
+
+model LessonProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  lessonId    String
+  status      String    @default("not_started")
+  quizScore   Int?
+  completedAt DateTime?
+
+  user   Profile @relation(fields: [userId], references: [id])
+  lesson Lesson  @relation(fields: [lessonId], references: [id])
+
+  @@unique([userId, lessonId])
+}
