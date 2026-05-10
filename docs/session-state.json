@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
   "lastUpdated": "2026-05-11",
-  "currentDay": 11,
+  "currentDay": 12,
 
   "week1Summary": {
     "goal": "Claude Code 핵심 기능 익히기 + AI 학습 앱 기반 구축",
@@ -22,12 +22,28 @@
     ],
     "appRoutes": [
       "/ — 메인 (사이드바 네비게이션 + 레슨 선택 UI)",
-      "/learn/math-basics — 수학기초 레슨 카드 목록",
-      "/learn/math-basics/[lessonId] — 레슨 상세 (text/visual/interactive/quiz)"
+      "/login — 로그인 페이지",
+      "/register — 회원가입 페이지",
+      "/learn/math-basics — 수학기초 레슨 카드 목록 (보호됨)",
+      "/learn/math-basics/[lessonId] — 레슨 상세 (보호됨)",
+      "/api/auth/register, /api/auth/login, /api/auth/logout, /api/auth/me"
     ]
   },
 
   "completed": {
+    "day12": [
+      "bcryptjs 설치 (pure JS — native 빌드 불필요)",
+      "prisma/schema.prisma — Profile에 passwordHash 추가, Session 모델 추가",
+      "prisma migrate dev --name add-auth 실행",
+      "lib/auth.ts — hashPassword, verifyPassword, createSession, getSessionUser, deleteSession",
+      "POST /api/auth/register — 회원가입 + HttpOnly 세션 쿠키 발급",
+      "POST /api/auth/login — 로그인 + 쿠키 발급 (이메일/비밀번호 불일치 시 동일 에러 메시지로 보안)",
+      "POST /api/auth/logout — 세션 삭제 + 쿠키 제거",
+      "GET /api/auth/me — 쿠키로 현재 사용자 조회",
+      "middleware.ts — /learn/* 보호, 미인증 시 /login?redirect=... 리다이렉트",
+      "app/login/page.tsx, app/register/page.tsx — 다크 테마 Auth UI",
+      "pnpm tsc --noEmit 타입 체크 통과"
+    ],
     "day11": [
       "Prisma 7 설치 (@prisma/client, prisma devDep) + prisma init --datasource-provider sqlite",
       "prisma/schema.prisma — Profile, Stage, Lesson, LessonProgress 4개 모델 정의",
@@ -161,6 +177,13 @@
   },
 
   "lessonsLearned": {
+    "day12": [
+      "middleware.ts는 Edge Runtime — Prisma/DB 직접 사용 불가. 쿠키 존재 여부만 확인, 실제 세션 유효성은 API route에서 검증",
+      "bcrypt 대신 bcryptjs 사용 — pure JS라 native 빌드 불필요 (Day 11 better-sqlite3 교훈 재적용)",
+      "로그인 실패 에러 메시지는 '이메일 또는 비밀번호 불일치'로 통일 — 이메일 존재 여부 노출 방지 (보안)",
+      "HttpOnly 쿠키: JS에서 접근 불가 → XSS 방어. Secure는 개발환경에서 false로 설정 필요",
+      "/compact는 CLI 전용 — 웹 인터페이스에서는 동작하지 않음. 중요 상태는 session-state.json에 저장하는 것이 대안"
+    ],
     "day11": [
       "Prisma 7은 기존 방식과 다름 — engine 대신 driver adapter 필수, `better-sqlite3`는 native 빌드 실패 → `@prisma/adapter-libsql` 사용",
       "PrismaLibSql 생성자 시그니처: `new PrismaLibSql({ url })` — createClient() 결과가 아닌 설정 객체를 직접 전달",
@@ -212,7 +235,8 @@
       "Day 9: 커스텀 Subagent 3개 생성 + 실전 테스트 ✅",
       "Day 10: TDD로 calculateProgress 함수 구현 + Vitest 설정 ✅",
       "Day 11: Prisma 7 + SQLite 연동, 4개 모델, 시드, health 엔드포인트 ✅",
-      "Day 12: Claude API 연동 — @anthropic-ai/sdk 설치, API 키 설정, 기본 호출 테스트",
+      "Day 12: 컨텍스트 관리 + 이메일+비밀번호 Auth 구현 ✅",
+      "Day 13: Claude API 연동 — @anthropic-ai/sdk 설치, API 키 설정, 기본 호출 테스트",
       "Day 11: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트 + 캐싱 로직 (동일 레슨 재요청 시 DB 반환, 프롬프트 캐싱)",
       "Day 12: 스트리밍 응답 — Claude API 스트림 → UI 실시간 렌더링",
       "Day 13: 나머지 단계 레슨 JSON 추가 (2~5단계)",
