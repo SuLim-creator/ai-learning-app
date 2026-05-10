@@ -8,12 +8,24 @@ datasource db {
 }
 
 model Profile {
-  id          String   @id @default(cuid())
-  email       String   @unique
-  displayName String
-  createdAt   DateTime @default(now())
+  id           String   @id @default(cuid())
+  email        String   @unique
+  displayName  String
+  passwordHash String
+  createdAt    DateTime @default(now())
 
   progress LessonProgress[]
+  sessions Session[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    String
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  user Profile @relation(fields: [userId], references: [id])
 }
 
 model Stage {
