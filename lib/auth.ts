@@ -2,9 +2,10 @@ import bcrypt from "bcryptjs";
 import { randomBytes } from "crypto";
 import { prisma } from "./prisma";
 
+export { SESSION_COOKIE } from "./auth-constants";
+
 const SALT_ROUNDS = 12;
-const SESSION_DURATION_MS = 7 * 24 * 60 * 60 * 1000; // 7일
-export const SESSION_COOKIE = "session_token";
+const SESSION_DURATION_MS = 7 * 24 * 60 * 60 * 1000;
 
 export async function hashPassword(password: string): Promise<string> {
   return bcrypt.hash(password, SALT_ROUNDS);
