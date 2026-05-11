@@ -39,7 +39,10 @@
       "pre-deploy 실행 중 빌드 에러 발견: /login 페이지 useSearchParams Suspense 미감싸기 → 수정 완료",
       "lesson-pipeline으로 레슨 3개 병렬 생성: 행렬 곱셈(05), 경사하강법(06), 활성화 함수(07)",
       "content-reviewer 검수: 05/07 APPROVED, 06 비유 문구 수정 후 승인",
-      "math-basics 레슨 4개 → 7개로 확장"
+      "math-basics 레슨 4개 → 7개로 확장",
+      "08-loss-function.json 생성: 손실 함수(MSE, Cross-Entropy) 개념 레슨 — content-reviewer APPROVED",
+      "math-basics 레슨 7개 → 8개로 확장",
+      "pnpm build 최종 확인: 20개 페이지 정상 빌드 ✅ (8개 레슨 SSG 포함)"
     ],
     "day12": [
       "bcryptjs 설치 (pure JS — native 빌드 불필요)",
@@ -248,7 +251,8 @@
       "04-what-is-matrix.json — 행렬이란 무엇인가 (easy, 입문용, Day 8 생성)",
       "05-matrix-multiplication.json — 행렬 곱셈 (medium, Day 13 생성)",
       "06-gradient-descent.json — 경사하강법 (medium, Day 13 생성)",
-      "07-activation-functions.json — 활성화 함수 (medium, Day 13 생성)"
+      "07-activation-functions.json — 활성화 함수 (medium, Day 13 생성)",
+      "08-loss-function.json — 손실 함수란 무엇인가 (medium, Day 13 생성)"
     ],
     "ml-basics": ["01-linear-regression.json — 선형 회귀"]
   },
