@@ -64,3 +64,14 @@ model LessonProgress {
 
   @@unique([userId, lessonId])
 }
+
+model GeneratedContent {
+  id        String   @id @default(cuid())
+  lessonId  String
+  version   Int      @default(1)
+  content   String   // JSON string of LessonSection[]
+  createdAt DateTime @default(now())
+
+  @@unique([lessonId, version])
+  @@index([lessonId])
+}

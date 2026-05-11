@@ -1,5 +1,6 @@
 import { getLessons } from "@/lib/lessons";
 import { LessonCard } from "@/app/components/lesson-card";
+import { StageProgressBar } from "@/app/components/stage-progress-bar";
 
 export default function MathBasicsPage() {
   const lessons = getLessons("math-basics");
@@ -15,7 +16,6 @@ export default function MathBasicsPage() {
             AI/ML에 필요한 핵심 수학 개념을 직관적으로 학습합니다.
           </p>
 
-          {/* 레슨 수 요약 */}
           <div className="mt-4 flex items-center gap-4 text-sm text-gray-500">
             <span>{lessons.length}개 레슨</span>
             <span>·</span>
@@ -23,6 +23,9 @@ export default function MathBasicsPage() {
               총 {lessons.reduce((acc, l) => acc + l.estimatedMinutes, 0)}분
             </span>
           </div>
+
+          {/* 진행률 바 (클라이언트 컴포넌트) */}
+          <StageProgressBar lessonIds={lessons.map((l) => l.id)} />
         </div>
 
         {/* 레슨 카드 목록 */}

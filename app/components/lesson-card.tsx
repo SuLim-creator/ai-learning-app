@@ -10,6 +10,11 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { Lesson } from "@/lib/types/lesson";
+import {
+  isLessonComplete,
+  markLessonComplete,
+  unmarkLessonComplete,
+} from "@/lib/progress";
 
 const DIFFICULTY_LABEL = { easy: "쉬움", medium: "보통", hard: "어려움" };
 const DIFFICULTY_COLOR = {
@@ -28,16 +33,15 @@ export function LessonCard({ lesson, stage, index }: LessonCardProps) {
   const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
-    setCompleted(
-      localStorage.getItem(`lesson-complete-${lesson.id}`) === "true",
-    );
+    setCompleted(isLessonComplete(lesson.id));
   }, [lesson.id]);
 
   function toggleComplete(e: React.MouseEvent) {
     e.preventDefault();
     const next = !completed;
     setCompleted(next);
-    localStorage.setItem(`lesson-complete-${lesson.id}`, String(next));
+    if (next) markLessonComplete(lesson.id);
+    else unmarkLessonComplete(lesson.id);
   }
 
   return (

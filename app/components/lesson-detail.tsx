@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { Lesson, LessonSection } from "@/lib/types/lesson";
 import { parseQuiz } from "@/lib/quiz";
+import { markLessonComplete, isLessonComplete } from "@/lib/progress";
 
 const SECTION_TYPE_LABEL: Record<string, string> = {
   text: "개념",
@@ -81,7 +83,22 @@ function TextSection({ section }: { section: LessonSection }) {
 }
 
 export function LessonDetail({ lesson }: { lesson: Lesson }) {
+  const router = useRouter();
   const sorted = [...lesson.sections].sort((a, b) => a.order - b.order);
+  const [completed, setCompleted] = useState(false);
+  const [completing, setCompleting] = useState(false);
+
+  useEffect(() => {
+    setCompleted(isLessonComplete(lesson.id));
+  }, [lesson.id]);
+
+  async function handleComplete() {
+    setCompleting(true);
+    markLessonComplete(lesson.id);
+    setCompleted(true);
+    setCompleting(false);
+    router.push("/learn/math-basics");
+  }
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
@@ -131,6 +148,24 @@ export function LessonDetail({ lesson }: { lesson: Lesson }) {
               )}
             </div>
           ))}
+        </div>
+
+        {/* 학습 완료 버튼 */}
+        <div className="mt-10 flex justify-center">
+          {completed ? (
+            <div className="flex items-center gap-2 rounded-full bg-emerald-900/40 px-6 py-3 text-sm text-emerald-400">
+              <span>✓</span>
+              <span>학습 완료</span>
+            </div>
+          ) : (
+            <button
+              onClick={handleComplete}
+              disabled={completing}
+              className="rounded-full bg-indigo-600 px-8 py-3 text-sm font-medium text-white transition-all hover:bg-indigo-500 disabled:opacity-50"
+            >
+              {completing ? "저장 중..." : "학습 완료 표시"}
+            </button>
+          )}
         </div>
       </div>
     </div>
