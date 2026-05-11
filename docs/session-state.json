@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
-  "lastUpdated": "2026-05-11",
-  "currentDay": 12,
+  "lastUpdated": "2026-05-12",
+  "currentDay": 13,
 
   "week1Summary": {
     "goal": "Claude Code 핵심 기능 익히기 + AI 학습 앱 기반 구축",
@@ -31,6 +31,16 @@
   },
 
   "completed": {
+    "day13": [
+      ".claude/skills/ 디렉토리 생성 + 커스텀 스킬 3개 작성",
+      "commit/SKILL.md — git status/diff → Conventional Commits 메시지 → 커밋 (push 금지)",
+      "pre-deploy/SKILL.md — 빌드/타입/린트/console.log/.env/TODO 6단계 체크 + 한국어 보고서",
+      "lesson-pipeline/SKILL.md — 레슨 생성 → content-reviewer 검수 → 수정 → 타입체크 파이프라인",
+      "pre-deploy 실행 중 빌드 에러 발견: /login 페이지 useSearchParams Suspense 미감싸기 → 수정 완료",
+      "lesson-pipeline으로 레슨 3개 병렬 생성: 행렬 곱셈(05), 경사하강법(06), 활성화 함수(07)",
+      "content-reviewer 검수: 05/07 APPROVED, 06 비유 문구 수정 후 승인",
+      "math-basics 레슨 4개 → 7개로 확장"
+    ],
     "day12": [
       "bcryptjs 설치 (pure JS — native 빌드 불필요)",
       "prisma/schema.prisma — Profile에 passwordHash 추가, Session 모델 추가",
@@ -161,6 +171,7 @@
       "claudeMd": "3단계 체계 — ~/.claude/CLAUDE.md / CLAUDE.md / CLAUDE.local.md",
       "slashCommands": ".claude/commands/ — 5개 (/cr, /smart-commit, /typecheck-fix, /project-status, /lesson-gen)",
       "subagents": ".claude/agents/ — 3개 (code-reviewer, test-writer, content-reviewer)",
+      "skills": ".claude/skills/ — 3개 (commit, pre-deploy, lesson-pipeline)",
       "testing": "Vitest v4 (pnpm test / pnpm test:watch) — lib/*.test.ts",
       "commandNaming": "내장/플러그인 이름과 겹치지 않도록 고유 이름 사용. 변경 후 세션 재시작 필요"
     },
@@ -179,6 +190,13 @@
   },
 
   "lessonsLearned": {
+    "day13": [
+      "커스텀 Skills(.claude/skills/)는 자동 트리거가 보장되지 않음 — Claude가 description을 보고 판단하는 방식. 확실한 실행은 /슬래시커맨드 방식이 더 신뢰성 있음",
+      "pre-deploy 스킬은 실제 빌드를 실행하므로 숨어있던 버그(useSearchParams Suspense 누락)를 발견하는 데 효과적",
+      "useSearchParams는 Next.js 빌드 시 반드시 Suspense로 감싸야 함 — 개발 서버에서는 통과되지만 프로덕션 빌드에서 prerender 에러 발생",
+      "lesson-pipeline으로 여러 레슨을 병렬 생성하면 효율적 — content-reviewer 검수까지 한 번에 처리",
+      "경사하강법 설명 시 '기울기 방향'과 '이동 방향'을 명확히 구분해야 함 — gradient는 상승 방향, 이동은 그 반대"
+    ],
     "day12": [
       "middleware.ts는 Edge Runtime — Prisma/DB 직접 사용 불가. 쿠키 존재 여부만 확인, 실제 세션 유효성은 API route에서 검증",
       "SESSION_COOKIE 같은 상수도 middleware에서 쓰려면 Node.js 모듈 없는 별도 파일로 분리 필요 (auth-constants.ts 패턴)",
@@ -227,7 +245,10 @@
       "01-what-is-vector.json — 벡터란 무엇인가 (easy)",
       "02-matrix.json — 행렬과 행렬 연산 (easy)",
       "03-derivatives.json — 미분이란 무엇인가",
-      "04-what-is-matrix.json — 행렬이란 무엇인가 (easy, 입문용, Day 8 생성)"
+      "04-what-is-matrix.json — 행렬이란 무엇인가 (easy, 입문용, Day 8 생성)",
+      "05-matrix-multiplication.json — 행렬 곱셈 (medium, Day 13 생성)",
+      "06-gradient-descent.json — 경사하강법 (medium, Day 13 생성)",
+      "07-activation-functions.json — 활성화 함수 (medium, Day 13 생성)"
     ],
     "ml-basics": ["01-linear-regression.json — 선형 회귀"]
   },
@@ -240,7 +261,8 @@
       "Day 10: TDD로 calculateProgress 함수 구현 + Vitest 설정 ✅",
       "Day 11: Prisma 7 + SQLite 연동, 4개 모델, 시드, health 엔드포인트 ✅",
       "Day 12: 컨텍스트 관리 + 이메일+비밀번호 Auth 구현 ✅",
-      "Day 13: Claude API 연동 — @anthropic-ai/sdk 설치, API 키 설정, 기본 호출 테스트",
+      "Day 13: 커스텀 Skills 3개 + 레슨 3개 생성 + pre-deploy 버그 수정 ✅",
+      "Day 14: Claude API 연동 — @anthropic-ai/sdk 설치, API 키 설정, 기본 호출 테스트",
       "Day 11: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트 + 캐싱 로직 (동일 레슨 재요청 시 DB 반환, 프롬프트 캐싱)",
       "Day 12: 스트리밍 응답 — Claude API 스트림 → UI 실시간 렌더링",
       "Day 13: 나머지 단계 레슨 JSON 추가 (2~5단계)",
