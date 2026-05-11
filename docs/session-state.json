@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
   "lastUpdated": "2026-05-12",
-  "currentDay": 13,
+  "currentDay": 14,
 
   "week1Summary": {
     "goal": "Claude Code 핵심 기능 익히기 + AI 학습 앱 기반 구축",
@@ -31,6 +31,22 @@
   },
 
   "completed": {
+    "day14": [
+      "@anthropic-ai/sdk 0.95.2 설치",
+      "lib/claude.ts — Anthropic 클라이언트 싱글톤 (globalThis 패턴, prisma와 동일)",
+      "GET /api/claude/test — haiku 모델 연결 확인 엔드포인트",
+      "prisma: GeneratedContent 모델 추가 (lessonId, version, content JSON, @@unique([lessonId,version]))",
+      "POST /api/lessons/[lessonId]/generate — 콘텐츠 생성/캐싱 API",
+      "캐싱 동작: cached:true 확인 ✅, forceNew:true 시 새 버전 생성",
+      "보안 수정: isValidBody() 타입 가드, 필드 길이 제한, JSON.parse try/catch (502 반환)",
+      "버전 계산 수정: count() 대신 findFirst({orderBy:{version:'desc'}}) — @@unique 충돌 방지",
+      "lib/progress.ts: calculateStageProgress, getNextLesson, markLessonComplete, unmarkLessonComplete, isLessonComplete, getCompletedLessonIds 추가",
+      "LessonCard: inline localStorage → progress.ts 함수로 리팩토링",
+      "LessonDetail: 학습 완료 버튼 추가 + markLessonComplete → router.push(/learn/math-basics)",
+      "StageProgressBar: 진행률 바 신규 컴포넌트 (useMemo로 lessonIdsKey 안정화)",
+      "code-reviewer 검수 → 5개 이슈 발견/수정 완료 (버전 계산, 파싱 에러처리, 바디 검증, 의존성, dead code)",
+      "pnpm build 통과 ✅"
+    ],
     "day13": [
       ".claude/skills/ 디렉토리 생성 + 커스텀 스킬 3개 작성",
       "commit/SKILL.md — git status/diff → Conventional Commits 메시지 → 커밋 (push 금지)",
@@ -266,7 +282,7 @@
       "Day 11: Prisma 7 + SQLite 연동, 4개 모델, 시드, health 엔드포인트 ✅",
       "Day 12: 컨텍스트 관리 + 이메일+비밀번호 Auth 구현 ✅",
       "Day 13: 커스텀 Skills 3개 + 레슨 3개 생성 + pre-deploy 버그 수정 ✅",
-      "Day 14: Claude API 연동 — @anthropic-ai/sdk 설치, API 키 설정, 기본 호출 테스트",
+      "Day 14: Claude API 연동 + 레슨 콘텐츠 생성/캐싱 API + 학습 진행 시스템 ✅",
       "Day 11: app/api/generate/route.ts — 레슨 콘텐츠 생성 엔드포인트 + 캐싱 로직 (동일 레슨 재요청 시 DB 반환, 프롬프트 캐싱)",
       "Day 12: 스트리밍 응답 — Claude API 스트림 → UI 실시간 렌더링",
       "Day 13: 나머지 단계 레슨 JSON 추가 (2~5단계)",
