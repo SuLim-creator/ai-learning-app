@@ -33,17 +33,23 @@
 
   "completed": {
     "day18": [
-      "VectorPlayground 컴포넌트 구현 (app/components/visualizations/vector-playground.tsx)",
-      "SVG 300×300, 원점 기준 좌표계, 드래그 가능한 벡터 A·B 화살표, 합 C 자동 표시",
-      "Mouse + Touch 이벤트 모두 지원 (getBoundingClientRect 오프셋 보정)",
-      "MatrixTransform 컴포넌트 구현 (app/components/visualizations/matrix-transform.tsx)",
-      "2×2 행렬 입력 → 격자 실시간 변환, 기저벡터 e₁·e₂ 표시, det 계산",
-      "프리셋 4종: 항등 / 90° 회전 / 2배 확대 / 전단",
-      "VisualSection 분기 추가 (lesson-detail.tsx) — content 키로 컴포넌트 매핑",
-      "01-what-is-vector.json visual 섹션 → vector-playground 연결",
-      "02-matrix.json visual 섹션 (matrix-transform) 추가 (4개 섹션으로 확장)",
+      "VectorPlayground 구현 (app/components/visualizations/vector-playground.tsx) ✅",
+      "  - SVG 300×300, 원점(150,150) 기준 좌표계, scale=30px/unit, 범위 ±4",
+      "  - 벡터 A(indigo)·B(emerald) 드래그 핸들, 합 C(amber) 자동 표시",
+      "  - 점선 보조화살표로 평행사변형 법칙 시각화",
+      "  - Mouse + Touch 이벤트 모두 지원 (getBoundingClientRect 오프셋 보정)",
+      "MatrixTransform 구현 (app/components/visualizations/matrix-transform.tsx) ✅",
+      "  - 2×2 행렬 입력 → 격자 실시간 변환 (기저 격자 회색, 변환 격자 indigo)",
+      "  - 기저벡터 e₁(amber)·e₂(emerald) 표시, det 실시간 계산",
+      "  - 프리셋 4종: 항등 / 90° 회전 / 2배 확대 / 전단",
+      "VisualSection 분기 추가 (lesson-detail.tsx) — content 문자열 키로 컴포넌트 매핑 ✅",
+      "visualizations/index.ts re-export 모듈 생성",
+      "01-what-is-vector.json visual 섹션 content → 'vector-playground' 교체 ✅",
+      "02-matrix.json visual 섹션 ('matrix-transform') 신규 추가, order 재정렬 ✅",
       "pnpm build 통과 ✅",
-      "Playwright로 두 시각화 동작 확인 ✅ — 벡터 좌표 패널, 행렬 격자 변환 정상 렌더"
+      "Playwright MCP로 두 시각화 브라우저 동작 확인 ✅",
+      "  - 벡터: A=[3,2] B=[-1,3] A+B=[2,5] 화살표+좌표 패널 정상 렌더",
+      "  - 행렬: 항등 격자, 기저벡터, 프리셋 버튼, det=1.00 정상 표시"
     ],
     "day17": [
       "Git Worktree 2개 생성 — feat/interactive-quiz (.claude/worktrees/feat-quiz), feat/progress-dashboard (.claude/worktrees/feat-dashboard)",
@@ -256,10 +262,11 @@
   "lessonsLearned": {
     "day18": [
       "SVG 드래그 구현 시 getBoundingClientRect()로 오프셋 보정 필수 — 없으면 viewBox 크기와 DOM 좌표 불일치로 오작동",
-      "Touch 이벤트는 passive: false 옵션 필요 — preventDefault() 호출하려면 passive 리스너 불가",
-      "VisualSection에서 content 문자열을 컴포넌트 키로 사용하는 패턴 — JSON 변경만으로 새 시각화 연결 가능",
-      "Playwright로 미들웨어 보호 페이지 접근 시 먼저 API로 계정 생성 후 로그인 필요",
-      "행렬 변환 시각화: det=0이면 격자가 선으로 퇴화 — 수학적으로 올바른 동작"
+      "Touch 이벤트는 { passive: false } 옵션 필요 — preventDefault() 호출하려면 passive 리스너 불가",
+      "VisualSection: content 문자열을 Record<string, ComponentType> 키로 쓰는 패턴 — JSON만 바꾸면 새 시각화 추가 가능, 컴포넌트 코드 수정 불필요",
+      "Playwright MCP로 미들웨어 보호 페이지 테스트 시 순서: API로 계정 생성 → 로그인 버튼 클릭 → 리다이렉트 확인",
+      "행렬 변환: det=0이면 격자가 선(1차원)으로 퇴화 — 수학적으로 올바른 동작, 역행렬 없음을 시각적으로 확인 가능",
+      ".playwright-mcp/ 디렉토리와 *.png 스크린샷은 임시 결과물 — .gitignore에 추가 권장"
     ],
     "day17": [
       "Git Worktree는 node_modules를 공유하지 않음 — worktree에서 pnpm add한 패키지는 main에서도 별도로 pnpm add 필요",
@@ -359,7 +366,7 @@
       "Day 16: MCP 서버 2개 설정 (.mcp.json — context7, playwright) ✅ / 실전 사용은 재시작 후",
       "Day 17: Git Worktree 병렬 개발 — 퀴즈 UI 업그레이드 + 대시보드 페이지 ✅",
       "Day 18: 수학 개념 인터랙티브 시각화 — VectorPlayground + MatrixTransform ✅",
-      "Day 19: Week 2 통합 테스트 + 리팩토링 + 배포 준비"
+      "Day 19: Week 2 마무리 — 통합 테스트 + /dashboard 네비게이션 연결 + .gitignore 정리 + 배포 준비"
     ]
   },
 

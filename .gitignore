@@ -46,6 +46,11 @@ CLAUDE.local.md
 # git worktrees
 .claude/worktrees/
 
+# playwright mcp output
+.playwright-mcp/
+*.png
+*.jpeg
+
 /lib/generated/prisma
 
 # SQLite DB
