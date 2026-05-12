@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
   "lastUpdated": "2026-05-13",
-  "currentDay": 16,
+  "currentDay": 17,
 
   "week1Summary": {
     "goal": "Claude Code 핵심 기능 익히기 + AI 학습 앱 기반 구축",
@@ -26,19 +26,32 @@
       "/register — 회원가입 페이지",
       "/learn/math-basics — 수학기초 레슨 카드 목록 (보호됨)",
       "/learn/math-basics/[lessonId] — 레슨 상세 (보호됨)",
-      "/api/auth/register, /api/auth/login, /api/auth/logout, /api/auth/me"
+      "/api/auth/register, /api/auth/login, /api/auth/logout, /api/auth/me",
+      "/dashboard — 학습 대시보드 (전체 진행률, 추천 레슨, 최근 학습, 단계별 현황)"
     ]
   },
 
   "completed": {
+    "day17": [
+      "Git Worktree 2개 생성 — feat/interactive-quiz (.claude/worktrees/feat-quiz), feat/progress-dashboard (.claude/worktrees/feat-dashboard)",
+      ".gitignore에 .claude/worktrees/ 추가",
+      "feat/interactive-quiz: QuizSection 컴포넌트 분리 (quiz-section.tsx)",
+      "feat/interactive-quiz: canvas-confetti 설치 + 정답 시 confetti 효과",
+      "feat/interactive-quiz: 오답 시 shake 애니메이션 (CSS keyframes, animate-shake)",
+      "feat/interactive-quiz: 퀴즈 점수 실시간 표시 (N / 총 문제 + %) — QuizScore 컴포넌트",
+      "feat/progress-dashboard: /dashboard 페이지 신규 — 전체 진행률 바, 추천 다음 레슨, 최근 학습 목록, 단계별 현황 카드",
+      "git merge feat/interactive-quiz + feat/progress-dashboard → main (충돌 없음)",
+      "pnpm build 통과 ✅ — /dashboard 포함 전체 22개 라우트 정상 빌드",
+      "worktree 주의: node_modules 미공유로 prisma generate + pnpm add 각 worktree에서 별도 실행 필요"
+    ],
     "day16": [
       ".mcp.json 생성 (프로젝트 루트, Git 추적) — context7 + playwright 2개 서버 설정",
       "context7: npx -y @upstash/context7-mcp — Next.js/Prisma 최신 문서 조회용",
       "playwright: npx -y @playwright/mcp@latest — 자동 브라우저 테스트용",
       "커밋 504e811: chore: add MCP server config (Context7, Playwright)",
-      "미완: Claude Code 재시작 후 /mcp 연결 확인 필요 (사용자 직접 실행)",
-      "미완: Context7 실전 사용 (Server Actions 문서 조회) — 재시작 후 진행",
-      "미완: Playwright 실전 사용 (localhost:3000 로그인 테스트 + 스크린샷) — 재시작 후 진행"
+      "/mcp 연결 확인 완료 — context7, playwright 모두 정상 연결 ✅",
+      "Context7 실전 사용 가능 상태 ✅",
+      "Playwright 실전 사용 가능 상태 ✅"
     ],
     "day15": [
       ".claude/settings.json에 프로덕션 Hook 5개 추가",
@@ -228,6 +241,13 @@
   },
 
   "lessonsLearned": {
+    "day17": [
+      "Git Worktree는 node_modules를 공유하지 않음 — worktree에서 pnpm add한 패키지는 main에서도 별도로 pnpm add 필요",
+      "Next.js(Turbopack) 빌드는 .claude/worktrees/ 하위까지 스캔 → worktree에도 prisma generate 실행 필요",
+      "worktree 생성 시 브랜치가 없으면 git worktree add -b <branch> <path> 로 동시 생성",
+      "두 worktree를 순차 머지할 때 fast-forward + ort 전략 혼용 가능 — 충돌 없으면 자동 처리",
+      "worktree 내 claude 세션은 해당 worktree 경로를 기준으로 동작 — 메인 프로젝트와 독립된 작업 공간"
+    ],
     "day16": [
       ".mcp.json은 프로젝트 루트에 두면 해당 프로젝트 세션에서만 MCP 서버가 활성화됨 — 전역 설정은 ~/.claude/settings.json에 별도 등록",
       "MCP 서버는 npx로 실행되므로 별도 설치 불필요 — 첫 사용 시 자동 다운로드",
@@ -317,7 +337,7 @@
       "Day 14: Claude API 연동 + 레슨 콘텐츠 생성/캐싱 API + 학습 진행 시스템 ✅",
       "Day 15: 프로덕션 Hook 5개 추가 (타입체크/migrations차단/.env차단/Stop/SessionStart) ✅",
       "Day 16: MCP 서버 2개 설정 (.mcp.json — context7, playwright) ✅ / 실전 사용은 재시작 후",
-      "Day 17: Context7 + Playwright 실전 사용 확인 + Claude API 스트리밍 응답 구현",
+      "Day 17: Git Worktree 병렬 개발 — 퀴즈 UI 업그레이드 + 대시보드 페이지 ✅",
       "Day 18: 나머지 단계 레슨 JSON 추가 (2~5단계, lesson-pipeline 활용)",
       "Day 19: Week 2 통합 테스트 + 리팩토링 + 배포 준비"
     ]

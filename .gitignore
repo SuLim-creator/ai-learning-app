@@ -43,6 +43,9 @@ next-env.d.ts
 # local claude context
 CLAUDE.local.md
 
+# git worktrees
+.claude/worktrees/
+
 /lib/generated/prisma
 
 # SQLite DB
