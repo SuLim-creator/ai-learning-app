@@ -5,6 +5,10 @@ import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { Lesson, LessonSection } from "@/lib/types/lesson";
 import { QuizSection } from "@/app/components/quiz-section";
+import {
+  VectorPlayground,
+  MatrixTransform,
+} from "@/app/components/visualizations";
 import { markLessonComplete, isLessonComplete } from "@/lib/progress";
 
 const SECTION_TYPE_LABEL: Record<string, string> = {
@@ -13,6 +17,21 @@ const SECTION_TYPE_LABEL: Record<string, string> = {
   interactive: "실습",
   quiz: "퀴즈",
 };
+
+const VISUAL_COMPONENTS: Record<string, React.ComponentType> = {
+  "vector-playground": VectorPlayground,
+  "matrix-transform": MatrixTransform,
+};
+
+function VisualSection({ section }: { section: LessonSection }) {
+  const Component = VISUAL_COMPONENTS[section.content];
+  if (Component) return <Component />;
+  return (
+    <div className="prose prose-invert prose-sm max-w-none text-gray-300">
+      <ReactMarkdown>{section.content}</ReactMarkdown>
+    </div>
+  );
+}
 
 function TextSection({ section }: { section: LessonSection }) {
   return (
@@ -117,6 +136,8 @@ export function LessonDetail({ lesson }: { lesson: Lesson }) {
                   section={section}
                   onAnswer={(correct) => handleAnswer(section.id, correct)}
                 />
+              ) : section.type === "visual" ? (
+                <VisualSection section={section} />
               ) : (
                 <TextSection section={section} />
               )}

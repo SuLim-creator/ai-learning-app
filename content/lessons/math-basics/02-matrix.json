@@ -23,10 +23,17 @@
     },
     {
       "id": "s3",
+      "type": "visual",
+      "title": "행렬 변환 시각화",
+      "content": "matrix-transform",
+      "order": 3
+    },
+    {
+      "id": "s4",
       "type": "quiz",
       "title": "이해도 확인",
       "content": "Q: 3×4 행렬과 4×2 행렬을 곱하면 결과 행렬의 크기는?\n\nA) 3×2\nB) 4×4\nC) 3×4\nD) 2×3\n\n정답: A) 3×2\n해설: (m×k) × (k×n) = (m×n) 이므로 (3×4) × (4×2) = (3×2)",
-      "order": 3
+      "order": 4
     }
   ],
   "createdAt": "2026-05-07T00:00:00.000Z",
