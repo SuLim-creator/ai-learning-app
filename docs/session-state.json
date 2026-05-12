@@ -33,13 +33,13 @@
   "completed": {
     "day15": [
       ".claude/settings.json에 프로덕션 Hook 5개 추가",
-      "PostToolUse: .ts/.tsx 파일 수정 시 pnpm tsc --noEmit 자동 실행 (경고, 비차단)",
-      "PreToolUse(Write|Edit): prisma/migrations/ 직접 수정 시 exit 2 차단 + 안내 메시지",
-      "PreToolUse(Read): .env/.env.local/.env.* 읽기 이중 차단 강화 (permissions.deny + hook)",
-      "Stop: pnpm test --run 실패 시 Claude 작업완료 차단 (exit 2) + 실패 로그 출력",
+      "PostToolUse: .ts/.tsx 파일 수정 시 pnpm tsc --noEmit 자동 실행 (경고, 비차단) ✅",
+      "PreToolUse(Write|Edit): prisma/migrations/ 직접 수정 시 exit 2 차단 + 안내 메시지 ✅",
+      "PreToolUse(Read): .env/.env.local/.env.production 등 이중 차단 확인 (.env/.env.local/.env.production 3종 모두 차단) ✅",
+      "Stop Hook: 의도적 실패 테스트(expect(1).toBe(2)) → exit 2 + '테스트가 실패했습니다' 메시지 차단 확인 ✅",
       "SessionStart 미지원 확인 → .claude/session-start.sh 대체 스크립트 생성",
-      "session-start.sh: 브랜치/마지막커밋/변경파일수 출력, `! bash .claude/session-start.sh`로 실행",
-      "전체 Hook 동작 검증: 타입체크 통과, .env 차단, 테스트 4개 통과, migrations 차단 구조 확인"
+      "session-start.sh 동작 확인: 브랜치 main / 마지막 커밋 749eab9 / 변경파일 0개 출력 ✅",
+      "실패 테스트 제거 후 워킹트리 클린 유지"
     ],
     "day14": [
       "@anthropic-ai/sdk 0.95.2 설치",
