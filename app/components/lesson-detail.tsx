@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { Lesson, LessonSection } from "@/lib/types/lesson";
-import { parseQuiz } from "@/lib/quiz";
+import { QuizSection } from "@/app/components/quiz-section";
 import { markLessonComplete, isLessonComplete } from "@/lib/progress";
 
 const SECTION_TYPE_LABEL: Record<string, string> = {
@@ -14,66 +14,6 @@ const SECTION_TYPE_LABEL: Record<string, string> = {
   quiz: "퀴즈",
 };
 
-function QuizSection({ section }: { section: LessonSection }) {
-  const [selected, setSelected] = useState<string | null>(null);
-  const quiz = parseQuiz(section.content);
-
-  if (!quiz) return <p className="text-gray-400">{section.content}</p>;
-
-  const isCorrect = selected === quiz.answerKey;
-
-  return (
-    <div>
-      <p className="mb-4 text-base text-gray-200">{quiz.question}</p>
-      <div className="flex flex-col gap-2">
-        {quiz.options.map((opt) => {
-          const isSelected = selected === opt.key;
-          const showResult = selected !== null;
-          const isAnswer = opt.key === quiz.answerKey;
-
-          let style =
-            "border-gray-700 bg-gray-800 text-gray-300 hover:border-gray-500 hover:bg-gray-700";
-          if (showResult && isAnswer)
-            style = "border-emerald-500 bg-emerald-950/40 text-emerald-300";
-          else if (showResult && isSelected && !isAnswer)
-            style = "border-red-500 bg-red-950/40 text-red-300";
-
-          return (
-            <button
-              key={opt.key}
-              disabled={selected !== null}
-              onClick={() => setSelected(opt.key)}
-              className={`flex items-center gap-3 rounded-lg border px-4 py-3 text-left text-sm transition-all duration-150 disabled:cursor-default ${style}`}
-            >
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-current text-xs font-medium">
-                {opt.key}
-              </span>
-              <span>{opt.text}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {selected && (
-        <div
-          className={`mt-4 rounded-lg p-4 text-sm ${isCorrect ? "bg-emerald-950/40 text-emerald-300" : "bg-red-950/40 text-red-300"}`}
-        >
-          <p className="mb-1 font-medium">{isCorrect ? "정답!" : "오답"}</p>
-          <p className="text-gray-300">{quiz.explanation}</p>
-          {!isCorrect && (
-            <button
-              onClick={() => setSelected(null)}
-              className="mt-2 text-xs text-gray-400 underline"
-            >
-              다시 풀기
-            </button>
-          )}
-        </div>
-      )}
-    </div>
-  );
-}
-
 function TextSection({ section }: { section: LessonSection }) {
   return (
     <div className="prose prose-invert prose-sm max-w-none text-gray-300">
@@ -82,15 +22,44 @@ function TextSection({ section }: { section: LessonSection }) {
   );
 }
 
+function QuizScore({ correct, total }: { correct: number; total: number }) {
+  const pct = total === 0 ? 0 : Math.round((correct / total) * 100);
+  const color =
+    pct === 100
+      ? "text-emerald-400"
+      : pct >= 60
+        ? "text-yellow-400"
+        : "text-red-400";
+  return (
+    <div className="mb-6 flex items-center gap-3 rounded-xl border border-gray-800 bg-gray-900 px-5 py-3 text-sm">
+      <span className="text-gray-400">퀴즈 점수</span>
+      <span className={`font-bold ${color}`}>
+        {correct} / {total}
+      </span>
+      <span className={`text-xs ${color}`}>({pct}%)</span>
+    </div>
+  );
+}
+
 export function LessonDetail({ lesson }: { lesson: Lesson }) {
   const router = useRouter();
   const sorted = [...lesson.sections].sort((a, b) => a.order - b.order);
+  const quizSections = sorted.filter((s) => s.type === "quiz");
+
   const [completed, setCompleted] = useState(false);
   const [completing, setCompleting] = useState(false);
+  const [quizResults, setQuizResults] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     setCompleted(isLessonComplete(lesson.id));
   }, [lesson.id]);
+
+  function handleAnswer(sectionId: string, correct: boolean) {
+    setQuizResults((prev) => ({ ...prev, [sectionId]: correct }));
+  }
+
+  const answeredCount = Object.keys(quizResults).length;
+  const correctCount = Object.values(quizResults).filter(Boolean).length;
 
   async function handleComplete() {
     setCompleting(true);
@@ -103,7 +72,6 @@ export function LessonDetail({ lesson }: { lesson: Lesson }) {
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
       <div className="mx-auto max-w-2xl px-4 py-10">
-        {/* 헤더 */}
         <div className="mb-8">
           <p className="mb-1 text-sm text-indigo-400">수학 기초</p>
           <h1 className="mb-2 text-2xl font-bold text-white">{lesson.title}</h1>
@@ -114,18 +82,21 @@ export function LessonDetail({ lesson }: { lesson: Lesson }) {
             <span>예상 {lesson.estimatedMinutes}분</span>
             <span>·</span>
             <span>
-              {{
-                easy: "쉬움",
-                medium: "보통",
-                hard: "어려움",
-              }[lesson.difficulty] ?? lesson.difficulty}
+              {
+                { easy: "쉬움", medium: "보통", hard: "어려움" }[
+                  lesson.difficulty
+                ]
+              }
             </span>
             <span>·</span>
             <span>{sorted.length}개 섹션</span>
           </div>
         </div>
 
-        {/* 섹션 목록 */}
+        {quizSections.length > 0 && answeredCount > 0 && (
+          <QuizScore correct={correctCount} total={answeredCount} />
+        )}
+
         <div className="flex flex-col gap-6">
           {sorted.map((section) => (
             <div
@@ -142,7 +113,10 @@ export function LessonDetail({ lesson }: { lesson: Lesson }) {
               </div>
 
               {section.type === "quiz" ? (
-                <QuizSection section={section} />
+                <QuizSection
+                  section={section}
+                  onAnswer={(correct) => handleAnswer(section.id, correct)}
+                />
               ) : (
                 <TextSection section={section} />
               )}
@@ -150,7 +124,6 @@ export function LessonDetail({ lesson }: { lesson: Lesson }) {
           ))}
         </div>
 
-        {/* 학습 완료 버튼 */}
         <div className="mt-10 flex justify-center">
           {completed ? (
             <div className="flex items-center gap-2 rounded-full bg-emerald-900/40 px-6 py-3 text-sm text-emerald-400">
