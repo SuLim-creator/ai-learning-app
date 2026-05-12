@@ -25,6 +25,11 @@
             "type": "command",
             "command": "jq -r '.tool_input.file_path // .tool_response.filePath' | { read -r f; npx prettier --write \"$f\"; } 2>/dev/null || true",
             "statusMessage": "Prettier 포맷 중..."
+          },
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path // empty' 2>/dev/null); echo \"$f\" | grep -qE '\\.(ts|tsx)$' || exit 0; export PNPM_HOME=/Users/suhyun/Library/pnpm; export PATH=$PNPM_HOME:$PATH; result=$(pnpm tsc --noEmit 2>&1); if [ -n \"$result\" ]; then echo \"⚠️  타입 오류 감지:\\n$result\"; fi; exit 0",
+            "statusMessage": "타입 체크 중..."
           }
         ]
       }
@@ -36,6 +41,35 @@
           {
             "type": "command",
             "command": "cmd=$(jq -r '.tool_input.command // empty' 2>/dev/null) || exit 0; echo \"$cmd\" | grep -qE '(rm -rf|DROP TABLE|git push --force)' && echo '차단: 위험한 명령어가 감지되었습니다.' && exit 2; exit 0"
+          }
+        ]
+      },
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path // empty' 2>/dev/null); echo \"$f\" | grep -q 'prisma/migrations/' && echo '차단: 마이그레이션 파일은 직접 수정하지 마세요. prisma migrate dev를 사용하세요.' && exit 2; exit 0"
+          }
+        ]
+      },
+      {
+        "matcher": "Read",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "f=$(jq -r '.tool_input.file_path // empty' 2>/dev/null); echo \"$f\" | grep -qE '(\\.env$|\\.env\\.local$|\\.env\\.[^/]+$)' && echo '차단: .env 파일은 보안상 읽기가 차단되어 있습니다.' && exit 2; exit 0"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "export PNPM_HOME=/Users/suhyun/Library/pnpm; export PATH=$PNPM_HOME:$PATH; cd /Users/suhyun/projects/ai-learning-app; result=$(pnpm test --run 2>&1); if echo \"$result\" | grep -qE '(FAIL|failed|Error)'; then echo '테스트가 실패했습니다. 수정 후 다시 시도하세요.'; echo \"$result\" | tail -20; exit 2; fi; exit 0",
+            "statusMessage": "테스트 검증 중..."
           }
         ]
       }
