@@ -1,5 +1,6 @@
 import { claude } from "@/lib/claude";
 import { prisma } from "@/lib/prisma";
+import { getSessionUser, SESSION_COOKIE } from "@/lib/auth";
 import type { LessonSection } from "@/lib/types/lesson";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -28,6 +29,12 @@ function isValidBody(body: unknown): body is GenerateRequestBody {
 }
 
 export async function POST(req: NextRequest, { params }: RouteParams) {
+  const token = req.cookies.get(SESSION_COOKIE)?.value ?? "";
+  const user = await getSessionUser(token);
+  if (!user) {
+    return NextResponse.json({ error: "인증이 필요합니다." }, { status: 401 });
+  }
+
   const { lessonId } = await params;
 
   let body: unknown;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
 import { Lesson } from "@/lib/types/lesson";
 import {
@@ -69,34 +69,46 @@ function StageCard({
 }
 
 export function DashboardClient({ stages }: { stages: Stage[] }) {
-  const allLessonIds = stages.flatMap((s) => s.lessons.map((l) => l.id));
   const [completedIds, setCompletedIds] = useState<string[]>([]);
+
+  // stages prop이 바뀔 때만 재계산 — flatMap 중복 제거
+  const allLessonsWithStage = useMemo(
+    () =>
+      stages.flatMap((s) =>
+        s.lessons.map((l) => ({ ...l, stageId: s.id, stageTitle: s.title })),
+      ),
+    [stages],
+  );
+
+  const allLessonIds = useMemo(
+    () => allLessonsWithStage.map((l) => l.id),
+    [allLessonsWithStage],
+  );
 
   useEffect(() => {
     setCompletedIds(getCompletedLessonIds(allLessonIds));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [allLessonIds]);
 
   const totalLessons = allLessonIds.length;
   const totalCompleted = completedIds.length;
   const overallPct =
     totalLessons === 0 ? 0 : Math.round((totalCompleted / totalLessons) * 100);
 
-  // 최근 완료 레슨 (완료된 것들 중 마지막 3개)
-  const recentLessons = stages
-    .flatMap((s) =>
-      s.lessons.map((l) => ({ ...l, stageId: s.id, stageTitle: s.title })),
-    )
-    .filter((l) => completedIds.includes(l.id))
-    .slice(-3)
-    .reverse();
+  const completedSet = useMemo(() => new Set(completedIds), [completedIds]);
 
-  // 전체에서 첫 번째 미완료 레슨
-  const nextRecommended = stages
-    .flatMap((s) =>
-      s.lessons.map((l) => ({ ...l, stageId: s.id, stageTitle: s.title })),
-    )
-    .find((l) => !completedIds.includes(l.id));
+  const recentLessons = useMemo(
+    () =>
+      allLessonsWithStage
+        .filter((l) => completedSet.has(l.id))
+        .slice(-3)
+        .reverse(),
+    [allLessonsWithStage, completedSet],
+  );
+
+  const nextRecommended = useMemo(
+    () => allLessonsWithStage.find((l) => !completedSet.has(l.id)),
+    [allLessonsWithStage, completedSet],
+  );
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
