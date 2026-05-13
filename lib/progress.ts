@@ -47,3 +47,15 @@ export function isLessonComplete(lessonId: string): boolean {
 export function getCompletedLessonIds(lessonIds: string[]): string[] {
   return lessonIds.filter((id) => isLessonComplete(id));
 }
+
+export function getWeakestLesson(
+  lessons: LessonMeta[],
+  scores: Record<string, number>,
+): LessonMeta | null {
+  if (lessons.length === 0) return null;
+  return lessons.reduce((weakest, lesson) => {
+    const score = scores[lesson.id] ?? 0;
+    const weakestScore = scores[weakest.id] ?? 0;
+    return score < weakestScore ? lesson : weakest;
+  });
+}

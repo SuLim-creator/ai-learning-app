@@ -2,7 +2,7 @@
 name: content-reviewer
 description: AI 학습 레슨 JSON의 정확성과 교육 품질 검토
 tools: Read, Grep
-model: sonnet
+model: opus
 ---
 
 레슨 JSON을 검토:
