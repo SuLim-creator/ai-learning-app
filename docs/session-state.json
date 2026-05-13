@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
-  "lastUpdated": "2026-05-13",
-  "currentDay": 18,
+  "lastUpdated": "2026-05-14",
+  "currentDay": 19,
 
   "week1Summary": {
     "goal": "Claude Code 핵심 기능 익히기 + AI 학습 앱 기반 구축",
@@ -32,6 +32,22 @@
   },
 
   "completed": {
+    "day19": [
+      "getWeakestLesson() TDD 구현 (lib/progress.ts) ✅",
+      "  - 테스트 4개 작성 (정상/점수없음/빈배열/동점) → RED 확인 → 최소 구현 → GREEN",
+      "  - scores Record<string, number> 기반, 점수 없는 레슨은 0점 간주, 동점 시 앞 레슨 우선",
+      "  - 전체 테스트 16/16 통과",
+      "CLAUDE.md 모델 선택 전략 섹션 추가 ✅",
+      "  - sonnet: 일상 작업 (기능 구현, 버그 수정) — 속도·품질 균형",
+      "  - opus: 아키텍처 결정, 복잡한 디버깅 — 최고 추론 품질",
+      "  - opusplan: 계획(Opus) + 구현(Sonnet) 자동 전환",
+      "  - haiku: 단순 분류/검색 경량 subagent",
+      "Subagent 모델 최적화 ✅",
+      "  - content-reviewer: sonnet → opus (사실 정확성 최우선)",
+      "  - code-reviewer: sonnet 유지",
+      "  - test-writer: sonnet 유지",
+      "커밋: docs: add model selection strategy and optimize subagent models (d3c32f3)"
+    ],
     "day18": [
       "VectorPlayground 구현 (app/components/visualizations/vector-playground.tsx) ✅",
       "  - SVG 300×300, 원점(150,150) 기준 좌표계, scale=30px/unit, 범위 ±4",
@@ -260,6 +276,13 @@
   },
 
   "lessonsLearned": {
+    "day19": [
+      "모델은 작업 특성으로 고른다 — 속도가 필요하면 sonnet, 정확도가 최우선이면 opus, 경량 반복이면 haiku",
+      "opusplan은 계획 단계는 Opus로, 구현은 Sonnet으로 자동 전환 — 품질과 비용 모두 최적화",
+      "content-reviewer처럼 '틀리면 안 되는' subagent는 opus 배정이 합리적 — 속도보다 정확성",
+      "TDD: reduce()로 최솟값 찾을 때 빈 배열 early return 필수 — reduce 초기값 없이 빈 배열이면 TypeError",
+      "/model 커맨드는 사용자가 CLI에서 직접 실행해야 함 — 현재 세션 내 모델 전환은 Claude Code 슬래시커맨드로만 가능"
+    ],
     "day18": [
       "SVG 드래그 구현 시 getBoundingClientRect()로 오프셋 보정 필수 — 없으면 viewBox 크기와 DOM 좌표 불일치로 오작동",
       "Touch 이벤트는 { passive: false } 옵션 필요 — preventDefault() 호출하려면 passive 리스너 불가",
@@ -366,7 +389,8 @@
       "Day 16: MCP 서버 2개 설정 (.mcp.json — context7, playwright) ✅ / 실전 사용은 재시작 후",
       "Day 17: Git Worktree 병렬 개발 — 퀴즈 UI 업그레이드 + 대시보드 페이지 ✅",
       "Day 18: 수학 개념 인터랙티브 시각화 — VectorPlayground + MatrixTransform ✅",
-      "Day 19: Week 2 마무리 — 통합 테스트 + /dashboard 네비게이션 연결 + .gitignore 정리 + 배포 준비"
+      "Day 19: 모델 선택 전략 + getWeakestLesson TDD + Subagent 모델 최적화 ✅",
+      "Day 20: Week 2 마무리 — /dashboard 네비게이션 연결 + pre-deploy 체크 + 전체 회고"
     ]
   },
 
