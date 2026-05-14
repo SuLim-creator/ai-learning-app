@@ -3,15 +3,10 @@ import { getSessionUser, SESSION_COOKIE } from "@/lib/auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  if (process.env.NODE_ENV === "production") {
-    const token = req.cookies.get(SESSION_COOKIE)?.value ?? "";
-    const user = await getSessionUser(token);
-    if (!user) {
-      return NextResponse.json(
-        { error: "인증이 필요합니다." },
-        { status: 401 },
-      );
-    }
+  const token = req.cookies.get(SESSION_COOKIE)?.value ?? "";
+  const user = await getSessionUser(token);
+  if (!user) {
+    return NextResponse.json({ error: "인증이 필요합니다." }, { status: 401 });
   }
 
   const message = await claude.messages.create({

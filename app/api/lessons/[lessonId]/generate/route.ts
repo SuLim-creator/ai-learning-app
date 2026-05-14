@@ -37,6 +37,18 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
 
   const { lessonId } = await params;
 
+  // C1: lessonId 존재성 검증 — 임의 ID로 Claude API 무단 호출 방지
+  const lessonExists = await prisma.lesson.findUnique({
+    where: { id: lessonId },
+    select: { id: true },
+  });
+  if (!lessonExists) {
+    return NextResponse.json(
+      { error: "레슨을 찾을 수 없습니다." },
+      { status: 404 },
+    );
+  }
+
   let body: unknown;
   try {
     body = await req.json();
@@ -119,11 +131,19 @@ D) 선택지4
   ...
 ]`;
 
-  const message = await claude.messages.create({
-    model: "claude-haiku-4-5-20251001",
-    max_tokens: 2048,
-    messages: [{ role: "user", content: prompt }],
-  });
+  let message;
+  try {
+    message = await claude.messages.create({
+      model: "claude-haiku-4-5-20251001",
+      max_tokens: 2048,
+      messages: [{ role: "user", content: prompt }],
+    });
+  } catch {
+    return NextResponse.json(
+      { error: "AI 서비스 오류가 발생했습니다." },
+      { status: 502 },
+    );
+  }
 
   const raw =
     message.content[0].type === "text" ? message.content[0].text : "[]";
@@ -137,19 +157,28 @@ D) 선택지4
   try {
     sections = JSON.parse(jsonStr) as LessonSection[];
   } catch {
+    // M2: raw 응답은 서버 로그에만 기록, 클라이언트에 노출 금지
+    console.error("[generate] AI 응답 파싱 실패:", jsonStr);
     return NextResponse.json(
-      { error: "AI 응답 파싱 실패", raw: jsonStr },
+      { error: "AI 응답 처리 중 오류가 발생했습니다." },
       { status: 502 },
     );
   }
 
-  await prisma.generatedContent.create({
-    data: {
-      lessonId,
-      version: nextVersion,
-      content: JSON.stringify(sections),
-    },
-  });
+  try {
+    await prisma.generatedContent.create({
+      data: {
+        lessonId,
+        version: nextVersion,
+        content: JSON.stringify(sections),
+      },
+    });
+  } catch {
+    return NextResponse.json(
+      { error: "콘텐츠 저장 중 오류가 발생했습니다." },
+      { status: 500 },
+    );
+  }
 
   return NextResponse.json({
     lessonId,

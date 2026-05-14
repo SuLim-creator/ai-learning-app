@@ -12,9 +12,7 @@ export async function GET() {
       db: { stages: stageCount, lessons: lessonCount },
     });
   } catch (error) {
-    return NextResponse.json(
-      { status: "error", message: String(error) },
-      { status: 500 },
-    );
+    console.error("[health] db error", error);
+    return NextResponse.json({ status: "error" }, { status: 500 });
   }
 }
