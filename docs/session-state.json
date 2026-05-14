@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
-  "lastUpdated": "2026-05-14",
-  "currentDay": 22,
+  "lastUpdated": "2026-05-15",
+  "currentDay": 23,
 
   "week3Summary": {
     "goal": "Claude Code 고급 기능 완성 + 앱 품질 강화 + 수학기초 커리큘럼 완성",
@@ -56,6 +56,15 @@
   },
 
   "completed": {
+    "day23": [
+      "docs/workflow-matrix.md 작성 — Claude Chat ↔ Claude Code 의사결정 매트릭스 8행 정리 ✅",
+      "  판단 기준: '결과물이 로컬 파일/터미널에 저장·실행되어야 하는가' → Code, 아니면 Chat",
+      "ml-basics/02-supervised-learning.json 생성 (lesson-pipeline 전체 파이프라인) ✅",
+      "  Chat 스펙(비유·흐름·섹션구성) → JSON 생성 → content-reviewer(opus) CONDITIONAL APPROVAL",
+      "  수정 4건: P(A|B) 표기 제거, 80/20 유연성 단서 추가, s6 C번 선택지 혼동 유발형 교체, 오답 분석 보강",
+      "  타입체크 통과, 커밋: feat: workflow matrix + ML basics first lesson (913b11d) ✅",
+      "ml-basics 레슨 1개 → 2개로 확장 (기존 01은 행렬 내용으로 잘못 배치된 상태 — 별도 정리 필요)"
+    ],
     "day22": [
       "Headless 모드(claude -p) 자동화 스크립트 3개 실행 ✅",
       "  1. CHANGELOG.md 자동 생성 — git log 최근 20커밋 기반, Day별 주요 작업 3주치 정리",
@@ -333,6 +342,12 @@
   },
 
   "lessonsLearned": {
+    "day23": [
+      "Chat ↔ Code 역할 분리 핵심: Chat은 탐색·초안·비교, Code는 파일·실행·커밋 — 경계가 모호할 때는 '결과물이 로컬에 저장되는가'로 판단",
+      "content-reviewer가 잡아낸 패턴: 조건부 확률 표기(P(A|B))는 prerequisites에 해당 레슨 없으면 사용 금지, 퀴즈 C번 선택지가 너무 명백한 오답이면 혼동 유발형으로 교체",
+      "80/20 같은 관례 수치는 '보통'이라는 단어만으로 부족 — '데이터량에 따라 90/10도 씀' 같은 유연성 단서 필수",
+      "ml-basics/01-linear-regression.json이 실제로는 행렬 내용으로 잘못 배치 — 2단계 레슨 구성 시 재정비 필요"
+    ],
     "day22": [
       "claude -p는 대화 없이 단일 프롬프트를 실행하고 stdout으로 결과를 반환 — CI/CD, 셸 파이프라인, 반복 자동화에 적합",
       "--allowedTools로 headless 세션의 권한을 정밀 제어 가능 — 불필요한 파일 쓰기/삭제 방지에 유용",
@@ -476,7 +491,8 @@
       "Day 20: 전체 코드베이스 리팩토링 — 에러 처리/인증 가드/성능 최적화 ✅",
       "Day 21: lesson-pipeline으로 수학기초 레슨 09~13 생성 + content-reviewer 검수 + 이슈 수정 + 커밋 ✅",
       "Day 22: Headless 모드 자동화 3종 — CHANGELOG + unused-exports + 레슨 품질 보고서 ✅",
-      "Day 23: 레슨 품질 보고서 기반 수정 — 레슨 08 부호 표기 통일, hard 퀴즈 추가, 레슨 13 prerequisites 확장 + /pre-deploy 빌드 점검"
+      "Day 23: workflow-matrix.md + ml-basics/02-supervised-learning.json (lesson-pipeline + content-reviewer) ✅",
+      "Day 24: ml-basics 레슨 구조 재정비 (01 내용 교체) + 2단계 레슨 2~3개 추가 — 비지도학습, 과적합/정규화"
     ]
   },
 
