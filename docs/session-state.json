@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
   "lastUpdated": "2026-05-15",
-  "currentDay": 24,
+  "currentDay": 25,
 
   "week3Summary": {
     "goal": "Claude Code 고급 기능 완성 + 앱 품질 강화 + 수학기초 커리큘럼 완성",
@@ -56,6 +56,18 @@
   },
 
   "completed": {
+    "day25": [
+      ".claude/agents/security-reviewer.md 생성 — opus 모델, CRITICAL/HIGH/MEDIUM/LOW 심각도 분류 ✅",
+      "security-reviewer subagent 전체 보안 감사 실행 → REQUEST_CHANGES (CRITICAL 1, HIGH 3, MEDIUM 3) ✅",
+      "C1 수정: generate route — lessonId 존재성 검증 추가 (임의 ID로 Claude API 무단 호출 차단) ✅",
+      "H2 수정: /api/claude/test — production 분기 제거, 모든 환경에서 세션 인증 강제 ✅",
+      "H3 수정: /api/health — catch 블록 String(error) 클라이언트 노출 제거, 서버 로그만 기록 ✅",
+      "M2 수정: generate route — AI 응답 파싱 실패 시 raw jsonStr 제거, console.error로만 기록 ✅",
+      "generate route — Claude API 호출 + Prisma 저장 각각 try/catch 추가 ✅",
+      "README.md 전면 재작성 — 환경변수 목록, Vercel 배포 가이드, 프로젝트 구조 추가 ✅",
+      "빌드 28페이지 경고 없이 통과, 커밋: feat: security audit + Vercel deploy prep (cff1b36) ✅",
+      "GitHub push 대기 중 — gh repo create ai-learning-app 실행 후 push 필요"
+    ],
     "day24": [
       "@ducanh2912/next-pwa 설치 — next-pwa 5.x 대신 사용 (Next.js 13+ Turbopack 호환 포크) ✅",
       "public/manifest.json 생성 — AI 학습 앱, short_name AI학습, indigo 테마, standalone ✅",
@@ -352,6 +364,13 @@
   },
 
   "lessonsLearned": {
+    "day25": [
+      "security-reviewer subagent는 실제 파일을 읽어 라인 번호까지 명시하므로, 프롬프트에 '라인 번호 포함' 지시를 넣으면 훨씬 구체적인 결과가 나옴",
+      "lessonId 같은 URL 파라미터는 반드시 DB 존재성 검증 후 외부 API 호출 — 없으면 임의 문자열로 무제한 비용 유발 가능",
+      "production 분기로 인증을 조건부 적용하면 dev/preview 환경에서 API 키 비용이 노출됨 — 환경 무관하게 항상 인증",
+      "catch 블록에서 String(error)나 error.message를 클라이언트에 그대로 반환하면 DB connection string, 파일 경로 등 내부 정보가 누출됨",
+      "SQLite는 Vercel 서버리스 환경에서 파일 시스템이 읽기 전용 — 프로덕션 배포 시 Turso(libsql 호환)나 PostgreSQL로 전환 필요"
+    ],
     "day24": [
       "next-pwa(5.x)는 Next.js 13+ Turbopack과 호환 안 됨 — @ducanh2912/next-pwa(유지보수 포크)를 써야 함",
       "Next.js 16에서 withPWA가 webpack config를 주입하면 Turbopack과 충돌 — next.config에 turbopack:{} 명시로 해소",
@@ -510,7 +529,8 @@
       "Day 22: Headless 모드 자동화 3종 — CHANGELOG + unused-exports + 레슨 품질 보고서 ✅",
       "Day 23: workflow-matrix.md + ml-basics/02-supervised-learning.json (lesson-pipeline + content-reviewer) ✅",
       "Day 24: PWA 설정 + 성능 최적화 — manifest, 아이콘, 오프라인 페이지, Turbopack 충돌 해소 ✅",
-      "Day 25: ml-basics 레슨 구조 재정비 (01 내용 교체) + 2단계 레슨 2~3개 추가 — 비지도학습, 과적합/정규화"
+      "Day 25: security-reviewer subagent + 보안 감사 CRITICAL/HIGH 수정 + README + Vercel 배포 준비 ✅",
+      "Day 26: GitHub push 완료 후 Vercel 배포 진행 + 잔여 MEDIUM 이슈(Zod 입력 검증, rate limit) 정리"
     ]
   },
 
