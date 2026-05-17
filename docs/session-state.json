@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
-  "lastUpdated": "2026-05-15",
-  "currentDay": 25,
+  "lastUpdated": "2026-05-18",
+  "currentDay": 26,
 
   "week3Summary": {
     "goal": "Claude Code 고급 기능 완성 + 앱 품질 강화 + 수학기초 커리큘럼 완성",
@@ -56,6 +56,19 @@
   },
 
   "completed": {
+    "day26": [
+      "Turso CLI 설치 (curl 스크립트 방식 — brew tap 의존성 오류로 대체) ✅",
+      "Turso DB 생성: ai-learning-app (aws-ap-northeast-1) ✅",
+      "lib/prisma.ts: TURSO_DATABASE_URL/AUTH_TOKEN 기반 연결, 로컬 dev.db fallback 유지 ✅",
+      "prisma/seed.ts: 하드코딩 dev.db 제거 → 환경변수 기반 Turso 연결로 전환 ✅",
+      "prisma.config.ts: adapter 타입 오류 해결 (Prisma 7 CLI는 url만 지원) ✅",
+      "package.json: postinstall에 prisma generate 추가 (Vercel 빌드 시 generated 폴더 자동 생성) ✅",
+      "Turso DB 스키마 적용: turso db shell < migration.sql ✅",
+      "Turso DB 시드: Stage 1개, Lesson 3개 업로드 ✅",
+      "GitHub 저장소 생성: SuLim-creator/ai-learning-app (public) + push ✅",
+      "Vercel 배포 완료: https://ai-learning-app-guqe.vercel.app ✅",
+      "/api/health 확인: { status: ok, db: { stages: 1, lessons: 3 } } ✅"
+    ],
     "day25": [
       ".claude/agents/security-reviewer.md 생성 — opus 모델, CRITICAL/HIGH/MEDIUM/LOW 심각도 분류 ✅",
       "security-reviewer subagent 전체 보안 감사 실행 → REQUEST_CHANGES (CRITICAL 1, HIGH 3, MEDIUM 3) ✅",
@@ -364,6 +377,14 @@
   },
 
   "lessonsLearned": {
+    "day26": [
+      "Turso CLI는 brew tap 의존성 오류로 설치 불가 → curl -sSfL https://get.tur.so/install.sh | bash 방식 사용",
+      "Prisma 7 migrate/db push CLI는 libsql URL 스킴 미지원 — 스키마 적용은 turso db shell < migration.sql로 직접 실행",
+      "prisma.config.ts datasource에 adapter 속성 없음 — PrismaClient 생성 시 adapter를 넘기는 방식과 분리됨",
+      "Vercel 빌드 시 lib/generated/prisma/가 gitignore로 누락 → postinstall: prisma generate 필수",
+      "SQLite → Turso 전환 시 lib/prisma.ts만 수정하면 앱 코드 변경 없이 완료 — libsql 어댑터 덕분에 인터페이스 동일",
+      "프로덕션 라이브 URL: https://ai-learning-app-guqe.vercel.app"
+    ],
     "day25": [
       "security-reviewer subagent는 실제 파일을 읽어 라인 번호까지 명시하므로, 프롬프트에 '라인 번호 포함' 지시를 넣으면 훨씬 구체적인 결과가 나옴",
       "lessonId 같은 URL 파라미터는 반드시 DB 존재성 검증 후 외부 API 호출 — 없으면 임의 문자열로 무제한 비용 유발 가능",
@@ -530,7 +551,8 @@
       "Day 23: workflow-matrix.md + ml-basics/02-supervised-learning.json (lesson-pipeline + content-reviewer) ✅",
       "Day 24: PWA 설정 + 성능 최적화 — manifest, 아이콘, 오프라인 페이지, Turbopack 충돌 해소 ✅",
       "Day 25: security-reviewer subagent + 보안 감사 CRITICAL/HIGH 수정 + README + Vercel 배포 준비 ✅",
-      "Day 26: GitHub push 완료 후 Vercel 배포 진행 + 잔여 MEDIUM 이슈(Zod 입력 검증, rate limit) 정리"
+      "Day 26: SQLite → Turso 마이그레이션 + GitHub push + Vercel 배포 완료 ✅",
+      "Day 27: 잔여 MEDIUM 이슈 정리 (Zod 입력 검증, rate limit) + ml-basics 레슨 추가"
     ]
   },
 
