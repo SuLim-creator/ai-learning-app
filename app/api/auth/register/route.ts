@@ -1,11 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { hashPassword, createSession, SESSION_COOKIE } from "@/lib/auth";
 
+const registerSchema = z.object({
+  email: z.string().email("올바른 이메일 형식이 아닙니다.").max(254),
+  password: z.string().min(8, "비밀번호는 8자 이상이어야 합니다.").max(128),
+  displayName: z
+    .string()
+    .min(1, "이름을 입력해주세요.")
+    .max(50, "이름은 50자 이하여야 합니다."),
+});
+
 export async function POST(req: NextRequest) {
-  let email: string, password: string, displayName: string;
+  let raw: unknown;
   try {
-    ({ email, password, displayName } = await req.json());
+    raw = await req.json();
   } catch {
     return NextResponse.json(
       { error: "잘못된 요청 형식입니다." },
@@ -13,18 +23,14 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (!email || !password || !displayName) {
+  const parsed = registerSchema.safeParse(raw);
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: "모든 필드를 입력해주세요." },
+      { error: parsed.error.issues[0].message },
       { status: 400 },
     );
   }
-  if (password.length < 8) {
-    return NextResponse.json(
-      { error: "비밀번호는 8자 이상이어야 합니다." },
-      { status: 400 },
-    );
-  }
+  const { email, password, displayName } = parsed.data;
 
   try {
     const existing = await prisma.profile.findUnique({ where: { email } });

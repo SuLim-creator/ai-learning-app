@@ -1,34 +1,34 @@
 import { claude } from "@/lib/claude";
 import { prisma } from "@/lib/prisma";
 import { getSessionUser, SESSION_COOKIE } from "@/lib/auth";
+import { rateLimit } from "@/lib/rate-limit";
 import type { LessonSection } from "@/lib/types/lesson";
 import { NextRequest, NextResponse } from "next/server";
+import { z } from "zod";
 
 interface RouteParams {
   params: Promise<{ lessonId: string }>;
 }
 
-interface GenerateRequestBody {
-  title: string;
-  description: string;
-  difficulty: string;
-  tags: string[];
-  forceNew?: boolean;
-}
-
-function isValidBody(body: unknown): body is GenerateRequestBody {
-  if (typeof body !== "object" || body === null) return false;
-  const b = body as Record<string, unknown>;
-  return (
-    typeof b.title === "string" &&
-    typeof b.description === "string" &&
-    typeof b.difficulty === "string" &&
-    Array.isArray(b.tags) &&
-    b.tags.every((t) => typeof t === "string")
-  );
-}
+const generateSchema = z.object({
+  title: z.string().min(1).max(200),
+  description: z.string().min(1).max(500),
+  difficulty: z.enum(["easy", "medium", "hard"]),
+  tags: z.array(z.string().max(50)).max(10),
+  forceNew: z.boolean().optional(),
+});
 
 export async function POST(req: NextRequest, { params }: RouteParams) {
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
+  const { allowed, retryAfter } = rateLimit(ip);
+  if (!allowed) {
+    return NextResponse.json(
+      { error: "요청이 너무 많습니다. 잠시 후 다시 시도해주세요." },
+      { status: 429, headers: { "Retry-After": String(retryAfter) } },
+    );
+  }
+
   const token = req.cookies.get(SESSION_COOKIE)?.value ?? "";
   const user = await getSessionUser(token);
   if (!user) {
@@ -37,7 +37,6 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
 
   const { lessonId } = await params;
 
-  // C1: lessonId 존재성 검증 — 임의 ID로 Claude API 무단 호출 방지
   const lessonExists = await prisma.lesson.findUnique({
     where: { id: lessonId },
     select: { id: true },
@@ -49,9 +48,9 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
     );
   }
 
-  let body: unknown;
+  let raw: unknown;
   try {
-    body = await req.json();
+    raw = await req.json();
   } catch {
     return NextResponse.json(
       { error: "요청 바디가 올바르지 않습니다." },
@@ -59,22 +58,21 @@ export async function POST(req: NextRequest, { params }: RouteParams) {
     );
   }
 
-  if (!isValidBody(body)) {
+  const parsed = generateSchema.safeParse(raw);
+  if (!parsed.success) {
     return NextResponse.json(
-      { error: "필수 필드가 누락되었습니다." },
+      { error: parsed.error.issues[0].message },
       { status: 400 },
     );
   }
 
-  const { title, description, difficulty, tags, forceNew = false } = body;
-
-  // 프롬프트 인젝션 방지: 각 필드 길이 제한
-  if (title.length > 200 || description.length > 500) {
-    return NextResponse.json(
-      { error: "입력값이 너무 깁니다." },
-      { status: 400 },
-    );
-  }
+  const {
+    title,
+    description,
+    difficulty,
+    tags,
+    forceNew = false,
+  } = parsed.data;
 
   if (!forceNew) {
     const cached = await prisma.generatedContent.findFirst({
@@ -145,10 +143,10 @@ D) 선택지4
     );
   }
 
-  const raw =
+  const aiText =
     message.content[0].type === "text" ? message.content[0].text : "[]";
 
-  const jsonStr = raw
+  const jsonStr = aiText
     .replace(/^```(?:json)?\n?/, "")
     .replace(/\n?```$/, "")
     .trim();
