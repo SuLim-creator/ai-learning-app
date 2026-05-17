@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
   "lastUpdated": "2026-05-18",
-  "currentDay": 26,
+  "currentDay": 27,
 
   "week3Summary": {
     "goal": "Claude Code 고급 기능 완성 + 앱 품질 강화 + 수학기초 커리큘럼 완성",
@@ -56,6 +56,33 @@
   },
 
   "completed": {
+    "day27": [
+      "pre-deploy 체크: 빌드/타입/console.log/.env/TODO 5개 통과, lint 스크립트 누락 발견 ✅",
+      "package.json에 'lint': 'next lint' 추가 ✅",
+      "zod 4.4.3 설치 ✅",
+      "lib/rate-limit.ts 신규: IP당 1분/10회 인메모리 rate limiter, 초과 시 429 + Retry-After 헤더 ✅",
+      "app/api/auth/login/route.ts: Zod loginSchema (email/password 형식+길이 검증) ✅",
+      "app/api/auth/register/route.ts: Zod registerSchema (email/password/displayName 검증) ✅",
+      "app/api/lessons/[lessonId]/generate/route.ts: Zod generateSchema + rate limit 적용, isValidBody 타입 가드 제거 ✅",
+      "커밋: feat: add Zod validation and rate limiting to API routes (719db3b) ✅",
+      "Playwright 라이브 시나리오 테스트 8개 전체 통과 (https://ai-learning-app-guqe.vercel.app) ✅",
+      "  - 신규 가입 → /learn/math-basics 리다이렉트 정상",
+      "  - 대시보드 진행률 0/13, 추천 레슨 표시 정상",
+      "  - 레슨 상세 JSON 콘텐츠 렌더링 정상",
+      "  - 퀴즈 오답: 버튼 비활성화 + 해설 + 다시 풀기 정상",
+      "  - 퀴즈 정답: '🎉 정답!' + 점수 1/1 (100%) 정상",
+      "  - 학습 완료 → 진행률 즉시 반영 정상",
+      "  - 새로고침 후 진행률 2/13 유지 정상",
+      "  - 잘못된 URL 404 정상",
+      "content/lessons/ml-basics/02-loss-function.json 생성 — content-reviewer(opus) CONDITIONAL APPROVAL → 수정 완료 ✅",
+      "  수정: s2 수치 오류(1억 제곱=1조→단순 숫자 예시), s3 ASCII표→마크다운표, 퀴즈3 MAE 해설 보강",
+      "content/lessons/ml-basics/03-gradient-descent.json 생성 — content-reviewer(opus) APPROVED ✅",
+      "  수정: 태그 '역전파' → '미니배치'로 교체 (본문 미언급)",
+      "content/lessons/ml-basics/04-overfitting.json 생성 — content-reviewer(opus) APPROVED ✅",
+      "app/not-found.tsx 신규: 한국어 커스텀 404 페이지 (홈으로 돌아가기 링크 포함) ✅",
+      "커밋: feat: add ml-basics lessons 02-04 and Korean 404 page (b65c313) ✅",
+      "GitHub push 완료: main → origin/main ✅"
+    ],
     "day26": [
       "Turso CLI 설치 (curl 스크립트 방식 — brew tap 의존성 오류로 대체) ✅",
       "Turso DB 생성: ai-learning-app (aws-ap-northeast-1) ✅",
@@ -377,6 +404,13 @@
   },
 
   "lessonsLearned": {
+    "day27": [
+      "Zod 4.x는 safeParse().success + .data 패턴으로 타입 안전하게 입력 검증 — 기존 isValidBody 타입 가드보다 간결하고 에러 메시지도 자동 생성",
+      "IP 기반 인메모리 rate limiter는 서버리스 단일 인스턴스에서만 유효 — 다중 인스턴스 환경에서는 Redis/Upstash 등 외부 저장소 필요",
+      "content-reviewer(opus) 수치 오류 탐지 패턴: '1억 × 1억 = 1조' 같은 단위 혼용 계산 오류를 정확히 잡아냄 — 구체적 숫자 예시는 반드시 검산 필요",
+      "ASCII 표보다 마크다운 표(|...|)가 JSON 콘텐츠에서 렌더링 안전성이 높음",
+      "app/not-found.tsx가 Next.js App Router의 커스텀 404 진입점 — `_not-found` 라우트를 대체"
+    ],
     "day26": [
       "Turso CLI는 brew tap 의존성 오류로 설치 불가 → curl -sSfL https://get.tur.so/install.sh | bash 방식 사용",
       "Prisma 7 migrate/db push CLI는 libsql URL 스킴 미지원 — 스키마 적용은 turso db shell < migration.sql로 직접 실행",
@@ -527,7 +561,12 @@
       "12-conditional-probability.json — 조건부 확률과 베이즈 (medium, Day 21 생성)",
       "13-math-stage-summary.json — 1단계 총정리 (easy, Day 21 생성)"
     ],
-    "ml-basics": ["01-linear-regression.json — 선형 회귀"]
+    "ml-basics": [
+      "01-linear-regression.json — 선형 회귀 (행렬 내용 혼재, 추후 재정비 필요)",
+      "02-loss-function.json — 손실 함수: MSE, Cross-Entropy (medium, Day 27 생성)",
+      "03-gradient-descent.json — 경사하강법: 학습률, 미니배치 (medium, Day 27 생성)",
+      "04-overfitting.json — 과적합: 정규화, 드롭아웃, 데이터 증강 (medium, Day 27 생성)"
+    ]
   },
 
   "week2Plan": {
@@ -552,7 +591,7 @@
       "Day 24: PWA 설정 + 성능 최적화 — manifest, 아이콘, 오프라인 페이지, Turbopack 충돌 해소 ✅",
       "Day 25: security-reviewer subagent + 보안 감사 CRITICAL/HIGH 수정 + README + Vercel 배포 준비 ✅",
       "Day 26: SQLite → Turso 마이그레이션 + GitHub push + Vercel 배포 완료 ✅",
-      "Day 27: 잔여 MEDIUM 이슈 정리 (Zod 입력 검증, rate limit) + ml-basics 레슨 추가"
+      "Day 27: 최종 QA + 잔여 MEDIUM 이슈 정리 (Zod 검증, rate limit) + ml-basics 레슨 3개 + 한국어 404 페이지 ✅"
     ]
   },
 
