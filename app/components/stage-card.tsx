@@ -1,17 +1,9 @@
 "use client";
 
-interface Lesson {
-  id: string;
-  title: string;
-  difficulty: "easy" | "medium" | "hard";
-}
+import type { CurriculumLesson, CurriculumStage } from "@/lib/curriculum";
 
-interface Stage {
-  id: number;
-  title: string;
-  description: string;
-  lessons: Lesson[];
-}
+type Lesson = CurriculumLesson;
+type Stage = CurriculumStage;
 
 const DIFFICULTY_COLORS = {
   easy: "text-emerald-400",
