@@ -1,97 +1,101 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { StageCard } from './components/stage-card'
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { StageCard } from "./components/stage-card";
 
 interface Lesson {
-  id: string
-  title: string
-  difficulty: 'easy' | 'medium' | 'hard'
+  id: string;
+  title: string;
+  difficulty: "easy" | "medium" | "hard";
 }
 
 interface Stage {
-  id: number
-  title: string
-  description: string
-  lessons: Lesson[]
+  id: number;
+  title: string;
+  description: string;
+  lessons: Lesson[];
 }
 
 const CURRICULUM: Stage[] = [
   {
     id: 1,
-    title: '1단계: 수학 기초',
-    description: 'AI/ML에 필요한 수학 개념',
+    title: "1단계: 수학 기초",
+    description: "AI/ML에 필요한 수학 개념",
     lessons: [
-      { id: 'math-01', title: '벡터란 무엇인가?', difficulty: 'easy' },
-      { id: 'math-02', title: '행렬과 행렬 연산', difficulty: 'easy' },
-      { id: 'math-03', title: '미분과 경사하강법', difficulty: 'medium' },
+      { id: "math-01", title: "벡터란 무엇인가?", difficulty: "easy" },
+      { id: "math-02", title: "행렬과 행렬 연산", difficulty: "easy" },
+      { id: "math-03", title: "미분과 경사하강법", difficulty: "medium" },
     ],
   },
   {
     id: 2,
-    title: '2단계: 머신러닝 기초',
-    description: '핵심 ML 알고리즘 이해',
+    title: "2단계: 머신러닝 기초",
+    description: "핵심 ML 알고리즘 이해",
     lessons: [
-      { id: 'ml-01', title: '선형 회귀', difficulty: 'easy' },
-      { id: 'ml-02', title: '분류 알고리즘', difficulty: 'medium' },
-      { id: 'ml-03', title: '의사결정 트리', difficulty: 'medium' },
+      { id: "ml-01", title: "선형 회귀", difficulty: "easy" },
+      { id: "ml-02", title: "분류 알고리즘", difficulty: "medium" },
+      { id: "ml-03", title: "의사결정 트리", difficulty: "medium" },
     ],
   },
   {
     id: 3,
-    title: '3단계: 딥러닝 입문',
-    description: '신경망의 작동 원리',
+    title: "3단계: 딥러닝 입문",
+    description: "신경망의 작동 원리",
     lessons: [
-      { id: 'dl-01', title: '신경망 구조', difficulty: 'medium' },
-      { id: 'dl-02', title: '역전파 알고리즘', difficulty: 'hard' },
-      { id: 'dl-03', title: 'CNN 이해하기', difficulty: 'hard' },
+      { id: "dl-01", title: "신경망 구조", difficulty: "medium" },
+      { id: "dl-02", title: "역전파 알고리즘", difficulty: "hard" },
+      { id: "dl-03", title: "CNN 이해하기", difficulty: "hard" },
     ],
   },
   {
     id: 4,
-    title: '4단계: 자연어 처리',
-    description: 'NLP와 언어 모델 기초',
+    title: "4단계: 자연어 처리",
+    description: "NLP와 언어 모델 기초",
     lessons: [
-      { id: 'nlp-01', title: '텍스트 임베딩', difficulty: 'medium' },
-      { id: 'nlp-02', title: 'Transformer 구조', difficulty: 'hard' },
-      { id: 'nlp-03', title: 'LLM의 작동 원리', difficulty: 'hard' },
+      { id: "nlp-01", title: "텍스트 임베딩", difficulty: "medium" },
+      { id: "nlp-02", title: "Transformer 구조", difficulty: "hard" },
+      { id: "nlp-03", title: "LLM의 작동 원리", difficulty: "hard" },
     ],
   },
   {
     id: 5,
-    title: '5단계: AI 실전 응용',
-    description: '실제 AI 서비스 구축',
+    title: "5단계: AI 실전 응용",
+    description: "실제 AI 서비스 구축",
     lessons: [
-      { id: 'app-01', title: 'Claude API 활용', difficulty: 'medium' },
-      { id: 'app-02', title: 'RAG 시스템 구축', difficulty: 'hard' },
-      { id: 'app-03', title: 'AI 앱 배포하기', difficulty: 'medium' },
+      { id: "app-01", title: "Claude API 활용", difficulty: "medium" },
+      { id: "app-02", title: "RAG 시스템 구축", difficulty: "hard" },
+      { id: "app-03", title: "AI 앱 배포하기", difficulty: "medium" },
     ],
   },
-]
-
+];
 
 export default function Home() {
-  const [expandedStages, setExpandedStages] = useState<Set<number>>(new Set([1]))
-  const [selectedLesson, setSelectedLesson] = useState<{ stage: Stage; lesson: Lesson } | null>(
-    null
-  )
-  const [sidebarOpen, setSidebarOpen] = useState(false)
+  const router = useRouter();
+  const [expandedStages, setExpandedStages] = useState<Set<number>>(
+    new Set([1]),
+  );
+  const [selectedLesson, setSelectedLesson] = useState<{
+    stage: Stage;
+    lesson: Lesson;
+  } | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   function toggleStage(stageId: number) {
     setExpandedStages((prev) => {
-      const next = new Set(prev)
+      const next = new Set(prev);
       if (next.has(stageId)) {
-        next.delete(stageId)
+        next.delete(stageId);
       } else {
-        next.add(stageId)
+        next.add(stageId);
       }
-      return next
-    })
+      return next;
+    });
   }
 
   function selectLesson(stage: Stage, lesson: Lesson) {
-    setSelectedLesson({ stage, lesson })
-    setSidebarOpen(false)
+    setSelectedLesson({ stage, lesson });
+    setSidebarOpen(false);
   }
 
   return (
@@ -111,7 +115,7 @@ export default function Home() {
           w-72 bg-gray-900 border-r border-gray-800
           flex flex-col
           transform transition-transform duration-200 ease-in-out
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+          ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
         `}
       >
         {/* Sidebar header */}
@@ -141,7 +145,8 @@ export default function Home() {
 
         {/* Sidebar footer */}
         <div className="p-4 border-t border-gray-800 text-xs text-gray-600">
-          {CURRICULUM.reduce((acc, s) => acc + s.lessons.length, 0)}개 레슨 · 5단계
+          {CURRICULUM.reduce((acc, s) => acc + s.lessons.length, 0)}개 레슨 ·
+          5단계
         </div>
       </aside>
 
@@ -160,7 +165,7 @@ export default function Home() {
           <span className="text-sm text-gray-500">
             {selectedLesson
               ? `${selectedLesson.stage.title} › ${selectedLesson.lesson.title}`
-              : '레슨을 선택하세요'}
+              : "레슨을 선택하세요"}
           </span>
         </header>
 
@@ -174,9 +179,19 @@ export default function Home() {
                   <span>{selectedLesson.stage.title}</span>
                   <span>›</span>
                   <span
-                    className={{ easy: 'text-emerald-400', medium: 'text-yellow-400', hard: 'text-red-400' }[selectedLesson.lesson.difficulty]}
+                    className={
+                      {
+                        easy: "text-emerald-400",
+                        medium: "text-yellow-400",
+                        hard: "text-red-400",
+                      }[selectedLesson.lesson.difficulty]
+                    }
                   >
-                    {{ easy: '쉬움', medium: '보통', hard: '어려움' }[selectedLesson.lesson.difficulty]}
+                    {
+                      { easy: "쉬움", medium: "보통", hard: "어려움" }[
+                        selectedLesson.lesson.difficulty
+                      ]
+                    }
                   </span>
                 </div>
                 <h1 className="text-3xl font-bold text-white mb-4">
@@ -184,17 +199,24 @@ export default function Home() {
                 </h1>
                 <p className="text-gray-400 text-base leading-relaxed">
                   이 레슨에서는 {selectedLesson.lesson.title}에 대해 배웁니다.
-                  Claude AI가 여러분의 수준에 맞춰 콘텐츠를 실시간으로 생성합니다.
+                  Claude AI가 여러분의 수준에 맞춰 콘텐츠를 실시간으로
+                  생성합니다.
                 </p>
               </div>
 
               {/* Action buttons */}
               <div className="flex flex-col sm:flex-row gap-3">
-                <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-colors">
+                <button
+                  onClick={() => router.push("/learn/math-basics")}
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-colors"
+                >
                   <span>▶</span>
                   학습 시작
                 </button>
-                <button className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 font-medium transition-colors border border-gray-700">
+                <button
+                  onClick={() => router.push("/learn/math-basics")}
+                  className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 font-medium transition-colors border border-gray-700"
+                >
                   <span>✦</span>
                   새로 생성
                 </button>
@@ -231,21 +253,26 @@ export default function Home() {
                 학습 콘텐츠를 실시간으로 생성합니다.
               </p>
               <div className="mt-8 grid grid-cols-3 gap-4 text-sm">
-                {['수학 기초', '머신러닝', '딥러닝', 'NLP', 'AI 응용', '5단계'].map(
-                  (tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1.5 rounded-full bg-gray-800 text-gray-400 border border-gray-700"
-                    >
-                      {tag}
-                    </span>
-                  )
-                )}
+                {[
+                  "수학 기초",
+                  "머신러닝",
+                  "딥러닝",
+                  "NLP",
+                  "AI 응용",
+                  "5단계",
+                ].map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-3 py-1.5 rounded-full bg-gray-800 text-gray-400 border border-gray-700"
+                  >
+                    {tag}
+                  </span>
+                ))}
               </div>
             </div>
           )}
         </div>
       </main>
     </div>
-  )
+  );
 }
