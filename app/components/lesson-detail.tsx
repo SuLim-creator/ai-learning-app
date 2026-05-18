@@ -60,7 +60,17 @@ function QuizScore({ correct, total }: { correct: number; total: number }) {
   );
 }
 
-export function LessonDetail({ lesson }: { lesson: Lesson }) {
+interface LessonDetailProps {
+  lesson: Lesson;
+  stageSlug: string;
+  stageTitle: string;
+}
+
+export function LessonDetail({
+  lesson,
+  stageSlug,
+  stageTitle,
+}: LessonDetailProps) {
   const router = useRouter();
   const sorted = [...lesson.sections].sort((a, b) => a.order - b.order);
   const quizSections = sorted.filter((s) => s.type === "quiz");
@@ -85,14 +95,20 @@ export function LessonDetail({ lesson }: { lesson: Lesson }) {
     markLessonComplete(lesson.id);
     setCompleted(true);
     setCompleting(false);
-    router.push("/learn/math-basics");
+    router.push(`/learn/${stageSlug}`);
   }
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
       <div className="mx-auto max-w-2xl px-4 py-10">
         <div className="mb-8">
-          <p className="mb-1 text-sm text-indigo-400">수학 기초</p>
+          <button
+            onClick={() => router.push(`/learn/${stageSlug}`)}
+            className="mb-4 flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-300 transition-colors"
+          >
+            <span>←</span>
+            <span>{stageTitle}</span>
+          </button>
           <h1 className="mb-2 text-2xl font-bold text-white">{lesson.title}</h1>
           <p className="text-sm leading-relaxed text-gray-400">
             {lesson.description}

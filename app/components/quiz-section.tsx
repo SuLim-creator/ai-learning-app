@@ -119,14 +119,12 @@ export function QuizSection({ section, onAnswer }: QuizSectionProps) {
         >
           <p className="mb-1 font-medium">{isCorrect ? "🎉 정답!" : "오답"}</p>
           <p className="text-gray-300">{quiz.explanation}</p>
-          {!isCorrect && (
-            <button
-              onClick={handleReset}
-              className="mt-2 text-xs text-gray-400 underline"
-            >
-              다시 풀기
-            </button>
-          )}
+          <button
+            onClick={handleReset}
+            className="mt-2 text-xs text-gray-400 underline hover:text-gray-200 transition-colors"
+          >
+            다시 풀기
+          </button>
         </div>
       )}
     </div>

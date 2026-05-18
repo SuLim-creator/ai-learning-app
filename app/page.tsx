@@ -166,7 +166,7 @@ export default function Home() {
                 <button
                   onClick={() =>
                     router.push(
-                      `/learn/${STAGE_SLUGS[selectedLesson.stage.id]}/${selectedLesson.lesson.id}`,
+                      `/learn/${STAGE_SLUGS[selectedLesson.stage.id]}/${selectedLesson.lesson.id}?regenerate=1`,
                     )
                   }
                   className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 font-medium transition-colors border border-gray-700"
