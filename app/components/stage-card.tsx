@@ -1,7 +1,5 @@
 "use client";
 
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-
 interface Lesson {
   id: string;
   title: string;
@@ -43,28 +41,22 @@ export function StageCard({
   onSelectLesson,
 }: StageCardProps) {
   return (
-    <Card className="mb-2 gap-0 border-gray-800 bg-transparent py-0 ring-0 transition-all duration-150 hover:border-gray-700 hover:bg-gray-800/40">
-      <CardHeader className="p-0 [.border-b]:pb-0">
-        <button
-          onClick={onToggle}
-          className="flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-gray-300 transition-all duration-150 hover:text-white"
+    <div className="mb-2 rounded-xl border border-gray-800 bg-transparent transition-all duration-150 hover:border-gray-700 hover:bg-gray-800/40">
+      <button
+        onClick={onToggle}
+        className="flex w-full items-center gap-2 rounded-xl px-3 py-2.5 text-left text-sm font-medium text-gray-300 transition-all duration-150 hover:text-white"
+      >
+        <span
+          className={`text-xs transition-transform duration-150 ${isExpanded ? "rotate-90" : ""}`}
         >
-          <span
-            className={`text-xs transition-transform duration-150 ${isExpanded ? "rotate-90" : ""}`}
-          >
-            ▶
-          </span>
-          <CardTitle className="flex-1 text-sm font-medium text-inherit">
-            {stage.title}
-          </CardTitle>
-          <span className="text-xs text-gray-600 transition-colors group-hover:text-gray-500">
-            {stage.lessons.length}
-          </span>
-        </button>
-      </CardHeader>
+          ▶
+        </span>
+        <span className="flex-1 text-sm font-medium">{stage.title}</span>
+        <span className="text-xs text-gray-600">{stage.lessons.length}</span>
+      </button>
 
       {isExpanded && (
-        <CardContent className="pb-2 pt-0">
+        <div className="pb-2 pt-0 px-1">
           <div className="space-y-0.5">
             {stage.lessons.map((lesson) => {
               const isSelected = selectedLessonId === lesson.id;
@@ -93,8 +85,8 @@ export function StageCard({
               );
             })}
           </div>
-        </CardContent>
+        </div>
       )}
-    </Card>
+    </div>
   );
 }
