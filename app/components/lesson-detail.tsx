@@ -150,6 +150,8 @@ export function LessonDetail({
               {section.type === "quiz" ? (
                 <QuizSection
                   section={section}
+                  lessonId={lesson.id}
+                  lessonTitle={lesson.title}
                   onAnswer={(correct) => handleAnswer(section.id, correct)}
                 />
               ) : section.type === "visual" ? (

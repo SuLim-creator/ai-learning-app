@@ -4,6 +4,7 @@ import { useState, useRef, useCallback } from "react";
 import confetti from "canvas-confetti";
 import { LessonSection } from "@/lib/types/lesson";
 import { parseQuiz } from "@/lib/quiz";
+import { saveWrongAnswer } from "@/lib/wrong-answers";
 
 interface QuizState {
   selected: string | null;
@@ -45,10 +46,17 @@ function useQuiz(answerKey: string) {
 
 interface QuizSectionProps {
   section: LessonSection;
+  lessonId: string;
+  lessonTitle: string;
   onAnswer?: (correct: boolean) => void;
 }
 
-export function QuizSection({ section, onAnswer }: QuizSectionProps) {
+export function QuizSection({
+  section,
+  lessonId,
+  lessonTitle,
+  onAnswer,
+}: QuizSectionProps) {
   const answeredRef = useRef(false);
   const quiz = parseQuiz(section.content);
 
@@ -61,8 +69,20 @@ export function QuizSection({ section, onAnswer }: QuizSectionProps) {
   function handleSelect(key: string) {
     if (answeredRef.current) return;
     answeredRef.current = true;
+    const correct = key === quiz!.answerKey;
     select(key);
-    onAnswer?.(key === quiz!.answerKey);
+    onAnswer?.(correct);
+    if (!correct) {
+      saveWrongAnswer({
+        lessonId,
+        lessonTitle,
+        question: quiz!.question,
+        options: quiz!.options,
+        selectedKey: key,
+        correctKey: quiz!.answerKey,
+        explanation: quiz!.explanation,
+      });
+    }
   }
 
   function handleReset() {

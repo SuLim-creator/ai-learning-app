@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { StageCard } from "./components/stage-card";
+import { WrongAnswerNote } from "./components/wrong-answer-note";
 import {
   CURRICULUM,
   type CurriculumLesson,
@@ -90,9 +91,12 @@ export default function Home() {
         </nav>
 
         {/* Sidebar footer */}
-        <div className="p-4 border-t border-gray-800 text-xs text-gray-600">
-          {CURRICULUM.reduce((acc, s) => acc + s.lessons.length, 0)}개 레슨 ·
-          5단계
+        <div className="p-3 border-t border-gray-800 flex flex-col gap-2">
+          <WrongAnswerNote />
+          <p className="text-xs text-gray-600 px-1">
+            {CURRICULUM.reduce((acc, s) => acc + s.lessons.length, 0)}개 레슨 ·
+            5단계
+          </p>
         </div>
       </aside>
 
