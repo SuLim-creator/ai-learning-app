@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
   "lastUpdated": "2026-05-19",
-  "currentDay": 28,
+  "currentDay": 29,
 
   "week3Summary": {
     "goal": "Claude Code 고급 기능 완성 + 앱 품질 강화 + 수학기초 커리큘럼 완성",
@@ -56,6 +56,23 @@
   },
 
   "completed": {
+    "day29": [
+      "버그 수정: page.tsx 하드코딩 레슨 ID(math-01, ml-01 등) → 실제 JSON ID(math-basics-01, ml-basics-01) 불일치로 404 발생 ✅",
+      "lib/curriculum.ts 신규: CURRICULUM 데이터를 slug 포함해 분리, 올바른 ID 정의 ✅",
+      "lib/curriculum.test.ts 신규: 각 커리큘럼 레슨 ID가 실제 콘텐츠 파일에 존재하는지 검증하는 회귀 테스트 ✅",
+      "app/page.tsx, app/components/stage-card.tsx: lib/curriculum에서 타입 import, 중복 인터페이스 제거 ✅",
+      "커밋 2ae255f: fix: extract curriculum to lib and fix lesson ID mismatch causing 404 ✅",
+      "GitHub push → Vercel 자동 배포 완료 ✅",
+      "UI 인간공학 전체 점검 (에이전트 모드): HIGH 3건, MEDIUM 4건, LOW 1건 발견 ✅",
+      "lesson-detail.tsx: LessonDetailProps에 stageSlug/stageTitle 추가, 하드코딩 /learn/math-basics → /learn/${stageSlug} ✅",
+      "lesson-detail.tsx: 하드코딩 '수학 기초' 제거 → 클릭 가능한 ← 뒤로가기 브레드크럼으로 교체 ✅",
+      "5개 [lessonId]/page.tsx 전부 stageSlug + stageTitle prop 전달 (math/ml/dl/nlp/ai-apps) ✅",
+      "page.tsx: '새로 생성' 버튼에 ?regenerate=1 파라미터 추가로 '학습 시작'과 동작 차별화 ✅",
+      "quiz-section.tsx: '다시 풀기' 버튼을 정답/오답 모두 표시 (기존: 오답만 표시) ✅",
+      "tsc --noEmit 통과, pnpm test 17/17 통과 ✅",
+      "커밋 dcbd4d6: fix: improve ergonomics — stage-aware nav, back button, quiz retry ✅",
+      "GitHub push → Vercel 배포 완료 ✅"
+    ],
     "day28": [
       "TODO 검색: app/ lib/ 전체 — 0개 (클린 상태) ✅",
       "불필요 파일 검색: check-turso.ts 등 — 없음 ✅",
@@ -423,6 +440,13 @@
   },
 
   "lessonsLearned": {
+    "day29": [
+      "커리큘럼 ID와 실제 파일 ID를 동일 파일(lib/curriculum.ts)에서 관리하면 불일치를 구조적으로 방지할 수 있음 — 회귀 테스트까지 추가하면 더 안전",
+      "LessonDetail에 stageSlug/stageTitle prop을 추가하면 단일 컴포넌트가 모든 스테이지를 올바르게 처리 가능 — 하드코딩 분기 불필요",
+      "인간공학 점검은 에이전트 모드로 코드 전체를 읽히면 하드코딩 텍스트·중복 동작·잘못된 네비게이션을 빠르게 파악 가능",
+      "'다시 풀기' 버튼을 정답 후에도 표시하면 의도적 반복 학습(spaced repetition) 패턴을 지원할 수 있음",
+      "Next.js generateStaticParams는 파일시스템 ID 기준으로 라우트를 생성하므로, 클라이언트의 하드코딩 ID와 반드시 일치해야 함"
+    ],
     "day28": [
       "security-reviewer를 릴리스 직전 재실행하면 이전 감사에서 놓친 2차 이슈(IP 스푸핑, 메모리 누수)를 추가로 잡아낼 수 있음 — 주요 변경 후 재감사는 습관화할 것",
       "rate limit 키는 인증된 라우트에서 IP보다 user.id가 더 안전 — NAT 뒤 다수 사용자의 false positive도 방지",
@@ -617,7 +641,8 @@
       "Day 24: PWA 설정 + 성능 최적화 — manifest, 아이콘, 오프라인 페이지, Turbopack 충돌 해소 ✅",
       "Day 25: security-reviewer subagent + 보안 감사 CRITICAL/HIGH 수정 + README + Vercel 배포 준비 ✅",
       "Day 26: SQLite → Turso 마이그레이션 + GitHub push + Vercel 배포 완료 ✅",
-      "Day 27: 최종 QA + 잔여 MEDIUM 이슈 정리 (Zod 검증, rate limit) + ml-basics 레슨 3개 + 한국어 404 페이지 ✅"
+      "Day 27: 최종 QA + 잔여 MEDIUM 이슈 정리 (Zod 검증, rate limit) + ml-basics 레슨 3개 + 한국어 404 페이지 ✅",
+      "Day 29: 404 버그(ID 불일치) 수정 + lib/curriculum.ts 분리 + UI 인간공학 개선 5건 (브레드크럼, stage-aware nav, quiz retry, 버튼 차별화) + 배포 ✅"
     ]
   },
 
