@@ -1,0 +1,55 @@
+{
+  "id": "app-01",
+  "title": "Claude API 활용",
+  "description": "Anthropic Claude API를 호출해 AI 기능을 앱에 통합하는 방법을 배웁니다.",
+  "difficulty": "medium",
+  "estimatedMinutes": 8,
+  "tags": ["Claude", "API", "Anthropic", "프롬프트"],
+  "prerequisites": [],
+  "sections": [
+    {
+      "id": "s1",
+      "type": "text",
+      "title": "API 키는 건물 출입 카드",
+      "content": "Claude API를 쓰려면 먼저 **API 키**가 필요합니다. Anthropic 콘솔(console.anthropic.com)에서 발급받는 긴 문자열이죠. 이 키는 회사 건물의 **출입 카드**와 같습니다. 카드가 있어야 들어갈 수 있고, 누가 들어왔는지 기록되며, 잃어버리면 즉시 정지시켜야 합니다. 코드에는 절대 직접 적지 않고 **환경변수**(예: `ANTHROPIC_API_KEY`)로 따로 보관하는 게 철칙입니다. GitHub에 실수로 올리면 몇 분 안에 누군가가 도용해 요금 폭탄을 맞을 수 있습니다.",
+      "order": 1
+    },
+    {
+      "id": "s2",
+      "type": "text",
+      "title": "messages 배열과 역할(role)",
+      "content": "Claude에게 요청을 보낼 때는 **messages 배열**에 대화 내역을 담습니다. 각 메시지는 `role`과 `content`를 가지며, role은 **`user`**(사용자가 한 말)와 **`assistant`**(이전에 Claude가 답한 말) 두 가지뿐입니다. 주의할 점: **`system` 프롬프트는 messages 배열 안의 role이 아니라, 요청 본문 최상위의 별도 파라미터**입니다. system은 \"직원 매뉴얼\"처럼 Claude에게 역할·말투·규칙을 알려주는 지시문이고, messages는 실제 \"대화 기록\"이라고 생각하면 됩니다.",
+      "order": 2
+    },
+    {
+      "id": "s3",
+      "type": "visual",
+      "title": "요청 본문 구조 한눈에 보기",
+      "content": "POST https://api.anthropic.com/v1/messages\n\n{\n  \"model\": \"claude-sonnet-4-5\",\n  \"max_tokens\": 1024,        // 필수: 응답 최대 길이\n  \"temperature\": 0.7,        // 0~1, 낮을수록 일관됨\n  \"system\": \"너는 친절한 한국어 튜터다.\",\n  \"messages\": [\n    { \"role\": \"user\",      \"content\": \"미분이 뭐야?\" },\n    { \"role\": \"assistant\", \"content\": \"미분은 변화율을 ...\" },\n    { \"role\": \"user\",      \"content\": \"예시 하나 더!\" }\n  ]\n}\n\n| 파라미터    | 역할                                |\n|------------|------------------------------------|\n| model      | 어떤 Claude 모델을 쓸지            |\n| system     | 최상위 별도 필드(배열 X)            |\n| max_tokens | 필수, 응답 토큰 상한                |\n| temperature| 0=결정적, 1=창의적                  |",
+      "order": 3
+    },
+    {
+      "id": "s4",
+      "type": "quiz",
+      "title": "퀴즈 1",
+      "content": "Q: Claude Messages API에서 system 프롬프트는 어디에 넣어야 할까요?\n\nA) messages 배열 안에 `{ \"role\": \"system\", \"content\": \"...\" }` 형태로 넣는다\nB) 요청 본문 최상위의 별도 `system` 파라미터에 문자열로 넣는다\nC) 첫 user 메시지 맨 앞에 \"[SYSTEM]\" 태그를 붙여 넣는다\nD) API 키와 함께 헤더에 넣는다\n\n정답: B) 요청 본문 최상위의 별도 `system` 파라미터에 문자열로 넣는다\n해설: Claude API는 OpenAI와 달리 system을 messages 배열 안의 role로 받지 않고, 본문 최상위의 별도 필드로 받습니다. OpenAI 스타일에 익숙한 개발자가 자주 틀리는 부분입니다.",
+      "order": 4
+    },
+    {
+      "id": "s5",
+      "type": "quiz",
+      "title": "퀴즈 2",
+      "content": "Q: `temperature` 값을 0에 가깝게 설정하면 어떤 결과를 기대할 수 있나요?\n\nA) 응답이 더 창의적이고 매번 달라진다\nB) 응답이 더 일관되고 결정적으로 같은 답이 나오기 쉽다\nC) 응답 속도가 두 배 빨라진다\nD) 토큰 사용량이 절반으로 줄어든다\n\n정답: B) 응답이 더 일관되고 결정적으로 같은 답이 나오기 쉽다\n해설: temperature는 출력의 무작위성을 조절합니다. 0에 가까우면 가장 확률 높은 토큰만 선택해 일관된 답을, 1에 가까우면 다양한 후보를 섞어 창의적인 답을 냅니다. 속도나 비용과는 무관합니다.",
+      "order": 5
+    },
+    {
+      "id": "s6",
+      "type": "quiz",
+      "title": "퀴즈 3",
+      "content": "Q: API 키를 안전하게 다루는 방법으로 가장 적절한 것은?\n\nA) 코드에 직접 적되 주석으로 \"비밀\"이라고 표시한다\nB) 프론트엔드(브라우저) 코드에 넣어 fetch로 직접 Claude를 호출한다\nC) 서버 환경변수(`process.env.ANTHROPIC_API_KEY`)에 보관하고 서버에서만 사용한다\nD) GitHub 비공개(private) 저장소라면 코드에 적어도 안전하다\n\n정답: C) 서버 환경변수(`process.env.ANTHROPIC_API_KEY`)에 보관하고 서버에서만 사용한다\n해설: 키는 서버에만 두고 브라우저에는 절대 노출하면 안 됩니다. 비공개 저장소라도 협업자 유출·실수 공개 사례가 흔하며, 브라우저 코드에 넣으면 누구나 개발자도구로 키를 빼낼 수 있습니다.",
+      "order": 6
+    }
+  ],
+  "createdAt": "2026-05-19T00:00:00.000Z",
+  "updatedAt": "2026-05-19T00:00:00.000Z"
+}
