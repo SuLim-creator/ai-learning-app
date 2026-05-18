@@ -17,6 +17,14 @@ interface Stage {
   lessons: Lesson[];
 }
 
+const STAGE_SLUGS: Record<number, string> = {
+  1: "math-basics",
+  2: "ml-basics",
+  3: "dl-basics",
+  4: "nlp-basics",
+  5: "ai-apps",
+};
+
 const CURRICULUM: Stage[] = [
   {
     id: 1,
@@ -207,14 +215,22 @@ export default function Home() {
               {/* Action buttons */}
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
-                  onClick={() => router.push("/learn/math-basics")}
+                  onClick={() =>
+                    router.push(
+                      `/learn/${STAGE_SLUGS[selectedLesson.stage.id]}/${selectedLesson.lesson.id}`,
+                    )
+                  }
                   className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition-colors"
                 >
                   <span>▶</span>
                   학습 시작
                 </button>
                 <button
-                  onClick={() => router.push("/learn/math-basics")}
+                  onClick={() =>
+                    router.push(
+                      `/learn/${STAGE_SLUGS[selectedLesson.stage.id]}/${selectedLesson.lesson.id}`,
+                    )
+                  }
                   className="flex-1 flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-gray-800 hover:bg-gray-700 text-gray-200 font-medium transition-colors border border-gray-700"
                 >
                   <span>✦</span>
