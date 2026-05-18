@@ -50,6 +50,7 @@ CLAUDE.local.md
 .playwright-mcp/
 *.png
 *.jpeg
+!public/icons/*.png
 
 /lib/generated/prisma
 
