@@ -1,7 +1,7 @@
 {
   "project": "ai-learning-app",
-  "lastUpdated": "2026-05-18",
-  "currentDay": 27,
+  "lastUpdated": "2026-05-19",
+  "currentDay": 28,
 
   "week3Summary": {
     "goal": "Claude Code 고급 기능 완성 + 앱 품질 강화 + 수학기초 커리큘럼 완성",
@@ -56,6 +56,25 @@
   },
 
   "completed": {
+    "day28": [
+      "TODO 검색: app/ lib/ 전체 — 0개 (클린 상태) ✅",
+      "불필요 파일 검색: check-turso.ts 등 — 없음 ✅",
+      "CHANGELOG.md: Week 4 (Day 22~28) 전체 항목 추가 ✅",
+      "CLAUDE.md: V2 계획 섹션 추가 (ML 기초 완성/소셜 로그인/스트릭/테마) ✅",
+      "security-reviewer 재감사: CRITICAL/HIGH 없음, MEDIUM 2건 발견 ✅",
+      "  M1 수정: rate-limit.ts에 cleanupRateLimit() 추가 — 만료 entry 메모리 정리",
+      "  M2 수정: generate route rate limit 키 IP → user.id 기반으로 전환 (IP 스푸핑 방지)",
+      "pnpm build: 경고 없이 정상 통과 ✅",
+      "git tag v1.0.0 -m 'MVP: AI 학습 앱 첫 번째 릴리스' ✅",
+      "git push origin v1.0.0 ✅",
+      "release 커밋: 948934a ✅",
+      "~/my-claude-toolkit/ 패키징 완료 ✅",
+      "  - agents/ (code-reviewer, content-reviewer, security-reviewer)",
+      "  - skills/ (commit, pre-deploy, lesson-pipeline)",
+      "  - settings.json (Hook 5개 + Permission)",
+      "  - CLAUDE.template.md",
+      "  - README.md (사용법 + 검증 이력)"
+    ],
     "day27": [
       "pre-deploy 체크: 빌드/타입/console.log/.env/TODO 5개 통과, lint 스크립트 누락 발견 ✅",
       "package.json에 'lint': 'next lint' 추가 ✅",
@@ -404,6 +423,13 @@
   },
 
   "lessonsLearned": {
+    "day28": [
+      "security-reviewer를 릴리스 직전 재실행하면 이전 감사에서 놓친 2차 이슈(IP 스푸핑, 메모리 누수)를 추가로 잡아낼 수 있음 — 주요 변경 후 재감사는 습관화할 것",
+      "rate limit 키는 인증된 라우트에서 IP보다 user.id가 더 안전 — NAT 뒤 다수 사용자의 false positive도 방지",
+      "인메모리 Map 기반 rate limiter는 서버리스 멀티 인스턴스에서 우회 가능 — 프로덕션 스케일에서는 Upstash Redis 전환 필요",
+      "git tag + push origin <tag>로 GitHub Releases에 v1.0.0 태그 생성 — CHANGELOG와 함께 릴리스 노트 역할",
+      "툴킷 패키징: agents/skills/settings/CLAUDE.md를 별도 디렉토리로 분리하면 새 프로젝트 시작 시 즉시 재사용 가능"
+    ],
     "day27": [
       "Zod 4.x는 safeParse().success + .data 패턴으로 타입 안전하게 입력 검증 — 기존 isValidBody 타입 가드보다 간결하고 에러 메시지도 자동 생성",
       "IP 기반 인메모리 rate limiter는 서버리스 단일 인스턴스에서만 유효 — 다중 인스턴스 환경에서는 Redis/Upstash 등 외부 저장소 필요",
