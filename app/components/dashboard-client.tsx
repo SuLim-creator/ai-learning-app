@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useMemo } from "react";
 import Link from "next/link";
+import { HomeButton } from "@/app/components/home-button";
 import { Lesson } from "@/lib/types/lesson";
 import {
   getCompletedLessonIds,
@@ -115,6 +116,9 @@ export function DashboardClient({ stages }: { stages: Stage[] }) {
       <div className="mx-auto max-w-2xl px-4 py-10">
         {/* 헤더 */}
         <div className="mb-8">
+          <div className="mb-4">
+            <HomeButton />
+          </div>
           <h1 className="mb-1 text-2xl font-bold text-white">학습 대시보드</h1>
           <p className="text-sm text-gray-400">나의 AI 학습 현황</p>
         </div>

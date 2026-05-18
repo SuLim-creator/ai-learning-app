@@ -10,6 +10,7 @@ import {
   MatrixTransform,
 } from "@/app/components/visualizations";
 import { markLessonComplete, isLessonComplete } from "@/lib/progress";
+import { HomeButton } from "@/app/components/home-button";
 
 const SECTION_TYPE_LABEL: Record<string, string> = {
   text: "개념",
@@ -102,13 +103,16 @@ export function LessonDetail({
     <div className="min-h-screen bg-gray-950 text-gray-100">
       <div className="mx-auto max-w-2xl px-4 py-10">
         <div className="mb-8">
-          <button
-            onClick={() => router.push(`/learn/${stageSlug}`)}
-            className="mb-4 flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-300 transition-colors"
-          >
-            <span>←</span>
-            <span>{stageTitle}</span>
-          </button>
+          <div className="mb-4 flex items-center gap-4">
+            <button
+              onClick={() => router.push(`/learn/${stageSlug}`)}
+              className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-gray-300 transition-colors"
+            >
+              <span>←</span>
+              <span>{stageTitle}</span>
+            </button>
+            <HomeButton />
+          </div>
           <h1 className="mb-2 text-2xl font-bold text-white">{lesson.title}</h1>
           <p className="text-sm leading-relaxed text-gray-400">
             {lesson.description}

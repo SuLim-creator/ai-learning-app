@@ -1,6 +1,7 @@
 import { getLessons } from "@/lib/lessons";
 import { LessonCard } from "@/app/components/lesson-card";
 import { StageProgressBar } from "@/app/components/stage-progress-bar";
+import { HomeButton } from "@/app/components/home-button";
 
 export default function MlBasicsPage() {
   const lessons = getLessons("ml-basics");
@@ -9,6 +10,9 @@ export default function MlBasicsPage() {
     <div className="min-h-screen bg-gray-950 text-gray-100">
       <div className="mx-auto max-w-2xl px-4 py-10">
         <div className="mb-8">
+          <div className="mb-4">
+            <HomeButton />
+          </div>
           <p className="mb-1 text-sm text-indigo-400">2단계</p>
           <h1 className="mb-2 text-2xl font-bold text-white">머신러닝 기초</h1>
           <p className="text-sm text-gray-400">
