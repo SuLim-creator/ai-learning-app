@@ -91,3 +91,45 @@ AI 학습 앱 개발 일지. 각 Day별 주요 작업 기록.
 
 - `feat` — math-basics 레슨 5편 추가 (함수, 확률, 분포, 베이즈, 요약)
 - Week 3 완료 및 세션 상태 최종 업데이트
+
+---
+
+## Week 4 — 배포 & 품질 완성
+
+### Day 22
+
+- `docs` — Headless 모드(claude -p) 자동화: CHANGELOG, unused-exports 보고서, 레슨 품질 보고서 생성
+
+### Day 23
+
+- `docs` — Claude Chat ↔ Claude Code 의사결정 매트릭스 작성
+- `feat` — ml-basics/02-supervised-learning.json 추가 (lesson-pipeline + content-reviewer)
+
+### Day 24
+
+- `feat` — PWA 설정 (manifest, 아이콘, 오프라인 페이지)
+- `chore` — @ducanh2912/next-pwa 도입, Turbopack 충돌 해소
+
+### Day 25
+
+- `feat` — security-reviewer subagent 전체 감사 (CRITICAL 1, HIGH 3 발견 및 수정)
+- `docs` — README.md 전면 재작성 (환경변수, 배포 가이드, 프로젝트 구조)
+
+### Day 26
+
+- `feat` — SQLite → Turso 마이그레이션
+- `chore` — GitHub 저장소 생성 및 Vercel 배포 완료
+- 라이브 URL: https://ai-learning-app-guqe.vercel.app
+
+### Day 27
+
+- `feat` — Zod 입력 검증 추가 (login, register, generate 라우트)
+- `feat` — IP 기반 rate limiter 추가 (1분/10회, 429 응답)
+- `feat` — ml-basics 레슨 3편 추가 (손실 함수, 경사하강법, 과적합)
+- `feat` — 한국어 커스텀 404 페이지 (app/not-found.tsx)
+- `chore` — package.json에 lint 스크립트 추가
+
+### Day 28
+
+- `chore` — CHANGELOG 최종 업데이트, CLAUDE.md V2 계획 섹션 추가
+- `release` — v1.0.0 MVP 첫 번째 릴리스 🎉

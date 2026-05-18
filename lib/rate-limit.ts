@@ -20,3 +20,15 @@ export function rateLimit(ip: string): {
   store.set(ip, timestamps);
   return { allowed: true };
 }
+
+export function cleanupRateLimit(): void {
+  const now = Date.now();
+  for (const [key, timestamps] of store.entries()) {
+    const active = timestamps.filter((t) => now - t < WINDOW_MS);
+    if (active.length === 0) {
+      store.delete(key);
+    } else {
+      store.set(key, active);
+    }
+  }
+}

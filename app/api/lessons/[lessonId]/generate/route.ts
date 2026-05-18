@@ -19,20 +19,18 @@ const generateSchema = z.object({
 });
 
 export async function POST(req: NextRequest, { params }: RouteParams) {
-  const ip =
-    req.headers.get("x-forwarded-for")?.split(",")[0].trim() ?? "unknown";
-  const { allowed, retryAfter } = rateLimit(ip);
+  const token = req.cookies.get(SESSION_COOKIE)?.value ?? "";
+  const user = await getSessionUser(token);
+  if (!user) {
+    return NextResponse.json({ error: "인증이 필요합니다." }, { status: 401 });
+  }
+
+  const { allowed, retryAfter } = rateLimit(`user:${user.id}`);
   if (!allowed) {
     return NextResponse.json(
       { error: "요청이 너무 많습니다. 잠시 후 다시 시도해주세요." },
       { status: 429, headers: { "Retry-After": String(retryAfter) } },
     );
-  }
-
-  const token = req.cookies.get(SESSION_COOKIE)?.value ?? "";
-  const user = await getSessionUser(token);
-  if (!user) {
-    return NextResponse.json({ error: "인증이 필요합니다." }, { status: 401 });
   }
 
   const { lessonId } = await params;
