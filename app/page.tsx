@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { StageCard } from "./components/stage-card";
 import { WrongAnswerNote } from "./components/wrong-answer-note";
@@ -9,6 +9,10 @@ import {
   type CurriculumLesson,
   type CurriculumStage,
 } from "@/lib/curriculum";
+import {
+  getCompletedLessonIds,
+  getNextLessonAcrossCurriculum,
+} from "@/lib/progress";
 
 type Lesson = CurriculumLesson;
 type Stage = CurriculumStage;
@@ -27,6 +31,16 @@ export default function Home() {
     lesson: Lesson;
   } | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [nextLesson, setNextLesson] = useState<{
+    stage: Stage;
+    lesson: Lesson;
+  } | null>(null);
+
+  useEffect(() => {
+    const allIds = CURRICULUM.flatMap((s) => s.lessons.map((l) => l.id));
+    const completed = getCompletedLessonIds(allIds);
+    setNextLesson(getNextLessonAcrossCurriculum(CURRICULUM, completed));
+  }, []);
 
   function toggleStage(stageId: number) {
     setExpandedStages((prev) => {
@@ -92,6 +106,21 @@ export default function Home() {
 
         {/* Sidebar footer */}
         <div className="p-3 border-t border-gray-800 flex flex-col gap-2">
+          {nextLesson && (
+            <button
+              onClick={() =>
+                router.push(
+                  `/learn/${STAGE_SLUGS[nextLesson.stage.id]}/${nextLesson.lesson.id}`,
+                )
+              }
+              className="w-full px-3 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium transition-colors text-left"
+            >
+              <div>▶ 이어서 학습하기</div>
+              <div className="text-xs text-indigo-200 font-normal mt-0.5 truncate">
+                {nextLesson.lesson.title}
+              </div>
+            </button>
+          )}
           <WrongAnswerNote />
           <p className="text-xs text-gray-600 px-1">
             {CURRICULUM.reduce((acc, s) => acc + s.lessons.length, 0)}개 레슨 ·

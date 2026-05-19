@@ -1,4 +1,5 @@
 import type { LessonMeta } from "@/lib/types/lesson";
+import type { CurriculumStage, CurriculumLesson } from "@/lib/curriculum";
 
 export function calculateProgress(
   totalCount: number,
@@ -46,6 +47,18 @@ export function isLessonComplete(lessonId: string): boolean {
 
 export function getCompletedLessonIds(lessonIds: string[]): string[] {
   return lessonIds.filter((id) => isLessonComplete(id));
+}
+
+export function getNextLessonAcrossCurriculum(
+  curriculum: CurriculumStage[],
+  completedIds: string[],
+): { stage: CurriculumStage; lesson: CurriculumLesson } | null {
+  const completedSet = new Set(completedIds);
+  for (const stage of curriculum) {
+    const lesson = stage.lessons.find((l) => !completedSet.has(l.id));
+    if (lesson) return { stage, lesson };
+  }
+  return null;
 }
 
 export function getWeakestLesson(
