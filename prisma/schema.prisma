@@ -11,11 +11,23 @@ model Profile {
   id           String   @id @default(cuid())
   email        String   @unique
   displayName  String
-  passwordHash String
+  passwordHash String?
   createdAt    DateTime @default(now())
 
-  progress LessonProgress[]
-  sessions Session[]
+  progress      LessonProgress[]
+  sessions      Session[]
+  oauthAccounts OAuthAccount[]
+}
+
+model OAuthAccount {
+  id                String @id @default(cuid())
+  userId            String
+  provider          String // "google" | "naver"
+  providerAccountId String
+
+  user Profile @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerAccountId])
 }
 
 model Session {

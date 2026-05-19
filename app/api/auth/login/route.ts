@@ -37,6 +37,16 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (!user.passwordHash) {
+      return NextResponse.json(
+        {
+          error:
+            "소셜 계정으로 가입된 이메일입니다. 소셜 로그인을 이용해주세요.",
+        },
+        { status: 401 },
+      );
+    }
+
     const valid = await verifyPassword(password, user.passwordHash);
     if (!valid) {
       return NextResponse.json(
