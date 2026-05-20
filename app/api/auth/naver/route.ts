@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 import { randomBytes } from "crypto";
 
 export function GET() {
@@ -14,5 +14,7 @@ export function GET() {
     state,
   });
 
-  redirect(`https://nid.naver.com/oauth2.0/authorize?${params}`);
+  return NextResponse.redirect(
+    `https://nid.naver.com/oauth2.0/authorize?${params}`,
+  );
 }

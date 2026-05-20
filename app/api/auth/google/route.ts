@@ -1,4 +1,4 @@
-import { redirect } from "next/navigation";
+import { NextResponse } from "next/server";
 
 export function GET() {
   const clientId = process.env.GOOGLE_CLIENT_ID;
@@ -13,5 +13,7 @@ export function GET() {
     prompt: "select_account",
   });
 
-  redirect(`https://accounts.google.com/o/oauth2/v2/auth?${params}`);
+  return NextResponse.redirect(
+    `https://accounts.google.com/o/oauth2/v2/auth?${params}`,
+  );
 }
