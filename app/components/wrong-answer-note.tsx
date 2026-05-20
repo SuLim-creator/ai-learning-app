@@ -8,81 +8,64 @@ import {
 } from "@/lib/wrong-answers";
 
 function generatePdf(answers: WrongAnswer[]) {
-  // dynamic import to avoid SSR issues
-  return import("jspdf").then(({ jsPDF }) => {
-    const doc = new jsPDF({ unit: "mm", format: "a4" });
-    const pageW = doc.internal.pageSize.getWidth();
-    const margin = 16;
-    const contentW = pageW - margin * 2;
-    let y = 20;
+  const date = new Date().toLocaleDateString("ko-KR");
+  const rows = answers
+    .map((ans, i) => {
+      const lessonHeader =
+        i === 0 || answers[i - 1].lessonTitle !== ans.lessonTitle
+          ? `<tr><td colspan="2" class="lesson-header">${ans.lessonTitle}</td></tr>`
+          : "";
+      const options = ans.options
+        .map((opt) => {
+          const isCorrect = opt.key === ans.correctKey;
+          const isSelected = opt.key === ans.selectedKey;
+          const cls = isCorrect ? "correct" : isSelected ? "wrong" : "";
+          const mark = isCorrect ? "✓" : isSelected ? "✗" : "";
+          return `<div class="option ${cls}">${mark} ${opt.key}. ${opt.text}</div>`;
+        })
+        .join("");
+      return `${lessonHeader}
+        <tr>
+          <td class="q-cell">Q${i + 1}. ${ans.question}<div class="options">${options}</div></td>
+          <td class="exp-cell">${ans.explanation}</td>
+        </tr>`;
+    })
+    .join("");
 
-    const addText = (
-      text: string,
-      size: number,
-      color: [number, number, number],
-      bold = false,
-    ) => {
-      doc.setFontSize(size);
-      doc.setTextColor(...color);
-      doc.setFont("helvetica", bold ? "bold" : "normal");
-      const lines = doc.splitTextToSize(text, contentW) as string[];
-      const lineH = size * 0.45;
-      if (y + lines.length * lineH > 280) {
-        doc.addPage();
-        y = 20;
-      }
-      doc.text(lines, margin, y);
-      y += lines.length * lineH + 2;
-    };
+  const html = `<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>오답노트 ${date}</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Apple SD Gothic Neo', '맑은 고딕', sans-serif; font-size: 11pt; color: #111; }
+    header { background: #4f46e5; color: #fff; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-size: 13pt; }
+    header span { font-size: 9pt; opacity: .8; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    td { vertical-align: top; padding: 8px 10px; border-bottom: 1px solid #e5e7eb; }
+    .lesson-header td { background: #eef2ff; color: #4338ca; font-weight: bold; font-size: 10pt; padding: 6px 10px; }
+    .q-cell { width: 55%; }
+    .exp-cell { width: 45%; color: #374151; font-size: 10pt; }
+    .options { margin-top: 6px; display: flex; flex-direction: column; gap: 2px; }
+    .option { font-size: 10pt; color: #6b7280; padding-left: 4px; }
+    .option.correct { color: #059669; font-weight: bold; }
+    .option.wrong { color: #dc2626; }
+    @media print { @page { margin: 15mm; } }
+  </style>
+</head>
+<body>
+  <header><h1>AI 학습 앱 · 오답노트</h1><span>${date}</span></header>
+  <table><tbody>${rows}</tbody></table>
+</body>
+</html>`;
 
-    // Title
-    doc.setFillColor(79, 70, 229);
-    doc.rect(0, 0, pageW, 14, "F");
-    doc.setFontSize(12);
-    doc.setTextColor(255, 255, 255);
-    doc.setFont("helvetica", "bold");
-    doc.text("AI 학습 앱 · 오답노트", margin, 9);
-    doc.setFontSize(8);
-    doc.setFont("helvetica", "normal");
-    doc.text(new Date().toLocaleDateString("ko-KR"), pageW - margin - 20, 9);
-    y = 24;
-
-    answers.forEach((ans, i) => {
-      // Lesson separator
-      if (i === 0 || answers[i - 1].lessonTitle !== ans.lessonTitle) {
-        if (i !== 0) y += 4;
-        addText(`[ ${ans.lessonTitle} ]`, 10, [99, 102, 241], true);
-        y += 1;
-      }
-
-      // Question
-      addText(`Q${i + 1}. ${ans.question}`, 9, [229, 231, 235], true);
-
-      // Options
-      ans.options.forEach((opt) => {
-        const isCorrect = opt.key === ans.correctKey;
-        const isSelected = opt.key === ans.selectedKey;
-        const prefix = isCorrect ? "[O]" : isSelected ? "[X]" : "   ";
-        const color: [number, number, number] = isCorrect
-          ? [52, 211, 153]
-          : isSelected
-            ? [248, 113, 113]
-            : [156, 163, 175];
-        addText(`  ${prefix} ${opt.key}. ${opt.text}`, 8, color);
-      });
-
-      y += 1;
-      // Explanation
-      addText(`\ud95c설: ${ans.explanation}`, 8, [209, 213, 219]);
-      y += 4;
-
-      // Divider
-      doc.setDrawColor(55, 65, 81);
-      doc.line(margin, y - 2, pageW - margin, y - 2);
-    });
-
-    doc.save(`오답노트_${new Date().toISOString().slice(0, 10)}.pdf`);
-  });
+  const win = window.open("", "_blank");
+  if (!win) return;
+  win.document.write(html);
+  win.document.close();
+  win.onload = () => win.print();
 }
 
 export function WrongAnswerNote() {
@@ -103,10 +86,10 @@ export function WrongAnswerNote() {
     return () => clearInterval(id);
   }, [refresh]);
 
-  async function handleDownload() {
+  function handleDownload() {
     if (answers.length === 0) return;
     setGenerating(true);
-    await generatePdf(answers);
+    generatePdf(answers);
     setGenerating(false);
   }
 
