@@ -1,6 +1,5 @@
 import { claude } from "@/lib/claude";
 import { prisma } from "@/lib/prisma";
-import { getSessionUser, SESSION_COOKIE } from "@/lib/auth";
 import { rateLimit } from "@/lib/rate-limit";
 import type { LessonSection } from "@/lib/types/lesson";
 import { NextRequest, NextResponse } from "next/server";
@@ -19,13 +18,8 @@ const generateSchema = z.object({
 });
 
 export async function POST(req: NextRequest, { params }: RouteParams) {
-  const token = req.cookies.get(SESSION_COOKIE)?.value ?? "";
-  const user = await getSessionUser(token);
-  if (!user) {
-    return NextResponse.json({ error: "인증이 필요합니다." }, { status: 401 });
-  }
-
-  const { allowed, retryAfter } = rateLimit(`user:${user.id}`);
+  const ip = req.headers.get("x-forwarded-for") ?? "anonymous";
+  const { allowed, retryAfter } = rateLimit(`ip:${ip}`);
   if (!allowed) {
     return NextResponse.json(
       { error: "요청이 너무 많습니다. 잠시 후 다시 시도해주세요." },

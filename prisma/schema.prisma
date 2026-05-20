@@ -7,39 +7,6 @@ datasource db {
   provider = "sqlite"
 }
 
-model Profile {
-  id           String   @id @default(cuid())
-  email        String   @unique
-  displayName  String
-  passwordHash String?
-  createdAt    DateTime @default(now())
-
-  progress      LessonProgress[]
-  sessions      Session[]
-  oauthAccounts OAuthAccount[]
-}
-
-model OAuthAccount {
-  id                String @id @default(cuid())
-  userId            String
-  provider          String // "google" | "naver"
-  providerAccountId String
-
-  user Profile @relation(fields: [userId], references: [id])
-
-  @@unique([provider, providerAccountId])
-}
-
-model Session {
-  id        String   @id @default(cuid())
-  userId    String
-  token     String   @unique
-  expiresAt DateTime
-  createdAt DateTime @default(now())
-
-  user Profile @relation(fields: [userId], references: [id])
-}
-
 model Stage {
   id          String @id @default(cuid())
   title       String
@@ -57,24 +24,9 @@ model Lesson {
   order            Int
   estimatedMinutes Int
 
-  stage    Stage            @relation(fields: [stageId], references: [id])
-  progress LessonProgress[]
+  stage Stage @relation(fields: [stageId], references: [id])
 
   @@unique([stageId, order])
-}
-
-model LessonProgress {
-  id          String    @id @default(cuid())
-  userId      String
-  lessonId    String
-  status      String    @default("not_started")
-  quizScore   Int?
-  completedAt DateTime?
-
-  user   Profile @relation(fields: [userId], references: [id])
-  lesson Lesson  @relation(fields: [lessonId], references: [id])
-
-  @@unique([userId, lessonId])
 }
 
 model GeneratedContent {
