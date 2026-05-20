@@ -1,100 +1,60 @@
 import Link from "next/link";
 import { getLessons } from "@/lib/lessons";
-
-interface TrackCardProps {
-  href: string;
-  emoji: string;
-  badge: string;
-  title: string;
-  subtitle: string;
-  lessonCount: number;
-  totalMinutes: number;
-  accent: "indigo" | "amber";
-}
-
-function TrackCard({
-  href,
-  emoji,
-  badge,
-  title,
-  subtitle,
-  lessonCount,
-  totalMinutes,
-  accent,
-}: TrackCardProps) {
-  const accentClasses =
-    accent === "indigo"
-      ? {
-          border: "border-indigo-700/40",
-          hover:
-            "hover:border-indigo-500 hover:bg-indigo-900/20 hover:shadow-indigo-900/30",
-          badge: "bg-indigo-900/40 text-indigo-300",
-          cta: "text-indigo-300 group-hover:text-indigo-200",
-        }
-      : {
-          border: "border-amber-600/40",
-          hover:
-            "hover:border-amber-500 hover:bg-amber-900/20 hover:shadow-amber-900/30",
-          badge: "bg-amber-900/40 text-amber-200",
-          cta: "text-amber-200 group-hover:text-amber-100",
-        };
-
-  return (
-    <Link
-      href={href}
-      className={`
-        group flex flex-1 flex-col gap-5 rounded-2xl border bg-gray-900 p-8
-        transition-all duration-200 hover:shadow-xl
-        ${accentClasses.border} ${accentClasses.hover}
-      `}
-    >
-      <div className="flex items-center gap-3">
-        <span className="text-4xl" aria-hidden>
-          {emoji}
-        </span>
-        <span
-          className={`rounded-full px-3 py-1 text-xs font-medium ${accentClasses.badge}`}
-        >
-          {badge}
-        </span>
-      </div>
-
-      <div>
-        <h2 className="mb-2 text-2xl font-bold text-white">{title}</h2>
-        <p className="text-sm leading-relaxed text-gray-400">{subtitle}</p>
-      </div>
-
-      <div className="flex items-center gap-3 text-sm text-gray-500">
-        <span>{lessonCount}개 레슨</span>
-        <span>·</span>
-        <span>약 {totalMinutes}분</span>
-      </div>
-
-      <div className={`mt-auto text-sm font-medium ${accentClasses.cta}`}>
-        시작하기 →
-      </div>
-    </Link>
-  );
-}
+import { TrackSelector, type TrackInfo } from "@/app/components/track-selector";
 
 export default function Home() {
-  const adultLessons = getLessons("math-basics");
   const kidsLessons = getLessons("kids-math-basics");
+  const teensLessons = getLessons("teens-math-basics");
+  const adultLessons = getLessons("math-basics");
 
-  const adultCount = adultLessons.length;
-  const adultMinutes = adultLessons.reduce(
-    (acc, l) => acc + l.estimatedMinutes,
-    0,
-  );
-  const kidsCount = kidsLessons.length;
-  const kidsMinutes = kidsLessons.reduce(
-    (acc, l) => acc + l.estimatedMinutes,
-    0,
-  );
+  const sum = (acc: number, l: { estimatedMinutes: number }) =>
+    acc + l.estimatedMinutes;
+
+  const tracks: TrackInfo[] = [
+    {
+      id: "kids",
+      emoji: "🧒",
+      shortLabel: "초등",
+      badge: "초등학생용",
+      title: "초등학생용 코스",
+      subtitle:
+        "보물지도와 자판기로 배우는 AI 첫걸음. 게임처럼 즐겁게 시작해요!",
+      href: "/learn/kids/math-basics",
+      lessonCount: kidsLessons.length,
+      totalMinutes: kidsLessons.reduce(sum, 0),
+      accent: "amber",
+    },
+    {
+      id: "teens",
+      emoji: "🧑‍🎓",
+      shortLabel: "중고등",
+      badge: "중고등학생용",
+      title: "중고등학생용 코스",
+      subtitle:
+        "게임 좌표, 이미지 픽셀, 프로그래밍 함수로 익히는 AI 수학 기초. 좌표·간단한 수식을 살짝 곁들여요.",
+      href: "/learn/teens/math-basics",
+      lessonCount: teensLessons.length,
+      totalMinutes: teensLessons.reduce(sum, 0),
+      accent: "sky",
+    },
+    {
+      id: "adult",
+      emoji: "👨‍💼",
+      shortLabel: "성인",
+      badge: "성인용",
+      title: "성인용 코스",
+      subtitle:
+        "AI/ML을 위한 수학 기초 — 벡터, 행렬, 미분, 확률을 정공법으로 학습합니다.",
+      href: "/learn/adult/math-basics",
+      lessonCount: adultLessons.length,
+      totalMinutes: adultLessons.reduce(sum, 0),
+      accent: "indigo",
+    },
+  ];
 
   return (
     <main className="min-h-screen bg-gray-950 text-gray-100">
-      <div className="mx-auto flex min-h-screen max-w-4xl flex-col justify-center px-4 py-16">
+      <div className="mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-4 py-16">
         <div className="mb-12 text-center">
           <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-600 text-lg font-bold">
             AI
@@ -103,32 +63,12 @@ export default function Home() {
             AI 학습 앱
           </h1>
           <p className="text-base text-gray-400">
-            어떤 코스로 시작할까요? 연령대에 맞는 코스를 골라보세요.
+            어떤 코스로 시작할까요? 연령대를 선택하면 그에 맞춘 설명·시각화로
+            진행돼요.
           </p>
         </div>
 
-        <div className="flex flex-col gap-5 md:flex-row">
-          <TrackCard
-            href="/learn/adult/math-basics"
-            emoji="👨‍💼"
-            badge="성인용"
-            title="성인용 코스"
-            subtitle="AI/ML을 위한 수학 기초 — 벡터, 행렬, 미분, 확률을 정공법으로 학습합니다."
-            lessonCount={adultCount}
-            totalMinutes={adultMinutes}
-            accent="indigo"
-          />
-          <TrackCard
-            href="/learn/kids/math-basics"
-            emoji="🧒"
-            badge="초등학생용"
-            title="초등학생용 코스"
-            subtitle="보물지도와 자판기로 배우는 AI 첫걸음. 게임처럼 즐겁게 시작해요!"
-            lessonCount={kidsCount}
-            totalMinutes={kidsMinutes}
-            accent="amber"
-          />
-        </div>
+        <TrackSelector tracks={tracks} defaultId="adult" />
 
         <div className="mt-10 text-center">
           <Link
