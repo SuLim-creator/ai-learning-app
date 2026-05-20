@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { findOrCreateOAuthUser } from "@/lib/oauth";
 import { createSession } from "@/lib/auth";
 import { SESSION_COOKIE } from "@/lib/auth-constants";
+import { getAppUrl } from "@/lib/oauth-url";
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");
@@ -22,7 +23,7 @@ export async function GET(req: NextRequest) {
         code,
         client_id: process.env.GOOGLE_CLIENT_ID!,
         client_secret: process.env.GOOGLE_CLIENT_SECRET!,
-        redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google/callback`,
+        redirect_uri: `${getAppUrl()}/api/auth/google/callback`,
         grant_type: "authorization_code",
       }),
     });

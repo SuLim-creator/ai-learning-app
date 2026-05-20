@@ -1,19 +1,11 @@
 import { NextResponse } from "next/server";
+import { buildGoogleAuthUrl, getAppUrl } from "@/lib/oauth-url";
 
 export function GET() {
   const clientId = process.env.GOOGLE_CLIENT_ID;
-  if (!clientId) throw new Error("GOOGLE_CLIENT_ID is not set");
+  if (!clientId)
+    return NextResponse.redirect(new URL("/login?error=config", getAppUrl()));
 
-  const params = new URLSearchParams({
-    client_id: clientId,
-    redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google/callback`,
-    response_type: "code",
-    scope: "openid email profile",
-    access_type: "offline",
-    prompt: "select_account",
-  });
-
-  return NextResponse.redirect(
-    `https://accounts.google.com/o/oauth2/v2/auth?${params}`,
-  );
+  const redirectUri = `${getAppUrl()}/api/auth/google/callback`;
+  return NextResponse.redirect(buildGoogleAuthUrl(clientId, redirectUri));
 }

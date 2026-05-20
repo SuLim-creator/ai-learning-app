@@ -3,6 +3,7 @@ import { cookies } from "next/headers";
 import { findOrCreateOAuthUser } from "@/lib/oauth";
 import { createSession } from "@/lib/auth";
 import { SESSION_COOKIE } from "@/lib/auth-constants";
+import { getAppUrl } from "@/lib/oauth-url";
 
 export async function GET(req: NextRequest) {
   const code = req.nextUrl.searchParams.get("code");

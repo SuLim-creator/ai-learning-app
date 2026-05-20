@@ -1,20 +1,13 @@
 import { NextResponse } from "next/server";
 import { randomBytes } from "crypto";
+import { buildNaverAuthUrl, getAppUrl } from "@/lib/oauth-url";
 
 export function GET() {
   const clientId = process.env.NAVER_CLIENT_ID;
-  if (!clientId) throw new Error("NAVER_CLIENT_ID is not set");
+  if (!clientId)
+    return NextResponse.redirect(new URL("/login?error=config", getAppUrl()));
 
   const state = randomBytes(16).toString("hex");
-
-  const params = new URLSearchParams({
-    response_type: "code",
-    client_id: clientId,
-    redirect_uri: `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/naver/callback`,
-    state,
-  });
-
-  return NextResponse.redirect(
-    `https://nid.naver.com/oauth2.0/authorize?${params}`,
-  );
+  const redirectUri = `${getAppUrl()}/api/auth/naver/callback`;
+  return NextResponse.redirect(buildNaverAuthUrl(clientId, redirectUri, state));
 }
