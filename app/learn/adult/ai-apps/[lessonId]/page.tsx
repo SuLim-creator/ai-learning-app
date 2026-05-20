@@ -7,22 +7,22 @@ interface Props {
   params: Promise<{ lessonId: string }>;
 }
 
-const stage = CURRICULUM.find((s) => s.slug === "ml-basics")!;
+const stage = CURRICULUM.find((s) => s.slug === "ai-apps")!;
 
 export async function generateStaticParams() {
-  return getLessons("ml-basics").map((l) => ({ lessonId: l.id }));
+  return getLessons("ai-apps").map((l) => ({ lessonId: l.id }));
 }
 
 export default async function LessonPage({ params }: Props) {
   const { lessonId } = await params;
-  const lesson = getLesson("ml-basics", lessonId);
+  const lesson = getLesson("ai-apps", lessonId);
 
   if (!lesson) notFound();
 
   return (
     <LessonDetail
       lesson={lesson}
-      stageSlug="ml-basics"
+      stageSlug="adult/ai-apps"
       stageTitle={stage.title}
     />
   );

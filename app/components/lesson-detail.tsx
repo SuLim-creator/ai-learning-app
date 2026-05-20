@@ -9,6 +9,14 @@ import {
   VectorPlayground,
   MatrixTransform,
 } from "@/app/components/visualizations";
+import {
+  TreasureMapVector,
+  ArrowCompare,
+  PuzzleMatrix,
+  SeatingGrid,
+  VendingMachineFunction,
+  DoublerMachine,
+} from "@/app/components/visualizations/kids";
 import { DIAGRAM_COMPONENTS } from "@/app/components/diagrams";
 import { markLessonComplete, isLessonComplete } from "@/lib/progress";
 import { HomeButton } from "@/app/components/home-button";
@@ -23,10 +31,17 @@ const SECTION_TYPE_LABEL: Record<string, string> = {
 const VISUAL_COMPONENTS: Record<string, React.ComponentType> = {
   "vector-playground": VectorPlayground,
   "matrix-transform": MatrixTransform,
+  "treasure-map-vector": TreasureMapVector,
+  "arrow-compare": ArrowCompare,
+  "puzzle-matrix": PuzzleMatrix,
+  "seating-grid": SeatingGrid,
+  "vending-machine-function": VendingMachineFunction,
+  "doubler-machine": DoublerMachine,
 };
 
 function VisualSection({ section }: { section: LessonSection }) {
-  const Component = VISUAL_COMPONENTS[section.content];
+  const key = section.component ?? section.content;
+  const Component = VISUAL_COMPONENTS[key];
   if (Component) return <Component />;
   return (
     <div className="prose prose-invert prose-sm max-w-none text-gray-300">

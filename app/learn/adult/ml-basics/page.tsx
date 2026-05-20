@@ -3,8 +3,8 @@ import { LessonCard } from "@/app/components/lesson-card";
 import { StageProgressBar } from "@/app/components/stage-progress-bar";
 import { HomeButton } from "@/app/components/home-button";
 
-export default function AiAppsPage() {
-  const lessons = getLessons("ai-apps");
+export default function MlBasicsPage() {
+  const lessons = getLessons("ml-basics");
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
@@ -13,10 +13,10 @@ export default function AiAppsPage() {
           <div className="mb-4">
             <HomeButton />
           </div>
-          <p className="mb-1 text-sm text-indigo-400">5단계</p>
-          <h1 className="mb-2 text-2xl font-bold text-white">AI 실전 응용</h1>
+          <p className="mb-1 text-sm text-indigo-400">2단계</p>
+          <h1 className="mb-2 text-2xl font-bold text-white">머신러닝 기초</h1>
           <p className="text-sm text-gray-400">
-            실제 AI 서비스를 직접 구축합니다.
+            핵심 ML 알고리즘을 직관적으로 이해합니다.
           </p>
           <div className="mt-4 flex items-center gap-4 text-sm text-gray-500">
             <span>{lessons.length}개 레슨</span>
@@ -35,7 +35,7 @@ export default function AiAppsPage() {
               <LessonCard
                 key={lesson.id}
                 lesson={lesson}
-                stage="ai-apps"
+                stage="adult/ml-basics"
                 index={i}
               />
             ))}

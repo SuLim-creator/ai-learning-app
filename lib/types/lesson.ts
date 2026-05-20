@@ -8,6 +8,7 @@ export interface LessonSection {
   content: string;
   order: number;
   diagram?: string;
+  component?: string;
 }
 
 export interface Lesson {

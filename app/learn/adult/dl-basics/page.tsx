@@ -35,7 +35,7 @@ export default function DlBasicsPage() {
               <LessonCard
                 key={lesson.id}
                 lesson={lesson}
-                stage="dl-basics"
+                stage="adult/dl-basics"
                 index={i}
               />
             ))}

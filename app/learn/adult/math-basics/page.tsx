@@ -41,7 +41,7 @@ export default function MathBasicsPage() {
               <LessonCard
                 key={lesson.id}
                 lesson={lesson}
-                stage="math-basics"
+                stage="adult/math-basics"
                 index={i}
               />
             ))}

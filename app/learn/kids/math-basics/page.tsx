@@ -3,8 +3,8 @@ import { LessonCard } from "@/app/components/lesson-card";
 import { StageProgressBar } from "@/app/components/stage-progress-bar";
 import { HomeButton } from "@/app/components/home-button";
 
-export default function MlBasicsPage() {
-  const lessons = getLessons("ml-basics");
+export default function KidsMathBasicsPage() {
+  const lessons = getLessons("kids-math-basics");
 
   return (
     <div className="min-h-screen bg-gray-950 text-gray-100">
@@ -13,11 +13,14 @@ export default function MlBasicsPage() {
           <div className="mb-4">
             <HomeButton />
           </div>
-          <p className="mb-1 text-sm text-indigo-400">2단계</p>
-          <h1 className="mb-2 text-2xl font-bold text-white">머신러닝 기초</h1>
+          <p className="mb-1 text-sm text-amber-300">🧒 초등학생용</p>
+          <h1 className="mb-2 text-2xl font-bold text-white">
+            수학 첫걸음 — 보물찾기와 자판기로 배워요
+          </h1>
           <p className="text-sm text-gray-400">
-            핵심 ML 알고리즘을 직관적으로 이해합니다.
+            벡터, 행렬, 함수… 어려운 말이지만 게임처럼 즐겁게 만나봐요!
           </p>
+
           <div className="mt-4 flex items-center gap-4 text-sm text-gray-500">
             <span>{lessons.length}개 레슨</span>
             <span>·</span>
@@ -25,8 +28,10 @@ export default function MlBasicsPage() {
               총 {lessons.reduce((acc, l) => acc + l.estimatedMinutes, 0)}분
             </span>
           </div>
+
           <StageProgressBar lessonIds={lessons.map((l) => l.id)} />
         </div>
+
         {lessons.length === 0 ? (
           <p className="text-center text-gray-600">레슨이 없습니다.</p>
         ) : (
@@ -35,7 +40,7 @@ export default function MlBasicsPage() {
               <LessonCard
                 key={lesson.id}
                 lesson={lesson}
-                stage="ml-basics"
+                stage="kids/math-basics"
                 index={i}
               />
             ))}
