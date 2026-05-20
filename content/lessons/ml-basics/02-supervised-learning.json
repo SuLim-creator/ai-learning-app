@@ -1,20 +1,11 @@
 {
-  "id": "ml-basics-02",
+  "id": "ml-basics-05",
   "title": "지도학습이란 무엇인가",
   "description": "정답이 있는 데이터로 함수를 찾는 과정인 지도학습을 이해하고, 회귀와 분류의 차이를 배웁니다.",
   "difficulty": "easy",
   "estimatedMinutes": 15,
-  "tags": [
-    "지도학습",
-    "ML기초",
-    "분류",
-    "회귀",
-    "AI기초"
-  ],
-  "prerequisites": [
-    "math-basics-09",
-    "math-basics-10"
-  ],
+  "tags": ["지도학습", "ML기초", "분류", "회귀", "AI기초"],
+  "prerequisites": ["math-basics-09", "math-basics-10"],
   "sections": [
     {
       "id": "s1",
