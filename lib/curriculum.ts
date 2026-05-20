@@ -26,6 +26,44 @@ export const CURRICULUM: CurriculumStage[] = [
         title: "미분과 경사하강법",
         difficulty: "medium",
       },
+      {
+        id: "math-basics-04",
+        title: "행렬이란 무엇인가",
+        difficulty: "easy",
+      },
+      { id: "math-basics-05", title: "행렬 곱셈", difficulty: "medium" },
+      { id: "math-basics-06", title: "경사하강법", difficulty: "medium" },
+      { id: "math-basics-07", title: "활성화 함수", difficulty: "medium" },
+      {
+        id: "math-basics-08",
+        title: "손실 함수란 무엇인가",
+        difficulty: "medium",
+      },
+      {
+        id: "math-basics-09",
+        title: "함수란 무엇인가",
+        difficulty: "easy",
+      },
+      {
+        id: "math-basics-10",
+        title: "확률과 불확실성",
+        difficulty: "easy",
+      },
+      {
+        id: "math-basics-11",
+        title: "분포: 데이터의 형태",
+        difficulty: "medium",
+      },
+      {
+        id: "math-basics-12",
+        title: "조건부 확률과 베이즈",
+        difficulty: "medium",
+      },
+      {
+        id: "math-basics-13",
+        title: "1단계 총정리: AI를 위한 수학 기초",
+        difficulty: "easy",
+      },
     ],
   },
   {
@@ -34,9 +72,27 @@ export const CURRICULUM: CurriculumStage[] = [
     description: "핵심 ML 알고리즘 이해",
     slug: "ml-basics",
     lessons: [
-      { id: "ml-basics-01", title: "선형 회귀", difficulty: "easy" },
-      { id: "ml-basics-02", title: "분류 알고리즘", difficulty: "medium" },
-      { id: "ml-basics-03", title: "의사결정 트리", difficulty: "medium" },
+      { id: "ml-basics-01", title: "행렬이란 무엇인가", difficulty: "easy" },
+      {
+        id: "ml-basics-02",
+        title: "손실 함수: 모델이 얼마나 틀렸는가",
+        difficulty: "medium",
+      },
+      {
+        id: "ml-basics-03",
+        title: "경사하강법: 손실을 줄이는 방법",
+        difficulty: "medium",
+      },
+      {
+        id: "ml-basics-04",
+        title: "과적합: 암기와 이해의 차이",
+        difficulty: "medium",
+      },
+      {
+        id: "ml-basics-05",
+        title: "지도학습이란 무엇인가",
+        difficulty: "easy",
+      },
     ],
   },
   {
