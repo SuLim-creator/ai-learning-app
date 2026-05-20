@@ -17,6 +17,12 @@ import {
   VendingMachineFunction,
   DoublerMachine,
 } from "@/app/components/visualizations/kids";
+import {
+  GameCharacterVector,
+  PixelGridMatrix,
+  FunctionGraphLinear,
+  FunctionMapping,
+} from "@/app/components/visualizations/teens";
 import { DIAGRAM_COMPONENTS } from "@/app/components/diagrams";
 import { markLessonComplete, isLessonComplete } from "@/lib/progress";
 import { HomeButton } from "@/app/components/home-button";
@@ -37,6 +43,10 @@ const VISUAL_COMPONENTS: Record<string, React.ComponentType> = {
   "seating-grid": SeatingGrid,
   "vending-machine-function": VendingMachineFunction,
   "doubler-machine": DoublerMachine,
+  "game-character-vector": GameCharacterVector,
+  "pixel-grid-matrix": PixelGridMatrix,
+  "function-graph-linear": FunctionGraphLinear,
+  "function-mapping": FunctionMapping,
 };
 
 function VisualSection({ section }: { section: LessonSection }) {
