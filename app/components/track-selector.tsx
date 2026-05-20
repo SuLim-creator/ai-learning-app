@@ -138,6 +138,15 @@ export function TrackSelector({
           시작하기 →
         </div>
       </Link>
+
+      <div className="text-center">
+        <Link
+          href={selected.href}
+          className="text-sm text-gray-500 transition-colors hover:text-gray-300"
+        >
+          전체 커리큘럼 보기 →
+        </Link>
+      </div>
     </div>
   );
 }

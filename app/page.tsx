@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getLessons } from "@/lib/lessons";
 import { TrackSelector, type TrackInfo } from "@/app/components/track-selector";
 
@@ -69,15 +68,6 @@ export default function Home() {
         </div>
 
         <TrackSelector tracks={tracks} defaultId="adult" />
-
-        <div className="mt-10 text-center">
-          <Link
-            href="/learn/adult"
-            className="text-sm text-gray-500 transition-colors hover:text-gray-300"
-          >
-            전체 커리큘럼 보기 →
-          </Link>
-        </div>
       </div>
     </main>
   );
