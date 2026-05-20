@@ -4,15 +4,24 @@
   "description": "검색 증강 생성(RAG)으로 LLM에 외부 지식을 연결하는 원리와 구현을 배웁니다.",
   "difficulty": "hard",
   "estimatedMinutes": 12,
-  "tags": ["RAG", "벡터DB", "임베딩", "검색", "LLM"],
-  "prerequisites": ["app-01"],
+  "tags": [
+    "RAG",
+    "벡터DB",
+    "임베딩",
+    "검색",
+    "LLM"
+  ],
+  "prerequisites": [
+    "app-01"
+  ],
   "sections": [
     {
       "id": "s1",
       "type": "text",
       "title": "왜 RAG가 필요한가",
       "content": "LLM(거대 언어 모델)은 두 가지 약점이 있습니다. 첫째, **학습 시점 이후의 정보를 모릅니다**. 둘째, 모르는 걸 그럴듯하게 지어내는 **할루시네이션**(환각)이 발생합니다. 회사 내부 문서나 최신 뉴스에 대해 물으면 자신 있게 틀린 답을 내놓죠. **RAG(Retrieval-Augmented Generation, 검색 증강 생성)**는 이 문제를 해결합니다. 모델을 다시 학습시키는 대신, 질문이 들어올 때마다 관련 문서를 **먼저 찾아서** 프롬프트에 함께 넣어주는 방식입니다. 비유하자면, 시험을 보는데 \"오픈북\"으로 책을 펴놓고 답을 쓰는 것과 같습니다.",
-      "order": 1
+      "order": 1,
+      "diagram": "rag-pipeline"
     },
     {
       "id": "s2",

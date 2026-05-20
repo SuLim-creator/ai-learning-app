@@ -4,15 +4,24 @@
   "description": "데이터가 어떻게 퍼져있는지를 나타내는 확률분포를 이해하고, AI/ML에서 분포가 왜 중요한지 배웁니다.",
   "difficulty": "medium",
   "estimatedMinutes": 20,
-  "tags": ["분포", "정규분포", "확률", "수학기초", "통계"],
-  "prerequisites": ["math-basics-10"],
+  "tags": [
+    "분포",
+    "정규분포",
+    "확률",
+    "수학기초",
+    "통계"
+  ],
+  "prerequisites": [
+    "math-basics-10"
+  ],
   "sections": [
     {
       "id": "s1",
       "type": "text",
       "title": "분포: 데이터가 어디에 얼마나 모여있는가",
       "content": "**확률분포(probability distribution)** 는 데이터가 어떤 값을 얼마나 자주 갖는지를 나타냅니다.\n\n반 학생 30명의 키를 재면 160~165cm 구간에 가장 많고, 양 끝으로 갈수록 줄어드는 종 모양이 됩니다. 이것이 **정규분포(normal distribution)** 입니다.\n\n분포를 알면 '어떤 값이 평범한가, 얼마나 이상한가'를 수치로 말할 수 있습니다.",
-      "order": 1
+      "order": 1,
+      "diagram": "normal-distribution"
     },
     {
       "id": "s2",

@@ -4,15 +4,23 @@
   "description": "행렬을 스프레드시트와 엑셀 표에 비유해 직관적으로 이해하고, AI에서 데이터를 어떻게 다루는지 배웁니다.",
   "difficulty": "easy",
   "estimatedMinutes": 5,
-  "tags": ["행렬", "선형대수", "수학기초", "입문"],
-  "prerequisites": ["math-basics-01"],
+  "tags": [
+    "행렬",
+    "선형대수",
+    "수학기초",
+    "입문"
+  ],
+  "prerequisites": [
+    "math-basics-01"
+  ],
   "sections": [
     {
       "id": "s1",
       "type": "text",
       "title": "행렬 = 숫자들의 표",
       "content": "**행렬(Matrix)**은 숫자를 **가로줄(행)** 과 **세로줄(열)** 로 정리한 표입니다.\n\n엑셀 시트를 떠올려보세요. 1행에 학생 A의 국어·수학·영어 점수, 2행에 학생 B의 점수… 이렇게 여러 데이터를 한 번에 담는 구조가 바로 행렬입니다.\n\nAI에서는 이미지, 텍스트, 사용자 데이터 등 **거의 모든 데이터가 행렬 형태**로 변환되어 처리됩니다.",
-      "order": 1
+      "order": 1,
+      "diagram": "matrix-grid"
     },
     {
       "id": "s2",

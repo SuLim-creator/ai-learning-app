@@ -4,15 +4,22 @@
   "description": "행렬 곱셈의 원리를 직관적으로 이해하고, AI에서 데이터 변환에 어떻게 사용되는지 배웁니다.",
   "difficulty": "medium",
   "estimatedMinutes": 5,
-  "tags": ["행렬", "선형대수", "수학기초"],
-  "prerequisites": ["math-basics-02"],
+  "tags": [
+    "행렬",
+    "선형대수",
+    "수학기초"
+  ],
+  "prerequisites": [
+    "math-basics-02"
+  ],
   "sections": [
     {
       "id": "s1",
       "type": "text",
       "title": "행렬 곱셈이란?",
       "content": "행렬 곱셈은 **두 행렬을 결합해 새로운 행렬을 만드는 연산**입니다.\n\n비유하자면, 행렬은 *레시피*와 같습니다. A 행렬이 '재료 → 반조리 식품' 레시피이고, B 행렬이 '반조리 → 완성 요리' 레시피라면, A×B는 '재료 → 완성 요리'를 한 번에 만드는 통합 레시피입니다.\n\nAI에서는 이미지 픽셀(입력)을 여러 층의 행렬 곱셈으로 변환해 최종 예측값을 만들어냅니다.",
-      "order": 1
+      "order": 1,
+      "diagram": "matrix-multiply"
     },
     {
       "id": "s2",

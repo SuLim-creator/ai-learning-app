@@ -4,15 +4,23 @@
   "description": "AI 모델이 얼마나 틀렸는지 측정하는 손실 함수의 개념과 종류를 이해합니다.",
   "difficulty": "medium",
   "estimatedMinutes": 5,
-  "tags": ["손실함수", "최적화", "머신러닝", "수학기초"],
-  "prerequisites": ["math-basics-06"],
+  "tags": [
+    "손실함수",
+    "최적화",
+    "머신러닝",
+    "수학기초"
+  ],
+  "prerequisites": [
+    "math-basics-06"
+  ],
   "sections": [
     {
       "id": "s1",
       "type": "text",
       "title": "손실 함수란?",
       "content": "손실 함수(Loss Function)는 **모델의 예측값이 실제 정답과 얼마나 다른지 숫자로 표현**하는 함수입니다.\n\n비유: 다트 게임에서 과녁 중심(정답)과 다트가 꽂힌 위치(예측) 사이의 거리가 손실입니다. 거리가 0이면 완벽한 예측, 클수록 형편없는 예측입니다.\n\nAI 학습의 목표는 이 손실을 최대한 줄이는 것입니다. 경사하강법이 바로 이 손실을 줄이기 위해 사용됩니다.",
-      "order": 1
+      "order": 1,
+      "diagram": "loss-curve"
     },
     {
       "id": "s2",

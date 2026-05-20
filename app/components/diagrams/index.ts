@@ -8,6 +8,11 @@ import { ForwardBackwardPassDiagram } from "./forward-backward-pass";
 import { CnnFilterDiagram } from "./cnn-filter";
 import { AttentionMapDiagram } from "./attention-map";
 import { ActivationFunctionsDiagram } from "./activation-functions";
+import { MatrixMultiplyDiagram } from "./matrix-multiply";
+import { NormalDistributionDiagram } from "./normal-distribution";
+import { WordVectorSpaceDiagram } from "./word-vector-space";
+import { LlmPipelineDiagram } from "./llm-pipeline";
+import { RagPipelineDiagram } from "./rag-pipeline";
 
 export {
   MatrixGridDiagram,
@@ -20,6 +25,11 @@ export {
   CnnFilterDiagram,
   AttentionMapDiagram,
   ActivationFunctionsDiagram,
+  MatrixMultiplyDiagram,
+  NormalDistributionDiagram,
+  WordVectorSpaceDiagram,
+  LlmPipelineDiagram,
+  RagPipelineDiagram,
 };
 
 export const DIAGRAM_COMPONENTS: Record<string, React.ComponentType> = {
@@ -33,4 +43,9 @@ export const DIAGRAM_COMPONENTS: Record<string, React.ComponentType> = {
   "cnn-filter": CnnFilterDiagram,
   "attention-map": AttentionMapDiagram,
   "activation-functions": ActivationFunctionsDiagram,
+  "matrix-multiply": MatrixMultiplyDiagram,
+  "normal-distribution": NormalDistributionDiagram,
+  "word-vector-space": WordVectorSpaceDiagram,
+  "llm-pipeline": LlmPipelineDiagram,
+  "rag-pipeline": RagPipelineDiagram,
 };

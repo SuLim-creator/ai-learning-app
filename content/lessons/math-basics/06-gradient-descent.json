@@ -4,15 +4,23 @@
   "description": "AI 모델이 스스로 학습하는 핵심 원리인 경사하강법을 직관적으로 이해합니다.",
   "difficulty": "medium",
   "estimatedMinutes": 5,
-  "tags": ["경사하강법", "최적화", "머신러닝", "수학기초"],
-  "prerequisites": ["math-basics-03"],
+  "tags": [
+    "경사하강법",
+    "최적화",
+    "머신러닝",
+    "수학기초"
+  ],
+  "prerequisites": [
+    "math-basics-03"
+  ],
   "sections": [
     {
       "id": "s1",
       "type": "text",
       "title": "경사하강법이란?",
       "content": "경사하강법(Gradient Descent)은 **함수의 최솟값을 찾아가는 최적화 알고리즘**입니다.\n\n비유: 안개 낀 산에서 눈을 감고 가장 낮은 곳(계곡)을 찾아가려 합니다. 발 아래 경사를 느끼고, **경사가 가장 가파르게 올라가는 방향의 반대 방향**(즉, 가장 빠르게 내려가는 방향)으로 한 발씩 내딛습니다. 이것이 경사하강법입니다.\n\nAI 모델은 '오차'라는 산에서 이 방법으로 오차가 가장 작은 지점(최적 파라미터)을 찾습니다.",
-      "order": 1
+      "order": 1,
+      "diagram": "gradient-descent-ball"
     },
     {
       "id": "s2",
