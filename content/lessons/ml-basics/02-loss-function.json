@@ -4,15 +4,24 @@
   "description": "ML 모델이 예측을 얼마나 잘못했는지 숫자로 측정하는 손실 함수의 개념과 MSE, Cross-Entropy를 비유로 이해합니다.",
   "difficulty": "medium",
   "estimatedMinutes": 15,
-  "tags": ["손실함수", "MSE", "Cross-Entropy", "ML기초", "최적화"],
-  "prerequisites": ["ml-basics-01"],
+  "tags": [
+    "손실함수",
+    "MSE",
+    "Cross-Entropy",
+    "ML기초",
+    "최적화"
+  ],
+  "prerequisites": [
+    "ml-basics-01"
+  ],
   "sections": [
     {
       "id": "s1",
       "type": "text",
       "title": "손실 함수란 무엇인가",
       "content": "모델이 예측한 값과 실제 정답이 얼마나 다른지를 하나의 숫자로 표현한 것이 **손실 함수(Loss Function)** 입니다. 다트 게임에 비유하면, 과녁 중심(정답)에서 화살(예측)이 얼마나 멀리 꽂혔는지를 측정하는 '거리 점수'입니다. 이 점수가 낮을수록 모델이 잘 맞힌 것입니다. 학습의 목표는 이 손실 점수를 최대한 낮추는 것입니다.",
-      "order": 1
+      "order": 1,
+      "diagram": "loss-curve"
     },
     {
       "id": "s2",

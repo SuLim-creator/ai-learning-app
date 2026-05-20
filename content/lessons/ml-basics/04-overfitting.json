@@ -4,15 +4,25 @@
   "description": "훈련 데이터를 암기해 새 데이터에는 실패하는 과적합 현상과, 이를 방지하는 핵심 기법들을 이해합니다.",
   "difficulty": "medium",
   "estimatedMinutes": 15,
-  "tags": ["과적합", "정규화", "드롭아웃", "ML기초", "일반화"],
-  "prerequisites": ["ml-basics-02", "ml-basics-03"],
+  "tags": [
+    "과적합",
+    "정규화",
+    "드롭아웃",
+    "ML기초",
+    "일반화"
+  ],
+  "prerequisites": [
+    "ml-basics-02",
+    "ml-basics-03"
+  ],
   "sections": [
     {
       "id": "s1",
       "type": "text",
       "title": "시험 문제를 통째로 외운 학생",
       "content": "수학 시험을 앞두고 작년 기출문제 100개를 **정답까지 통째로 암기**한 학생이 있습니다. 기출 재시험에서는 100점이지만, 조금이라도 다른 문제가 나오면 전혀 풀지 못합니다. ML 모델이 훈련 데이터에만 지나치게 맞춰진 상태가 바로 이것입니다. 이를 **과적합(Overfitting)** 이라고 합니다. 반대로 '원리를 이해해서 새 문제도 푸는 상태'를 **일반화(Generalization)** 라고 합니다.",
-      "order": 1
+      "order": 1,
+      "diagram": "overfitting-curves"
     },
     {
       "id": "s2",

@@ -4,7 +4,12 @@
   "description": "행렬을 스프레드시트 비유로 쉽게 이해하고, 머신러닝에서 데이터를 어떻게 담는지 배웁니다.",
   "difficulty": "easy",
   "estimatedMinutes": 5,
-  "tags": ["행렬", "선형대수", "데이터표현", "ML기초"],
+  "tags": [
+    "행렬",
+    "선형대수",
+    "데이터표현",
+    "ML기초"
+  ],
   "prerequisites": [],
   "sections": [
     {
@@ -12,7 +17,8 @@
       "type": "text",
       "title": "행렬은 엑셀 표다",
       "content": "행렬(Matrix)은 숫자를 **행(row)** 과 **열(column)** 로 정리한 표입니다. 엑셀 시트를 떠올려 보세요. 100명의 학생 데이터가 있다면, 각 행은 한 명의 학생, 각 열은 키·몸무게·성적 같은 특성입니다. 이게 바로 100×3 행렬입니다.",
-      "order": 1
+      "order": 1,
+      "diagram": "matrix-grid"
     },
     {
       "id": "s2",

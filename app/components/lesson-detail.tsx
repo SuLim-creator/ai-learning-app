@@ -9,6 +9,7 @@ import {
   VectorPlayground,
   MatrixTransform,
 } from "@/app/components/visualizations";
+import { DIAGRAM_COMPONENTS } from "@/app/components/diagrams";
 import { markLessonComplete, isLessonComplete } from "@/lib/progress";
 import { HomeButton } from "@/app/components/home-button";
 
@@ -35,9 +36,17 @@ function VisualSection({ section }: { section: LessonSection }) {
 }
 
 function TextSection({ section }: { section: LessonSection }) {
+  const Diagram = section.diagram ? DIAGRAM_COMPONENTS[section.diagram] : null;
   return (
-    <div className="prose prose-invert prose-sm max-w-none text-gray-300">
-      <ReactMarkdown>{section.content}</ReactMarkdown>
+    <div className="flex flex-col gap-4">
+      <div className="prose prose-invert prose-sm max-w-none text-gray-300">
+        <ReactMarkdown>{section.content}</ReactMarkdown>
+      </div>
+      {Diagram && (
+        <div className="rounded-lg border border-indigo-900/40 bg-gray-950/60 p-4">
+          <Diagram />
+        </div>
+      )}
     </div>
   );
 }

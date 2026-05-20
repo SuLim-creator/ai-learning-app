@@ -4,15 +4,25 @@
   "description": "정답이 있는 데이터로 함수를 찾는 과정인 지도학습을 이해하고, 회귀와 분류의 차이를 배웁니다.",
   "difficulty": "easy",
   "estimatedMinutes": 15,
-  "tags": ["지도학습", "ML기초", "분류", "회귀", "AI기초"],
-  "prerequisites": ["math-basics-09", "math-basics-10"],
+  "tags": [
+    "지도학습",
+    "ML기초",
+    "분류",
+    "회귀",
+    "AI기초"
+  ],
+  "prerequisites": [
+    "math-basics-09",
+    "math-basics-10"
+  ],
   "sections": [
     {
       "id": "s1",
       "type": "text",
       "title": "지도학습: 정답지가 있는 문제집으로 공부하기",
       "content": "1단계에서 배웠듯 AI 모델은 **함수**입니다. 입력을 받아 출력을 내놓는 규칙이죠.\n\n그런데 이 함수를 어떻게 찾을까요? **지도학습(supervised learning)** 은 가장 직관적인 방법입니다.\n\n> 정답이 달린 예시를 충분히 보여주면, 모델이 스스로 규칙을 찾아냅니다.\n\n학생이 문제집으로 공부하는 것과 같습니다. 문제(입력)와 정답(출력)이 함께 있는 문제집을 반복해서 보면, 패턴을 익히게 됩니다. AI도 똑같이 **(입력, 정답) 쌍**을 수천~수백만 개 보며 함수를 조정합니다.",
-      "order": 1
+      "order": 1,
+      "diagram": "supervised-flow"
     },
     {
       "id": "s2",
