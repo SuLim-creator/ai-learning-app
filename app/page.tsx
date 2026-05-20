@@ -19,7 +19,7 @@ export default function Home() {
       title: "초등학생용 코스",
       subtitle:
         "보물지도와 자판기로 배우는 AI 첫걸음. 게임처럼 즐겁게 시작해요!",
-      href: "/learn/kids/math-basics",
+      href: "/learn/kids",
       lessonCount: kidsLessons.length,
       totalMinutes: kidsLessons.reduce(sum, 0),
       accent: "amber",
@@ -32,7 +32,7 @@ export default function Home() {
       title: "중고등학생용 코스",
       subtitle:
         "게임 좌표, 이미지 픽셀, 프로그래밍 함수로 익히는 AI 수학 기초. 좌표·간단한 수식을 살짝 곁들여요.",
-      href: "/learn/teens/math-basics",
+      href: "/learn/teens",
       lessonCount: teensLessons.length,
       totalMinutes: teensLessons.reduce(sum, 0),
       accent: "sky",
@@ -45,7 +45,7 @@ export default function Home() {
       title: "성인용 코스",
       subtitle:
         "AI/ML을 위한 수학 기초 — 벡터, 행렬, 미분, 확률을 정공법으로 학습합니다.",
-      href: "/learn/adult/math-basics",
+      href: "/learn/adult",
       lessonCount: adultLessons.length,
       totalMinutes: adultLessons.reduce(sum, 0),
       accent: "indigo",
