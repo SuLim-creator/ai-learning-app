@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { StageCard } from "@/app/components/stage-card";
 import { WrongAnswerNote } from "@/app/components/wrong-answer-note";
+import { AgeGroupNav } from "@/app/components/age-group-nav";
 import {
   CURRICULUM,
   type CurriculumLesson,
@@ -79,15 +80,16 @@ export default function AdultHub() {
         `}
       >
         <div className="p-4 border-b border-gray-800">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/learn/adult" className="flex items-center gap-2">
             <div className="w-7 h-7 rounded-md bg-indigo-600 flex items-center justify-center text-sm font-bold">
               AI
             </div>
             <span className="font-semibold text-white">AI 학습 앱</span>
           </Link>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-gray-500 mt-1 mb-3">
             👨‍💼 성인용 · 5단계 AI/ML 커리큘럼
           </p>
+          <AgeGroupNav active="adult" />
         </div>
 
         <nav className="flex-1 overflow-y-auto p-2">
