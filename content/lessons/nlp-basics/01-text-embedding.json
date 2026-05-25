@@ -54,8 +54,15 @@
       "title": "퀴즈 3",
       "content": "Q: `vector(paris) - vector(france) + vector(japan)` 을 계산하면 어떤 단어 벡터에 가장 가까울까요?\n\nA) china\nB) tokyo\nC) asia\nD) europe\n\n정답: B) tokyo\n해설: 이 연산은 \"프랑스의 수도\"에서 \"프랑스\"를 빼고 \"일본\"을 더하는 것입니다. 즉 \"일본의 수도\" = 도쿄(tokyo)를 구하는 벡터 연산입니다. Word2Vec 등의 임베딩에서 이런 유추 관계가 실제로 동작합니다.",
       "order": 6
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "텍스트 임베딩이 작동하는 곳",
+      "content": "텍스트 임베딩은 **RAG·검색·추천의 토대**입니다.\n\n- **OpenAI Embeddings (`text-embedding-3-large`)**: 8,192 토큰까지 한 번에 3,072차원 벡터로 변환. RAG 시스템의 표준.\n- **벡터 데이터베이스 (Pinecone, Weaviate, Qdrant, pgvector)**: 임베딩을 저장하고 유사도 검색. ChatGPT 플러그인, 사내 지식 검색의 핵심.\n- **Cohere, Voyage, Jina Embeddings**: 다국어·도메인 특화 임베딩 제공.\n- **의미 기반 검색 (Semantic Search)**: 구글이 키워드 매칭 → 의미 검색으로 전환한 BERT(2019) 사건.\n- **추천 시스템**: 상품 설명·리뷰를 임베딩해 \"비슷한 상품\"을 찾는 데 사용 (쿠팡, 아마존).\n- **클러스터링·분류**: 고객 문의를 임베딩한 뒤 자동 분류·라우팅.",
+      "order": 7
     }
   ],
   "createdAt": "2026-05-19T00:00:00.000Z",
-  "updatedAt": "2026-05-19T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:23:22.004Z"
 }

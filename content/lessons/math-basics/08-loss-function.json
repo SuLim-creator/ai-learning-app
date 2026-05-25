@@ -56,8 +56,15 @@
       "title": "퀴즈 3",
       "content": "Q: 고양이/개 이진 분류 모델에 적합한 손실 함수는?\n\nA) MSE\nB) Cross-Entropy Loss\nC) 두 함수 모두 동일하게 적합하다\nD) 손실 함수 없이도 학습 가능하다\n\n정답: B) Cross-Entropy Loss\n해설: 분류 문제는 확률 출력을 다루므로 Cross-Entropy Loss가 적합합니다. MSE는 연속적인 숫자를 예측하는 회귀 문제에 사용합니다.",
       "order": 6
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "AI는 어떤 손실 함수로 배울까?",
+      "content": "손실 함수는 \"AI에게 무엇이 정답인지\" 알려주는 **유일한 통로**입니다.\n\n- **Cross-Entropy**: ChatGPT, Claude의 다음 단어 예측 학습. ImageNet 분류도 동일.\n- **MSE (Mean Squared Error)**: 집값 예측, 주가 예측, 회귀 문제 전반.\n- **Triplet Loss**: 얼굴 인식 (FaceNet). \"같은 사람은 가깝게, 다른 사람은 멀게.\"\n- **Contrastive Loss (InfoNCE)**: OpenAI CLIP. 이미지와 텍스트를 같은 공간에 정렬해 \"이 사진은 강아지\"를 알게 합니다.\n- **Reward Model Loss**: RLHF에서 \"사람이 더 좋아할 답변\"을 학습하는 ChatGPT 정렬의 핵심.",
+      "order": 7
     }
   ],
   "createdAt": "2026-05-12T00:00:00.000Z",
-  "updatedAt": "2026-05-12T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:14:35.141Z"
 }

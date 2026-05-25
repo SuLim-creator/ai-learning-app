@@ -4,7 +4,12 @@
   "description": "인공 신경망이 뇌의 뉴런을 모방한 구조로 어떻게 데이터를 처리하는지 배웁니다.",
   "difficulty": "medium",
   "estimatedMinutes": 8,
-  "tags": ["신경망", "딥러닝", "퍼셉트론", "레이어"],
+  "tags": [
+    "신경망",
+    "딥러닝",
+    "퍼셉트론",
+    "레이어"
+  ],
   "prerequisites": [],
   "sections": [
     {
@@ -49,8 +54,15 @@
       "title": "퀴즈 3",
       "content": "Q: 입력값 x1=1, x2=2이고 가중치 w1=2, w2=-1, 편향 b=0.5일 때, 활성화 직전의 가중합 z는?\n\nA) 0.5\nB) 1.5\nC) 2.5\nD) 3.5\n\n정답: A) 0.5\n해설: z = 2×1 + (-1)×2 + 0.5 = 2 - 2 + 0.5 = 0.5 입니다. 편향을 빼먹지 않도록 주의하세요.",
       "order": 6
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "신경망이 작동하는 분야들",
+      "content": "신경망은 **거의 모든 현대 AI 시스템의 백본**입니다.\n\n- **이미지 인식 (ResNet, EfficientNet)**: 의료 영상 진단, 얼굴 인식, 자율주행 인지.\n- **음성 인식·합성 (Whisper, ElevenLabs)**: Siri, Alexa, 통화 자동 받기.\n- **언어 모델 (GPT-4, Claude)**: 챗봇, 코딩 도우미, 번역.\n- **추천 시스템 (YouTube DNN, Meta DLRM)**: 페이스북·인스타·틱톡 피드.\n- **강화학습 (AlphaGo, AlphaZero)**: 게임 AI, 로봇 제어, 자율주행 의사결정.\n- **생성 모델 (Stable Diffusion, Sora)**: 이미지·동영상·음악 생성.\n- **단백질 구조 (AlphaFold)**: 신약 개발 시간을 수년 → 수일로 단축.",
+      "order": 7
     }
   ],
   "createdAt": "2026-05-19T00:00:00.000Z",
-  "updatedAt": "2026-05-19T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:26:11.050Z"
 }

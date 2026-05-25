@@ -1,5 +1,10 @@
 export type Difficulty = "easy" | "medium" | "hard";
-export type SectionType = "text" | "visual" | "interactive" | "quiz";
+export type SectionType =
+  | "text"
+  | "visual"
+  | "interactive"
+  | "quiz"
+  | "application";
 
 export interface LessonSection {
   id: string;

@@ -4,8 +4,15 @@
   "description": "LLM이 외부 함수·API를 호출하고, 계획-실행-관찰을 반복하는 에이전트로 발전하는 원리를 배웁니다.",
   "difficulty": "medium",
   "estimatedMinutes": 9,
-  "tags": ["도구사용", "에이전트", "function-calling", "AI앱"],
-  "prerequisites": ["teens-app-01"],
+  "tags": [
+    "도구사용",
+    "에이전트",
+    "function-calling",
+    "AI앱"
+  ],
+  "prerequisites": [
+    "teens-app-01"
+  ],
   "sections": [
     {
       "id": "s1",
@@ -34,8 +41,15 @@
       "title": "이해도 확인",
       "content": "Q: LLM의 '도구 사용(function calling)' 에 대한 설명으로 가장 정확한 것은?\n\nA) LLM이 외부 함수를 직접 실행한다\nB) LLM은 '어떤 함수를 어떤 인자로 호출할지' 구조화된 요청을 출력하고, 실제 실행은 외부 프로그램이 한 뒤 결과를 LLM에 돌려준다\nC) 도구 사용은 LLM의 환각을 100% 없앤다\nD) 에이전트는 도구를 단 한 번만 호출할 수 있다\n\n정답: B) LLM은 '어떤 함수를 어떤 인자로 호출할지' 구조화된 요청을 출력하고, 실제 실행은 외부 프로그램이 한 뒤 결과를 LLM에 돌려준다\n해설: LLM 자체는 코드를 실행하지 못해요. 대신 JSON 형태의 호출 요청을 생성하고, 호스트 프로그램이 실제 함수를 실행한 뒤 결과를 LLM에 전달합니다. 이 분담이 도구 사용의 핵심 구조예요.\n오답 분석: A는 LLM이 직접 실행한다는 오해. C는 도구가 실시간성·계산 정확도를 보완하지만 환각을 완전히 없애지는 못해요. D는 에이전트는 도구 사용을 '반복'하는 것이 특징입니다.",
       "order": 4
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "💡 AI 에이전트가 만드는 미래",
+      "content": "AI 에이전트는 **\"행동하는 AI\"** 로, 차세대 AI의 핵심이에요.\n\n- **Claude Computer Use**: Claude가 직접 컴퓨터 화면을 보고 마우스·키보드로 조작.\n- **OpenAI Operator**: 웹 브라우저를 자동 조작해 예약·구매·검색.\n- **GitHub Copilot Workspace, Cursor Agent**: 코드를 직접 작성·수정·테스트하는 코딩 에이전트.\n- **Devin (Cognition AI)**: \"이 버그 고쳐\" 한 마디에 며칠 동안 자율 작업하는 SWE 에이전트.\n- **AutoGPT, BabyAGI**: \"목표만 주면 알아서 단계를 계획·실행\" 시도의 시초.\n- **Function Calling, Tool Use**: OpenAI·Anthropic API의 표준 기능. AI가 외부 API를 호출.\n- **MCP (Model Context Protocol)**: Anthropic이 만든 AI-도구 연결의 표준 프로토콜.",
+      "order": 5
     }
   ],
   "createdAt": "2026-05-22T00:00:00.000Z",
-  "updatedAt": "2026-05-22T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:26:11.059Z"
 }

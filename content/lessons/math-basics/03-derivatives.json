@@ -4,8 +4,16 @@
   "description": "미분의 직관적 의미를 이해하고, AI 모델이 학습하는 핵심 원리인 경사하강법을 배웁니다.",
   "difficulty": "medium",
   "estimatedMinutes": 25,
-  "tags": ["미분", "경사하강법", "최적화", "수학기초"],
-  "prerequisites": ["math-basics-01", "math-basics-02"],
+  "tags": [
+    "미분",
+    "경사하강법",
+    "최적화",
+    "수학기초"
+  ],
+  "prerequisites": [
+    "math-basics-01",
+    "math-basics-02"
+  ],
   "sections": [
     {
       "id": "s1",
@@ -27,8 +35,15 @@
       "title": "이해도 확인",
       "content": "Q: 경사하강법에서 학습률(learning rate)이 너무 크면 어떤 문제가 생기나요?\n\nA) 학습이 너무 느려진다\nB) 최솟값을 지나쳐 발산할 수 있다\nC) 메모리가 부족해진다\nD) 그래디언트가 0이 된다\n\n정답: B) 최솟값을 지나쳐 발산할 수 있다\n해설: 학습률이 크면 한 번에 이동하는 거리가 커서 최솟값 근처에서 수렴하지 못하고 발산할 수 있습니다.",
       "order": 3
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "미분이 없으면 AI 학습도 없다",
+      "content": "거의 모든 AI 모델은 **미분(기울기)** 을 따라 조금씩 좋아집니다.\n\n- **PyTorch·TensorFlow의 autograd**: 모델의 모든 연산에 대해 자동으로 미분을 계산해줍니다.\n- **ChatGPT, Claude의 사전훈련**: 수조 개 단어 데이터로 매 스텝 미분을 계산해 가중치를 업데이트합니다.\n- **Stable Diffusion**: 노이즈 → 이미지 변환을 score function의 미분으로 학습합니다.\n- **AlphaGo, AlphaZero**: 정책 경사(policy gradient)로 더 좋은 수를 선택하는 방향을 학습합니다.\n- **추천·랭킹 시스템**: 클릭률을 높이는 방향으로 모델을 미분으로 미세조정합니다.",
+      "order": 4
     }
   ],
   "createdAt": "2026-05-07T00:00:00.000Z",
-  "updatedAt": "2026-05-07T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:14:35.138Z"
 }

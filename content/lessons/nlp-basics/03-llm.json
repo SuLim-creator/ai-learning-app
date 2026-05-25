@@ -57,8 +57,15 @@
       "title": "퀴즈 3",
       "content": "Q: 토큰(token)에 대한 설명으로 옳은 것은?\n\nA) 토큰은 항상 단어 하나와 정확히 일치한다\nB) 토큰은 LLM이 처리하는 최소 단위로, 단어의 일부가 될 수도 있다\nC) 한국어와 영어의 같은 의미 문장은 토큰 수가 항상 같다\nD) 토큰 수는 문장의 문자 수와 항상 같다\n\n정답: B) 토큰은 LLM이 처리하는 최소 단위로, 단어의 일부가 될 수도 있다\n해설: BPE(Byte Pair Encoding) 등의 토크나이저는 자주 등장하는 문자 조합을 하나의 토큰으로 묶습니다. \"unhappiness\"는 여러 토큰으로, 영어는 평균 1토큰≈0.75단어이지만 한국어는 언어 특성상 같은 의미라도 토큰 수가 더 많을 수 있습니다.",
       "order": 6
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "LLM이 바꾼 세상",
+      "content": "LLM은 **\"다음 토큰 예측\"** 하나의 원리로 광범위한 응용을 만들고 있습니다.\n\n- **챗봇**: ChatGPT, Claude, Gemini, Perplexity — 일상의 검색을 대체.\n- **코딩 도우미**: GitHub Copilot, Cursor, Claude Code. 개발자 생산성 2배 이상 향상.\n- **콘텐츠 생성**: 기사·마케팅 카피·이메일 초안 자동 생성.\n- **AI 에이전트**: Claude의 컴퓨터 사용, OpenAI Operator. \"행동\"하는 AI.\n- **기업 자동화**: 고객 상담 챗봇, 문서 요약, 회의록 자동화 (Notion AI, Glean).\n- **RAG**: 사내 문서·웹·DB와 결합해 사실 기반 답변 (Perplexity, NotebookLM).\n- **번역·요약·교정**: DeepL, Grammarly 같은 도구가 LLM 기반으로 재편.",
+      "order": 7
     }
   ],
   "createdAt": "2026-05-19T00:00:00.000Z",
-  "updatedAt": "2026-05-19T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:23:22.007Z"
 }
