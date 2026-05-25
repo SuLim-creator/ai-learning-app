@@ -4,7 +4,12 @@
   "description": "Anthropic Claude API를 호출해 AI 기능을 앱에 통합하는 방법을 배웁니다.",
   "difficulty": "medium",
   "estimatedMinutes": 8,
-  "tags": ["Claude", "API", "Anthropic", "프롬프트"],
+  "tags": [
+    "Claude",
+    "API",
+    "Anthropic",
+    "프롬프트"
+  ],
   "prerequisites": [],
   "sections": [
     {
@@ -48,8 +53,15 @@
       "title": "퀴즈 3",
       "content": "Q: API 키를 안전하게 다루는 방법으로 가장 적절한 것은?\n\nA) 코드에 직접 적되 주석으로 \"비밀\"이라고 표시한다\nB) 프론트엔드(브라우저) 코드에 넣어 fetch로 직접 Claude를 호출한다\nC) 서버 환경변수(`process.env.ANTHROPIC_API_KEY`)에 보관하고 서버에서만 사용한다\nD) GitHub 비공개(private) 저장소라면 코드에 적어도 안전하다\n\n정답: C) 서버 환경변수(`process.env.ANTHROPIC_API_KEY`)에 보관하고 서버에서만 사용한다\n해설: 키는 서버에만 두고 브라우저에는 절대 노출하면 안 됩니다. 비공개 저장소라도 협업자 유출·실수 공개 사례가 흔하며, 브라우저 코드에 넣으면 누구나 개발자도구로 키를 빼낼 수 있습니다.",
       "order": 6
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "Claude API로 만들어진 실제 서비스들",
+      "content": "Claude API는 **수많은 AI 제품의 엔진**입니다.\n\n- **Cursor, Claude Code, Zed**: 개발자용 AI 코딩 도우미.\n- **Notion AI, Quora Poe**: 노트·검색에 Claude를 결합.\n- **Perplexity Pro**: 검색 결과를 Claude로 요약·합성.\n- **DuckDuckGo AI Chat, Brave Leo**: 프라이버시 중심 챗봇.\n- **Slack, Zoom의 AI 요약**: 회의록 자동화에 Claude 사용.\n- **법률·의료 분석 (Harvey, Glass Health)**: 도메인 특화 AI 어시스턴트.\n- **고객 상담 자동화**: Intercom Fin, Ada — 수십%의 상담을 LLM이 처리.\n- **API 호출 패턴**: messages API + 시스템 프롬프트 + 도구 호출이 표준.",
+      "order": 7
     }
   ],
   "createdAt": "2026-05-19T00:00:00.000Z",
-  "updatedAt": "2026-05-19T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:26:11.056Z"
 }

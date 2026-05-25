@@ -4,8 +4,15 @@
   "description": "신경망에서 비선형성을 추가하는 활성화 함수의 역할과 종류를 이해합니다.",
   "difficulty": "medium",
   "estimatedMinutes": 5,
-  "tags": ["활성화함수", "신경망", "딥러닝", "수학기초"],
-  "prerequisites": ["math-basics-05"],
+  "tags": [
+    "활성화함수",
+    "신경망",
+    "딥러닝",
+    "수학기초"
+  ],
+  "prerequisites": [
+    "math-basics-05"
+  ],
   "sections": [
     {
       "id": "s1",
@@ -49,8 +56,15 @@
       "title": "퀴즈 3",
       "content": "Q: 고양이/개/새를 분류하는 신경망의 출력층에 가장 적합한 활성화 함수는?\n\nA) ReLU\nB) Sigmoid\nC) Softmax\nD) 활성화 함수 불필요\n\n정답: C) Softmax\n해설: Softmax는 여러 클래스의 출력값을 합이 1인 확률로 변환하므로 다중 분류에 적합합니다.",
       "order": 6
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "활성화 함수, 모델마다 다른 선택",
+      "content": "활성화 함수 하나가 모델의 성격을 바꿉니다.\n\n- **ReLU**: AlexNet, ResNet 같은 거의 모든 이미지 CNN의 표준. 빠르고 단순합니다.\n- **Sigmoid**: 이진 분류 (스팸 vs 정상, 암 vs 정상)의 출력층.\n- **Softmax**: ImageNet의 1,000개 클래스 같은 다중 분류 출력층. ChatGPT의 다음 단어 확률도 Softmax.\n- **GELU·SwiGLU**: GPT-4, Claude, LLaMA 같은 최신 LLM이 채택. ReLU보다 부드러워 학습이 안정적.\n- **Tanh**: LSTM·GRU 같은 옛 RNN의 게이트에서 여전히 사용됩니다.",
+      "order": 7
     }
   ],
   "createdAt": "2026-05-12T00:00:00.000Z",
-  "updatedAt": "2026-05-12T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:14:35.140Z"
 }

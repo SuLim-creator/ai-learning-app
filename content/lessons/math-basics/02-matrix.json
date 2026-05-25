@@ -4,8 +4,14 @@
   "description": "행렬이 무엇인지, 그리고 AI/ML에서 데이터를 어떻게 표현하고 변환하는지 배웁니다.",
   "difficulty": "easy",
   "estimatedMinutes": 20,
-  "tags": ["행렬", "선형대수", "수학기초"],
-  "prerequisites": ["math-basics-01"],
+  "tags": [
+    "행렬",
+    "선형대수",
+    "수학기초"
+  ],
+  "prerequisites": [
+    "math-basics-01"
+  ],
   "sections": [
     {
       "id": "s1",
@@ -34,8 +40,15 @@
       "title": "이해도 확인",
       "content": "Q: 3×4 행렬과 4×2 행렬을 곱하면 결과 행렬의 크기는?\n\nA) 3×2\nB) 4×4\nC) 3×4\nD) 2×3\n\n정답: A) 3×2\n해설: (m×k) × (k×n) = (m×n) 이므로 (3×4) × (4×2) = (3×2)",
       "order": 4
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "행렬은 AI 어디서 작동할까?",
+      "content": "행렬은 신경망의 **연산 단위**이자 데이터의 **저장 단위**입니다.\n\n- **이미지 처리**: 사진 한 장 = 높이×너비×3 (RGB) 행렬. CNN은 이 행렬에 필터를 곱해 특징을 뽑습니다.\n- **Transformer의 Attention**: Query·Key·Value 행렬 곱이 GPT, Claude, Gemini의 핵심 연산입니다.\n- **추천 시스템 (Matrix Factorization)**: 사용자×아이템 평점 행렬을 두 작은 행렬로 분해해 빈칸을 예측합니다. (Netflix Prize)\n- **PageRank (Google 검색)**: 웹페이지 링크 관계를 거대한 행렬로 표현해 중요도를 계산합니다.\n- **GPU/TPU**: 행렬 곱 전용 회로(Tensor Core)를 가져, AI 학습 속도의 80% 이상이 행렬 곱셈에 좌우됩니다.",
+      "order": 5
     }
   ],
   "createdAt": "2026-05-07T00:00:00.000Z",
-  "updatedAt": "2026-05-07T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:14:35.138Z"
 }

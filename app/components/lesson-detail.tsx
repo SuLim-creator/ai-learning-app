@@ -32,6 +32,15 @@ const SECTION_TYPE_LABEL: Record<string, string> = {
   visual: "시각화",
   interactive: "실습",
   quiz: "퀴즈",
+  application: "활용",
+};
+
+const SECTION_TYPE_BADGE: Record<string, string> = {
+  text: "bg-indigo-900/50 text-indigo-300",
+  visual: "bg-indigo-900/50 text-indigo-300",
+  interactive: "bg-indigo-900/50 text-indigo-300",
+  quiz: "bg-indigo-900/50 text-indigo-300",
+  application: "bg-amber-900/50 text-amber-300",
 };
 
 const VISUAL_COMPONENTS: Record<string, React.ComponentType> = {
@@ -56,6 +65,20 @@ function VisualSection({ section }: { section: LessonSection }) {
   return (
     <div className="prose prose-invert prose-sm max-w-none text-gray-300">
       <ReactMarkdown>{section.content}</ReactMarkdown>
+    </div>
+  );
+}
+
+function ApplicationSection({ section }: { section: LessonSection }) {
+  return (
+    <div className="rounded-lg border border-amber-900/40 bg-amber-950/20 p-4">
+      <div className="mb-2 flex items-center gap-2 text-xs font-medium text-amber-300">
+        <span>💡</span>
+        <span>실제 AI에서 이렇게 쓰여요</span>
+      </div>
+      <div className="prose prose-invert prose-sm max-w-none text-gray-300">
+        <ReactMarkdown>{section.content}</ReactMarkdown>
+      </div>
     </div>
   );
 }
@@ -177,7 +200,9 @@ export function LessonDetail({
               className="rounded-xl border border-gray-800 bg-gray-900 p-6"
             >
               <div className="mb-3 flex items-center gap-2">
-                <span className="rounded-md bg-indigo-900/50 px-2 py-0.5 text-xs text-indigo-300">
+                <span
+                  className={`rounded-md px-2 py-0.5 text-xs ${SECTION_TYPE_BADGE[section.type] ?? "bg-indigo-900/50 text-indigo-300"}`}
+                >
                   {SECTION_TYPE_LABEL[section.type] ?? section.type}
                 </span>
                 <h2 className="text-sm font-medium text-gray-200">
@@ -194,6 +219,8 @@ export function LessonDetail({
                 />
               ) : section.type === "visual" ? (
                 <VisualSection section={section} />
+              ) : section.type === "application" ? (
+                <ApplicationSection section={section} />
               ) : (
                 <TextSection section={section} />
               )}

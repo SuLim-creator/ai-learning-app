@@ -64,8 +64,15 @@
       "title": "퀴즈 3",
       "content": "Q: 이메일이 스팸인지 아닌지 분류하는 모델에 적합한 손실 함수는?\n\nA) MSE\nB) Binary Cross-Entropy\nC) MAE(평균 절대 오차)\nD) 손실 함수 없이 정확도만 사용\n\n정답: B) Binary Cross-Entropy\n해설: 스팸/정상처럼 두 가지 클래스로 분류하는 문제는 Binary Cross-Entropy가 적합합니다. MSE와 MAE는 모두 연속 숫자를 예측하는 회귀 문제에 사용하는 손실 함수입니다.",
       "order": 7
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "AI는 어떤 손실 함수로 학습할까?",
+      "content": "손실 함수는 모델이 \"무엇을 배워야 하는지\"를 정의하는 **유일한 신호**입니다.\n\n- **Cross-Entropy**: ChatGPT, Claude의 다음 단어 예측. ImageNet 1,000-클래스 분류도 동일.\n- **MSE (평균제곱오차)**: 집값·주가·기온 같은 회귀 문제의 표준.\n- **Huber Loss**: 이상치(outlier)가 많은 데이터에 강건. 자율주행 위치 추정에 자주 사용.\n- **Focal Loss**: 클래스 불균형(예: 사기 거래 검출, 의료 영상의 희귀 병변)에 강한 손실.\n- **Reward Model Loss**: RLHF에서 \"사람이 더 좋아할 답변\"을 학습하는 ChatGPT 정렬의 핵심.\n- **Triplet Loss**: 얼굴 인식(FaceNet)에서 같은 사람은 가깝게, 다른 사람은 멀게.",
+      "order": 8
     }
   ],
   "createdAt": "2026-05-18T00:00:00.000Z",
-  "updatedAt": "2026-05-18T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:20:19.827Z"
 }

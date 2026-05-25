@@ -4,8 +4,15 @@
   "description": "신경망이 오류를 거꾸로 전파하며 가중치를 수정하는 학습 원리를 배웁니다.",
   "difficulty": "hard",
   "estimatedMinutes": 10,
-  "tags": ["역전파", "경사하강법", "가중치", "학습"],
-  "prerequisites": ["dl-01"],
+  "tags": [
+    "역전파",
+    "경사하강법",
+    "가중치",
+    "학습"
+  ],
+  "prerequisites": [
+    "dl-01"
+  ],
   "sections": [
     {
       "id": "s1",
@@ -49,8 +56,15 @@
       "title": "퀴즈 3",
       "content": "Q: 가중치 w=1.0, 기울기 ∂L/∂w = -0.4, 학습률 η = 0.5일 때, 업데이트된 w 값은?\n\nA) 0.6\nB) 0.8\nC) 1.2\nD) 1.4\n\n정답: C) 1.2\n해설: w_new = w - η × (∂L/∂w) = 1.0 - 0.5 × (-0.4) = 1.0 + 0.2 = 1.2. 기울기가 음수이면 w를 늘려야 손실이 줄어든다는 신호입니다.",
       "order": 6
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "역전파가 학습시킨 AI들",
+      "content": "역전파는 **모든 신경망 학습의 엔진**입니다.\n\n- **PyTorch `.backward()`**: 모델 코드 한 줄로 모든 파라미터의 기울기를 자동 계산.\n- **TensorFlow GradientTape**: 구글이 만든 자동 미분 시스템. TPU에 최적화.\n- **JAX `jax.grad()`**: DeepMind이 즐겨 쓰는 함수형 자동 미분. AlphaFold가 사용.\n- **ChatGPT 학습**: 1.8조 파라미터에 대한 기울기를 매 스텝 역전파로 계산.\n- **Stable Diffusion 학습**: 노이즈→이미지 변환 함수의 기울기를 역전파.\n- **메모리 절약 기법 (gradient checkpointing)**: 역전파를 위한 중간값 저장을 줄여 거대 모델 학습 가능.\n- **혼합 정밀도 (mixed precision)**: 역전파 속도와 메모리를 모두 잡는 표준 기법.",
+      "order": 7
     }
   ],
   "createdAt": "2026-05-19T00:00:00.000Z",
-  "updatedAt": "2026-05-19T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:26:11.053Z"
 }

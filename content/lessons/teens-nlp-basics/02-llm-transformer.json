@@ -4,8 +4,15 @@
   "description": "ChatGPT나 Claude 같은 LLM이 답을 만드는 원리는 사실 한 문장: \"앞의 토큰들을 보고 다음 토큰의 확률 분포를 예측\". 그 안의 트랜스포머·어텐션을 한눈에.",
   "difficulty": "medium",
   "estimatedMinutes": 9,
-  "tags": ["LLM", "트랜스포머", "어텐션", "GPT"],
-  "prerequisites": ["teens-nlp-01"],
+  "tags": [
+    "LLM",
+    "트랜스포머",
+    "어텐션",
+    "GPT"
+  ],
+  "prerequisites": [
+    "teens-nlp-01"
+  ],
   "sections": [
     {
       "id": "s1",
@@ -34,8 +41,15 @@
       "title": "이해도 확인",
       "content": "Q: LLM(ChatGPT, Claude 등)이 답을 생성하는 방식에 대한 설명으로 가장 정확한 것은?\n\nA) 학습 시점에 미리 만들어둔 정답 데이터베이스에서 가장 비슷한 답을 검색해 그대로 보여준다\nB) 앞의 토큰들을 보고 다음 토큰의 확률 분포를 예측한 뒤 하나를 뽑아 이어 붙이는 과정을 토큰 단위로 반복한다\nC) 문장 전체를 한 번에 통째로 생성해 그대로 출력한다\nD) 사용자의 질문에 가장 가까운 위키백과 문서를 검색해 요약해 준다\n\n정답: B) 앞의 토큰들을 보고 다음 토큰의 확률 분포를 예측한 뒤 하나를 뽑아 이어 붙이는 과정을 토큰 단위로 반복한다\n해설: LLM은 **autoregressive token predictor** 입니다. \"답을 외운 게 아니라\" 매번 한 토큰씩 만들어 가요. 그래서 처음 보는 질문에도 답할 수 있고, 동시에 환각도 발생해요.\n오답 분석: A는 흔한 오해. C는 트랜스포머 학습 시에는 병렬 처리해도, **생성 시에는 토큰 단위 순차** 가 맞아요. D는 RAG 시스템이 추가된 경우에 해당하고, LLM 자체의 기본 동작은 아닙니다.",
       "order": 4
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "💡 트랜스포머가 만든 AI 시대",
+      "content": "트랜스포머와 \"다음 토큰 예측\"이 **현대 AI를 만들었어요**.\n\n- **ChatGPT, Claude, Gemini, LLaMA**: 모두 디코더 트랜스포머. \"다음 토큰 예측\"만으로 추론·코딩·번역까지!\n- **GitHub Copilot, Cursor, Claude Code**: 코드 자동완성도 같은 원리. \"다음에 올 코드\" 예측.\n- **Vision Transformer (ViT)**: 이미지에도 트랜스포머. Gemini Vision, GPT-4o의 시각 능력.\n- **DALL-E 3, Stable Diffusion 3, Sora**: 이미지·동영상 생성도 Diffusion Transformer.\n- **Whisper (OpenAI)**: 99개 언어 음성 인식. 트랜스포머 기반.\n- **AlphaFold 2 (노벨상)**: 단백질 구조 예측. 어텐션으로 잔기 간 관계 학습.",
+      "order": 5
     }
   ],
   "createdAt": "2026-05-22T00:00:00.000Z",
-  "updatedAt": "2026-05-22T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:23:22.009Z"
 }

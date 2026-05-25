@@ -4,8 +4,16 @@
   "description": "만든 AI 앱을 Vercel에 배포하고 환경변수와 API 키를 안전하게 관리하는 방법을 배웁니다.",
   "difficulty": "medium",
   "estimatedMinutes": 8,
-  "tags": ["Vercel", "배포", "환경변수", "Next.js", "CI/CD"],
-  "prerequisites": ["app-01"],
+  "tags": [
+    "Vercel",
+    "배포",
+    "환경변수",
+    "Next.js",
+    "CI/CD"
+  ],
+  "prerequisites": [
+    "app-01"
+  ],
   "sections": [
     {
       "id": "s1",
@@ -48,8 +56,15 @@
       "title": "퀴즈 3",
       "content": "Q: 다음 중 API 키 보안 관점에서 안전한 패턴은?\n\nA) 클라이언트 컴포넌트(`\"use client\"`)에서 `fetch('https://api.anthropic.com/...')`로 직접 Claude를 호출한다\nB) 사용자가 페이지에 접속하면 키를 `window` 객체에 저장한다\nC) `app/api/chat/route.ts` 같은 서버 라우트에서 키를 사용해 Claude를 호출하고, 클라이언트는 그 라우트만 호출한다\nD) 키를 minify된 JS 파일 안에 숨기면 사용자가 못 찾는다\n\n정답: C) `app/api/chat/route.ts` 같은 서버 라우트에서 키를 사용해 Claude를 호출하고, 클라이언트는 그 라우트만 호출한다\n해설: 브라우저로 내려간 코드는 어떤 식으로 숨겨도(minify, 난독화) 개발자도구로 모두 볼 수 있습니다. 유일한 안전 패턴은 키를 서버에만 두고, 클라이언트는 자체 서버의 API 라우트를 호출하는 \"프록시\" 구조입니다.",
       "order": 6
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "AI 앱 배포의 실제 패턴",
+      "content": "프로덕션 AI 앱은 **\"API 호출 + 인프라\"** 의 조합으로 만들어져요.\n\n- **Vercel**: Next.js 풀스택 배포의 표준. AI 앱 80%가 여기서 시작.\n- **Cloudflare Workers, AWS Lambda**: 서버리스로 비용 최적화.\n- **OpenAI/Anthropic API + 캐싱 (Prompt Caching)**: 입력 토큰 비용을 90% 절감 가능.\n- **레이트 리미팅·재시도 로직**: Upstash Redis로 사용자별 호출 제한.\n- **관찰성 (LangSmith, Helicone, Langfuse)**: 모든 LLM 호출을 로깅·분석.\n- **환경변수 관리**: `.env.local`은 로컬, Vercel 대시보드에 프로덕션 키. 절대 commit 금지.\n- **WAF·시크릿 스캐닝**: GitHub Secret Scanning이 키 누출을 감지하면 자동 폐기.",
+      "order": 7
     }
   ],
   "createdAt": "2026-05-19T00:00:00.000Z",
-  "updatedAt": "2026-05-19T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:26:11.056Z"
 }

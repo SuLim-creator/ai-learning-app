@@ -4,8 +4,15 @@
   "description": "과적합의 원인과, 이를 막는 무기들: L1/L2 정규화, 드롭아웃, 데이터 증강, early stopping을 정리합니다.",
   "difficulty": "medium",
   "estimatedMinutes": 9,
-  "tags": ["과적합", "정규화", "드롭아웃", "ML기초"],
-  "prerequisites": ["teens-ml-03"],
+  "tags": [
+    "과적합",
+    "정규화",
+    "드롭아웃",
+    "ML기초"
+  ],
+  "prerequisites": [
+    "teens-ml-03"
+  ],
   "sections": [
     {
       "id": "s1",
@@ -34,8 +41,15 @@
       "title": "이해도 확인",
       "content": "Q: L2 정규화(weight decay)가 과적합을 줄이는 원리로 가장 정확한 것은?\n\nA) 학습 데이터를 자동으로 늘려준다\nB) 손실에 가중치 크기 페널티를 더해, 큰 가중치를 억제하고 더 부드러운 함수를 유도한다\nC) 학습률을 자동으로 0으로 만든다\nD) 뉴런을 무작위로 꺼서 의존을 분산시킨다\n\n정답: B) 손실에 가중치 크기 페널티를 더해, 큰 가중치를 억제하고 더 부드러운 함수를 유도한다\n해설: L2 정규화는 손실 함수에 `λ·Σwᵢ²` 항을 추가합니다. 가중치가 커지면 손실이 커지므로, 모델은 꼭 필요한 만큼만 가중치를 키워요. 그 결과 데이터 노이즈에 과하게 출렁이지 않는 부드러운 함수가 됩니다.\n오답 분석: A는 데이터 증강의 설명. D는 드롭아웃의 설명. C는 정규화와 무관해요. 각 기법의 메커니즘을 구분하는 게 핵심입니다.",
       "order": 4
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "💡 과적합과 정규화, 실전 AI의 일상",
+      "content": "ML 엔지니어가 매일 싸우는 **첫 번째 적이 과적합**이에요.\n\n- **Dropout**: BERT, ResNet 등 거의 모든 신경망이 학습 중 뉴런을 무작위로 꺼서 과적합 방지.\n- **Weight Decay (L2)**: AdamW의 \"W\"가 weight decay. GPT-4, Claude 학습에도 필수.\n- **데이터 증강**: 이미지 회전·크롭, 텍스트 동의어 치환. 자율주행은 가상 날씨를 합성해 일반화.\n- **Early Stopping**: validation 손실이 오르면 학습 중단. PyTorch Lightning, Keras 기본 기능.\n- **Mixup, CutMix**: 이미지 두 장을 섞어 새 데이터를 만드는 증강. ImageNet SOTA 기법.\n- **Validation Set**: 학습에 안 쓴 데이터로 모델 선택 → 진짜 성능 측정.",
+      "order": 5
     }
   ],
   "createdAt": "2026-05-22T00:00:00.000Z",
-  "updatedAt": "2026-05-22T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:20:19.833Z"
 }

@@ -65,8 +65,15 @@
       "title": "퀴즈 3",
       "content": "Q: 다음 중 과적합을 방지하는 방법이 아닌 것은?\n\nA) 훈련 에포크(epoch) 수를 무제한으로 늘린다\nB) 드롭아웃을 적용한다\nC) 훈련 데이터를 늘린다\nD) L2 정규화를 적용한다\n\n정답: A) 훈련 에포크(epoch) 수를 무제한으로 늘린다\n해설: 에포크를 너무 많이 늘리면 모델이 훈련 데이터를 더 깊이 암기해 과적합이 심해집니다. 나머지 세 가지는 과적합을 방지하는 대표적인 기법입니다.",
       "order": 7
+    },
+    {
+      "id": "s-app",
+      "type": "application",
+      "title": "과적합과의 싸움, AI 회사의 일상",
+      "content": "과적합 방지는 ML 엔지니어의 **매일의 숙제**입니다.\n\n- **Kaggle 리더보드**: 1등이 public 리더보드는 잘 맞히지만 private에선 폭망하는 경우 = 과적합.\n- **Dropout**: ResNet, BERT 등 거의 모든 신경망이 학습 중 뉴런을 무작위로 꺼서 과적합 방지.\n- **데이터 증강 (Data Augmentation)**: 이미지 회전·크롭, 텍스트 동의어 치환. 자율주행은 다양한 날씨를 합성으로 만들어 일반화.\n- **L1/L2 정규화 (Weight Decay)**: AdamW의 \"W\"가 weight decay. 거의 모든 LLM이 사용.\n- **Early Stopping**: validation 손실이 오르기 시작하면 학습을 멈춤. PyTorch Lightning, Keras에 기본 탑재.\n- **Train/Validation/Test 분리**: 8:1:1, 7:2:1 같은 비율로 데이터를 나눠 일반화 성능을 측정.",
+      "order": 8
     }
   ],
   "createdAt": "2026-05-18T00:00:00.000Z",
-  "updatedAt": "2026-05-18T00:00:00.000Z"
+  "updatedAt": "2026-05-25T23:20:19.829Z"
 }
